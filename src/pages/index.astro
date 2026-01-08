@@ -151,7 +151,7 @@ const experiences = sortedExperiences.slice(0, 4).map((exp) => ({
 
 					return (
 						<div
-							class="relative mb-8 md:-mb-30"
+							class={`relative ${index === experiences.length - 1 ? "" : "mb-8"} md:-mb-30`}
 							style={`margin-top: ${index === 0 ? "0" : "0px"}`}
 						>
 							{/* Content Card - alternating sides - MUST come first for peer */}
@@ -229,7 +229,7 @@ const experiences = sortedExperiences.slice(0, 4).map((exp) => ({
 			}
 		</div>
 
-		<div class="text-center mt-40">
+		<div class="text-center mt-8 md:mt-40">
 			<a
 				href="/experiences"
 				class="inline-block px-8 py-3 rounded-full border-2 border-neon-red/30 text-neon-red hover:bg-neon-red/10 hover:border-neon-red transition-all font-bold"
