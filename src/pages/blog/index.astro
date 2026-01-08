@@ -1,63 +1,70 @@
 ---
+import { getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 import Card from "../../components/Card.astro";
 
-const posts = [
-    {
-        title: "Understanding Transformer Architectures",
-        subtitle: "Deep Learning",
-        date: "Dec 15, 2024",
-        description:
-            "A deep dive into the attention mechanism and how Transformers revolutionized NLP.",
-        tags: ["AI", "NLP", "Tutorial"],
-        link: "/blog/transformers",
-        color: "purple",
-    },
-    {
-        title: "Astro vs Next.js: My Take",
-        subtitle: "Web Dev",
-        date: "Nov 20, 2024",
-        description:
-            "Comparing the two frameworks for content-heavy sites. Why I chose Astro for this portfolio.",
-        tags: ["Web", "Astro", "React"],
-        link: "/blog/astro-vs-nextjs",
-        color: "purple",
-    },
-    {
-        title: "Getting Started with ROS 2",
-        subtitle: "Robotics",
-        date: "Oct 05, 2024",
-        description:
-            "Setting up a development environment for Robot Operating System 2 on macOS.",
-        tags: ["Robotics", "ROS", "Guide"],
-        link: "/blog/ros2-setup",
-        color: "purple",
-    },
-];
+const allPosts = await getCollection("blog");
+const posts = allPosts
+    .sort((a, b) => {
+        return (
+            new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+        );
+    })
+    .map((post) => ({
+        ...post.data,
+        link: `/blog/${post.slug}`,
+        // Card expects 'purple' color for blog posts
+        color: post.data.color || "purple",
+    }));
 ---
 
 <Layout title="Blog | Mukund">
-    <div class="container mx-auto px-6 pt-32 pb-20">
+    <div class="container mx-auto px-6 pt-40 pb-20">
         <div class="max-w-4xl mb-16">
-            <h1
-                class="text-6xl md:text-8xl font-black text-white mb-6 tracking-tighter"
-            >
-                BLOG <span class="text-neon-purple text-4xl align-top">.</span>
+            <h1 class="text-5xl md:text-6xl font-black text-white mb-4">
+                Blog <span class="text-neon-purple">.</span>
             </h1>
-            <p
-                class="text-gray-400 text-xl max-w-2xl leading-relaxed border-l-4 border-neon-purple pl-6"
-            >
-                Technical tutorials, research summaries, and engineering logs.
-            </p>
+            <div class="flex items-center gap-3">
+                <div class="w-1 h-6 bg-neon-purple"></div>
+                <p class="text-gray-400 text-lg max-w-2xl">
+                    Technical tutorials, research summaries, and engineering
+                    logs.
+                </p>
+            </div>
+        </div>
+
+        {/* Debug Info */}
+        <div class="text-xs text-gray-500 mb-4 hidden">
+            Found {posts.length} posts.
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {
                 posts.map((post) => (
-                    // @ts-ignore
-                    <Card {...post} />
+                    <Card
+                        title={post.title}
+                        subtitle={post.subtitle}
+                        date={post.date}
+                        description={post.description}
+                        tags={post.tags}
+                        link={post.link}
+                        image={post.image}
+                        color={post.color}
+                        cardType="blog"
+                    />
                 ))
             }
         </div>
     </div>
+
+    <!-- Bottom spacing to push footer down -->
+    <div class="h-20"></div>
+
+    <footer
+        class="py-12 border-t border-white/5 w-full text-center text-gray-500 text-sm bg-black/50 backdrop-blur-sm"
+    >
+        <p>
+            &copy; {new Date().getFullYear()} Mukund. Built with Astro & TailwindCSS.
+        </p>
+    </footer>
 </Layout>

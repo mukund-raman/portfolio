@@ -1,0 +1,64 @@
+---
+import { getCollection } from "astro:content";
+import DetailLayout from "../../layouts/DetailLayout.astro";
+
+export async function getStaticPaths() {
+    const projects = await getCollection("projects");
+    return projects.map((entry) => ({
+        params: { slug: entry.slug },
+        props: { entry },
+    }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<DetailLayout
+    title={entry.data.title}
+    subtitle={entry.data.subtitle}
+    tags={entry.data.tags}
+    color="gold"
+    backLink="/projects"
+    backText="Projects"
+>
+    <div
+        class="mb-12 rounded-xl overflow-hidden border border-white/10 bg-white/5"
+    >
+        <!-- Display project image if available -->
+        {
+            entry.data.image && (
+                <img
+                    src={entry.data.image}
+                    alt={entry.data.title}
+                    class="w-full h-auto object-cover max-h-[500px]"
+                />
+            )
+        }
+    </div>
+
+    <div class="flex gap-4 mb-12 not-prose">
+        <a
+            href={entry.data.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="px-6 py-3 rounded-lg bg-neon-gold text-black font-bold hover:bg-white transition-colors"
+        >
+            View Source Code
+        </a>
+        {
+            entry.data.viewLink && (
+                <a
+                    href={entry.data.viewLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="px-6 py-3 rounded-lg border border-neon-gold text-neon-gold font-bold hover:bg-neon-gold/10 transition-colors"
+                >
+                    Live Demo
+                </a>
+            )
+        }
+    </div>
+
+    <Content />
+</DetailLayout>

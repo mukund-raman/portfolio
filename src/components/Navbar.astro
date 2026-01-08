@@ -1,11 +1,27 @@
 ---
 const links = [
-    { text: "HOME", href: "/" },
-    { text: "EXPERIENCE", href: "/experiences" },
-    { text: "PROJECTS", href: "/projects" },
-    { text: "INTERESTS", href: "/interests" },
-    { text: "BLOG", href: "/blog" },
+    { text: "HOME", href: "/", color: "cyan" },
+    { text: "EXPERIENCE", href: "/experiences", color: "red" },
+    { text: "PROJECTS", href: "/projects", color: "gold" },
+    { text: "INTERESTS", href: "/interests", color: "orange" },
+    { text: "BLOG", href: "/blog", color: "purple" },
 ];
+
+const colorMap = {
+    cyan: "text-neon-cyan drop-shadow-[0_0_8px_rgba(0,243,255,0.8)]",
+    red: "text-neon-red drop-shadow-[0_0_8px_rgba(255,0,60,0.8)]",
+    gold: "text-neon-gold drop-shadow-[0_0_8px_rgba(255,215,0,0.8)]",
+    orange: "text-orange-500 drop-shadow-[0_0_8px_rgba(249,115,22,0.8)]",
+    purple: "text-neon-purple drop-shadow-[0_0_8px_rgba(191,0,255,0.8)]",
+};
+
+const colors = {
+    cyan: "text-neon-cyan",
+    red: "text-neon-red",
+    gold: "text-neon-gold",
+    orange: "text-orange-500",
+    purple: "text-neon-purple",
+};
 
 const pathname = new URL(Astro.request.url).pathname;
 ---
@@ -16,17 +32,13 @@ const pathname = new URL(Astro.request.url).pathname;
     <!-- Logo -->
     <a
         href="/"
-        class="group relative w-10 h-10 flex items-center justify-center"
+        class="group relative w-16 h-16 flex items-center justify-center"
     >
-        <div
-            class="absolute inset-0 bg-neon-purple/20 rounded-lg rotate-45 group-hover:rotate-90 transition-transform duration-500"
-        >
-        </div>
-        <div
-            class="absolute inset-0 border-2 border-neon-purple rounded-lg rotate-45 group-hover:rotate-0 transition-transform duration-500"
-        >
-        </div>
-        <span class="relative font-black text-xl text-white font-mono">M</span>
+        <img
+            src="/logo.png"
+            alt="M Logo"
+            class="w-full h-full object-contain rounded-xl transition-transform duration-300 group-hover:scale-110"
+        />
     </a>
 
     <!-- Desktop Links -->
@@ -38,7 +50,7 @@ const pathname = new URL(Astro.request.url).pathname;
                     class={`text-sm font-bold tracking-widest transition-colors duration-300 ${
                         pathname === link.href ||
                         (link.href !== "/" && pathname.startsWith(link.href))
-                            ? "text-neon-cyan drop-shadow-[0_0_8px_rgba(0,243,255,0.8)]"
+                            ? colorMap[link.color]
                             : "text-gray-400 hover:text-white"
                     }`}
                 >

@@ -1,0 +1,139 @@
+---
+import Layout from "./Layout.astro";
+
+interface Props {
+    title: string;
+    subtitle?: string;
+    date?: string;
+    tags?: string[];
+    color?: "cyan" | "red" | "gold" | "purple" | "orange" | "light-orange";
+    backLink: string;
+    backText: string;
+}
+
+const {
+    title,
+    subtitle,
+    date,
+    tags,
+    color = "cyan",
+    backLink,
+    backText,
+} = Astro.props;
+
+const colorClasses = {
+    cyan: "text-neon-cyan border-neon-cyan/50 shadow-neon-cyan/20",
+    red: "text-neon-red border-neon-red/50 shadow-neon-red/20",
+    gold: "text-neon-gold border-neon-gold/50 shadow-neon-gold/20",
+    purple: "text-neon-purple border-neon-purple/50 shadow-neon-purple/20",
+    orange: "text-orange-500 border-orange-500/50 shadow-orange-500/20",
+    "light-orange": "text-orange-300 border-orange-300/50 shadow-orange-300/20",
+};
+
+const bgGlowClasses = {
+    cyan: "bg-neon-cyan/5",
+    red: "bg-neon-red/5",
+    gold: "bg-neon-gold/5",
+    purple: "bg-neon-purple/5",
+    orange: "bg-orange-500/5",
+    "light-orange": "bg-orange-300/5",
+};
+---
+
+<Layout title={`${title} | Mukund`}>
+    <div class="pt-48 pb-20 px-6 min-h-screen">
+        <div class="container mx-auto max-w-4xl">
+            <!-- Back Link -->
+            <a
+                href={backLink}
+                class="inline-flex items-center text-sm font-mono text-gray-500 hover:text-white transition-colors mb-12 group"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="mr-2 group-hover:-translate-x-1 transition-transform"
+                >
+                    <path d="m15 18-6-6 6-6"></path>
+                </svg>
+                Back to {backText}
+            </a>
+
+            <!-- Header -->
+            <header class="mb-16">
+                <div
+                    class="flex flex-wrap items-center gap-4 mb-4 text-sm font-mono"
+                >
+                    {
+                        date && (
+                            <span class="text-gray-400 border border-white/10 px-3 py-1 rounded-full bg-white/5">
+                                {date}
+                            </span>
+                        )
+                    }
+                    {
+                        subtitle && (
+                            <span
+                                class={`px-3 py-1 rounded-full border ${colorClasses[color].split(" ")[1]} ${bgGlowClasses[color]} ${colorClasses[color].split(" ")[0]}`}
+                            >
+                                {subtitle}
+                            </span>
+                        )
+                    }
+                </div>
+
+                <h1
+                    class="text-4xl md:text-6xl font-black text-white mb-8 leading-tight"
+                >
+                    {title}
+                    <span class={colorClasses[color].split(" ")[0]}>.</span>
+                </h1>
+
+                {
+                    tags && tags.length > 0 && (
+                        <div class="flex flex-wrap gap-2">
+                            {tags.map((tag) => (
+                                <span class="text-xs uppercase tracking-wider font-bold text-gray-500 px-3 py-1.5 bg-white/5 rounded border border-white/5">
+                                    {tag}
+                                </span>
+                            ))}
+                        </div>
+                    )
+                }
+            </header>
+
+            <!-- Content -->
+            <article
+                class="prose prose-invert prose-lg max-w-none prose-headings:font-bold prose-headings:text-white prose-a:text-neon-cyan prose-strong:text-white prose-code:text-neon-gold prose-pre:bg-black/50 prose-pre:border prose-pre:border-white/10 prose-blockquote:border-l-4 prose-blockquote:border-white/20 prose-blockquote:bg-white/5 prose-blockquote:py-2 prose-blockquote:px-6 prose-blockquote:italic"
+            >
+                <slot />
+            </article>
+
+            <!-- Bottom Navigation -->
+            <div
+                class="mt-20 pt-10 border-t border-white/10 flex justify-between items-center"
+            >
+                <a
+                    href={backLink}
+                    class="text-gray-500 hover:text-white transition-colors"
+                >
+                    &larr; Back to {backText}
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <footer
+        class="py-12 border-t border-white/5 w-full text-center text-gray-500 text-sm bg-black/50 backdrop-blur-sm"
+    >
+        <p>
+            &copy; {new Date().getFullYear()} Mukund. Built with Astro & TailwindCSS.
+        </p>
+    </footer>
+</Layout>

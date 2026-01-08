@@ -2,76 +2,64 @@
 import Layout from "../../layouts/Layout.astro";
 import Card from "../../components/Card.astro";
 
-const projects = [
-    {
-        title: "Portfolio v2",
-        subtitle: "Web Development",
-        description:
-            "A high-performance personal portfolio built with Astro, Tailwind v4, and a custom neon cyberpunk aesthetic.",
-        tags: ["Astro", "Tailwind", "Vercel"],
-        link: "https://github.com/mkraman/portfolio",
-        viewLink: "https://github.com/mkraman/portfolio", // Demo link
-        image: "https://via.placeholder.com/600x400/000000/FFFFFF?text=Portfolio+v2",
-        color: "gold",
-    },
-    {
-        title: "EcoSense",
-        subtitle: "IoT & ML",
-        description:
-            "Smart agriculture system using ESP32 sensors and TFlite for disease detection in crops.",
-        tags: ["C++", "Python", "TensorFlow Lite"],
-        link: "#",
-        image: "https://via.placeholder.com/600x400/000000/FFFFFF?text=EcoSense",
-        color: "gold",
-    },
-    {
-        title: "Neural Style Transfer",
-        subtitle: "Computer Vision",
-        description:
-            "Implementation of artistic style transfer using VGG19 network.",
-        tags: ["PyTorch", "Deep Learning"],
-        link: "#",
-        image: "https://via.placeholder.com/600x400/000000/FFFFFF?text=Neural+Style",
-        color: "gold",
-    },
-    {
-        title: "Distributed KV Store",
-        subtitle: "Systems",
-        description:
-            "Fault-tolerant key-value store using Raft consensus algorithm.",
-        tags: ["Go", "Distributed Systems"],
-        link: "#",
-        image: "https://via.placeholder.com/600x400/000000/FFFFFF?text=KV+Store",
-        color: "gold",
-    },
-];
+import { getCollection } from "astro:content";
+
+const allProjects = await getCollection("projects");
+const projects = allProjects.map((project) => ({
+    ...project.data,
+    link: `/projects/${project.slug}`,
+    // Ensure we pass the viewLink from frontmatter if it exists
+    viewLink: project.data.viewLink,
+}));
+
+console.log("DEBUG: Final Projects Array:", JSON.stringify(projects, null, 2));
 ---
 
 <Layout title="Projects | Mukund">
-    <div class="container mx-auto px-6 pt-32 pb-20">
+    <div class="container mx-auto px-6 pt-40 pb-20">
         <div class="max-w-4xl mb-16">
-            <h1
-                class="text-6xl md:text-8xl font-black text-white mb-6 tracking-tighter"
-            >
-                PROJECTS <span class="text-neon-gold text-4xl align-top">.</span
-                >
+            <h1 class="text-5xl md:text-6xl font-black text-white mb-4">
+                Projects <span class="text-neon-gold">.</span>
             </h1>
-            <p
-                class="text-gray-400 text-xl max-w-2xl leading-relaxed border-l-4 border-neon-gold pl-6"
-            >
-                A collection of my technical work, ranging from <span
-                    class="text-white">embedded systems</span
-                > to <span class="text-white">full-stack web apps</span>.
-            </p>
+            <div class="flex items-center gap-3">
+                <div class="w-1 h-6 bg-neon-gold"></div>
+                <p class="text-gray-400 text-lg max-w-2xl">
+                    A collection of my technical work, ranging from <span
+                        class="text-white">embedded systems</span
+                    > to <span class="text-white">full-stack web apps</span>.
+                </p>
+            </div>
+        </div>
+
+        {/* Debug Info in UI */}
+        <div class="text-xs text-gray-500 mb-4 hidden">
+            Found {projects.length} projects.
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             {
                 projects.map((project) => (
-                    // @ts-ignore
-                    <Card {...project} />
+                    <Card
+                        title={project.title}
+                        subtitle={project.subtitle}
+                        description={project.description}
+                        tags={project.tags}
+                        link={project.link}
+                        image={project.image}
+                        viewLink={project.viewLink}
+                        color={project.color}
+                        cardType="project"
+                    />
                 ))
             }
         </div>
     </div>
+
+    <footer
+        class="py-12 border-t border-white/5 w-full text-center text-gray-500 text-sm bg-black/50 backdrop-blur-sm"
+    >
+        <p>
+            &copy; {new Date().getFullYear()} Mukund. Built with Astro & TailwindCSS.
+        </p>
+    </footer>
 </Layout>

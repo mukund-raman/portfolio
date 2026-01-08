@@ -8,7 +8,8 @@ interface Props {
     link: string;
     image?: string; // New: For grid layout
     viewLink?: string; // New: For "View Project" button
-    color?: "cyan" | "red" | "gold" | "purple";
+    color?: "cyan" | "red" | "gold" | "purple" | "orange" | "light-orange";
+    cardType?: "project" | "blog" | "experience" | "paper" | "book"; // New: For button text
 }
 
 const {
@@ -21,13 +22,17 @@ const {
     image,
     viewLink,
     color = "cyan",
+    cardType = "project",
 } = Astro.props;
 
 const colorClasses = {
-    cyan: "border-neon-cyan/30 hover:shadow-[0_0_30px_-10px_rgba(0,243,255,0.4)]",
-    red: "border-neon-red/30 hover:shadow-[0_0_30px_-10px_rgba(255,0,60,0.4)]",
-    gold: "border-neon-gold/30 hover:shadow-[0_0_30px_-10px_rgba(255,215,0,0.4)]",
-    purple: "border-neon-purple/30 hover:shadow-[0_0_30px_-10px_rgba(191,0,255,0.4)]",
+    cyan: "border-neon-cyan/30 hover:border-neon-cyan/50 hover:shadow-[0_0_40px_rgba(0,243,255,0.3)]",
+    red: "border-neon-red/30 hover:border-neon-red/50 hover:shadow-[0_0_40px_rgba(255,0,60,0.3)]",
+    gold: "border-neon-gold/30 hover:border-neon-gold/50 hover:shadow-[0_0_40px_rgba(255,215,0,0.3)]",
+    purple: "border-neon-purple/30 hover:border-neon-purple/50 hover:shadow-[0_0_40px_rgba(191,0,255,0.3)]",
+    orange: "border-orange-500/30 hover:border-orange-500/50 hover:shadow-[0_0_40px_rgba(249,115,22,0.3)]",
+    "light-orange":
+        "border-orange-300/30 hover:border-orange-300/50 hover:shadow-[0_0_40px_rgba(253,186,116,0.3)]",
 };
 
 const textColors = {
@@ -35,6 +40,25 @@ const textColors = {
     red: "text-neon-red",
     gold: "text-neon-gold",
     purple: "text-neon-purple",
+    orange: "text-orange-500",
+    "light-orange": "text-orange-300",
+};
+
+const buttonText = {
+    project: "View Project",
+    blog: "View Blog",
+    experience: "View Experience",
+    paper: "View Paper",
+    book: "View Book",
+};
+
+const titleColorClasses = {
+    cyan: "group-hover:text-neon-cyan",
+    red: "group-hover:text-neon-red",
+    gold: "group-hover:text-neon-gold",
+    purple: "group-hover:text-neon-purple",
+    orange: "group-hover:text-orange-500",
+    "light-orange": "group-hover:text-orange-300",
 };
 ---
 
@@ -44,14 +68,17 @@ const textColors = {
     <!-- Image Slot (Top) -->
     {
         image && (
-            <div class="relative h-48 overflow-hidden border-b border-white/10 group-hover:brightness-110 transition-all">
+            <a
+                href={link}
+                class="relative h-48 overflow-hidden border-b border-white/10 group-hover:brightness-110 transition-all block"
+            >
                 <img
                     src={image}
                     alt={title}
                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60" />
-            </div>
+            </a>
         )
     }
 
@@ -77,7 +104,7 @@ const textColors = {
         <!-- Title -->
         <a href={link} class="block">
             <h3
-                class="text-xl font-bold text-white mb-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-400 transition-all"
+                class={`text-xl font-bold text-white mb-2 transition-colors ${titleColorClasses[color]}`}
             >
                 {title}
             </h3>
@@ -111,7 +138,7 @@ const textColors = {
                 href={link}
                 class={`inline-flex items-center text-xs font-bold uppercase tracking-wide transition-all ${textColors[color]} hover:opacity-80`}
             >
-                View Project
+                {buttonText[cardType]}
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="14"

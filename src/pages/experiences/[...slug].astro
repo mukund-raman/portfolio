@@ -1,0 +1,27 @@
+---
+import { getCollection } from "astro:content";
+import DetailLayout from "../../layouts/DetailLayout.astro";
+
+export async function getStaticPaths() {
+    const experiences = await getCollection("experiences");
+    return experiences.map((entry) => ({
+        params: { slug: entry.slug },
+        props: { entry },
+    }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<DetailLayout
+    title={entry.data.role}
+    subtitle={entry.data.company}
+    date={entry.data.date}
+    tags={entry.data.skills}
+    color="red"
+    backLink="/experiences"
+    backText="Experiences"
+>
+    <Content />
+</DetailLayout>
