@@ -1,0 +1,90 @@
+---
+import Card from "./Card.astro";
+// In a real app, we would query collection here:
+// import { getCollection } from 'astro:content';
+// const posts = await getCollection('blog');
+
+const posts = [
+  {
+    title: "Getting Started with Astro 4.0",
+    date: "Dec 2025",
+    slug: "astro-4-0",
+    description:
+      "A comprehensive deep dive into the revolutionary new features of Astro 4.0, including View Transitions, improved performance, and enhanced developer experience.",
+    tags: ["Astro", "Web Development", "SSR"],
+    image:
+      "https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=2000&auto=format&fit=crop",
+    category: "Tutorial",
+  },
+  {
+    title: "Why I Switched to TailwindCSS",
+    date: "Nov 2025",
+    slug: "why-tailwind",
+    description:
+      "My journey from vanilla CSS and preprocessors to utility-first styling. Exploring the benefits, challenges, and best practices for adopting Tailwind in production.",
+    tags: ["CSS", "TailwindCSS", "Design"],
+    image:
+      "https://images.unsplash.com/photo-1507721999472-8ed4421c4af2?q=80&w=2000&auto=format&fit=crop",
+    category: "Opinion",
+  },
+  {
+    title: "Building Scalable React Apps",
+    date: "Oct 2025",
+    slug: "scalable-react",
+    description:
+      "Best practices and architectural patterns for building large-scale React applications. Learn about state management, code splitting, and maintainable patterns.",
+    tags: ["React", "Architecture", "Best Practices"],
+    image:
+      "https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=2000&auto=format&fit=crop",
+    category: "Tutorial",
+  },
+];
+---
+
+<section id="blog" class="py-20 w-full">
+  <h3 class="text-3xl font-bold mb-8 text-white flex items-center gap-3">
+    <span class="w-2 h-8 bg-cyan-500 rounded-sm"></span>
+    Recent Posts
+  </h3>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {
+      posts.map((post) => (
+        <div class="h-full">
+          <Card
+            title={post.title}
+            subtitle={post.category}
+            description={post.description}
+            tags={post.tags}
+            link={`/blog/${post.slug}`}
+            image={post.image}
+            color="cyan"
+            date={post.date}
+          />
+        </div>
+      ))
+    }
+  </div>
+
+  <div class="mt-10">
+    <a
+      href="/blog"
+      class="text-cyan-400 hover:text-cyan-300 font-medium inline-flex items-center gap-2 group"
+    >
+      View All Posts
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="group-hover:translate-x-1 transition-transform"
+        ><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg
+      >
+    </a>
+  </div>
+</section>

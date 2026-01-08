@@ -1,0 +1,66 @@
+---
+const skills = [
+    "C++",
+    "Python",
+    "Java",
+    "Typescript",
+    "React",
+    "Astro",
+    "Tailwind",
+    "Docker",
+    "Kubernetes",
+    "PyTorch",
+    "TensorFlow",
+    "Linux",
+    "Git",
+];
+---
+
+<div
+    class="w-full relative overflow-hidden py-4 bg-white/5 border-y border-white/5 backdrop-blur-sm"
+>
+    <div
+        class="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-[var(--color-background)] to-transparent z-10"
+    >
+    </div>
+    <div
+        class="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-[var(--color-background)] to-transparent z-10"
+    >
+    </div>
+
+    <div class="flex animate-scroll whitespace-nowrap">
+        <div class="flex gap-8 mx-8 items-center">
+            {
+                skills.map((skill) => (
+                    <div class="px-6 py-2 rounded-full border border-white/10 bg-white/5 text-gray-300 font-mono text-sm hover:border-neon-cyan/50 hover:text-neon-cyan transition-colors">
+                        {skill}
+                    </div>
+                ))
+            }
+        </div>
+        <div class="flex gap-8 mx-8 items-center" aria-hidden="true">
+            {
+                skills.map((skill) => (
+                    <div class="px-6 py-2 rounded-full border border-white/10 bg-white/5 text-gray-300 font-mono text-sm hover:border-neon-cyan/50 hover:text-neon-cyan transition-colors">
+                        {skill}
+                    </div>
+                ))
+            }
+        </div>
+    </div>
+</div>
+
+<style>
+    .animate-scroll {
+        animation: scroll 20s linear infinite;
+    }
+
+    @keyframes scroll {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(-50%);
+        }
+    }
+</style>

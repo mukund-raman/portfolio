@@ -1,0 +1,63 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Card from "../../components/Card.astro";
+
+const posts = [
+    {
+        title: "Understanding Transformer Architectures",
+        subtitle: "Deep Learning",
+        date: "Dec 15, 2024",
+        description:
+            "A deep dive into the attention mechanism and how Transformers revolutionized NLP.",
+        tags: ["AI", "NLP", "Tutorial"],
+        link: "/blog/transformers",
+        color: "purple",
+    },
+    {
+        title: "Astro vs Next.js: My Take",
+        subtitle: "Web Dev",
+        date: "Nov 20, 2024",
+        description:
+            "Comparing the two frameworks for content-heavy sites. Why I chose Astro for this portfolio.",
+        tags: ["Web", "Astro", "React"],
+        link: "/blog/astro-vs-nextjs",
+        color: "purple",
+    },
+    {
+        title: "Getting Started with ROS 2",
+        subtitle: "Robotics",
+        date: "Oct 05, 2024",
+        description:
+            "Setting up a development environment for Robot Operating System 2 on macOS.",
+        tags: ["Robotics", "ROS", "Guide"],
+        link: "/blog/ros2-setup",
+        color: "purple",
+    },
+];
+---
+
+<Layout title="Blog | Mukund">
+    <div class="container mx-auto px-6 pt-32 pb-20">
+        <div class="max-w-4xl mb-16">
+            <h1
+                class="text-6xl md:text-8xl font-black text-white mb-6 tracking-tighter"
+            >
+                BLOG <span class="text-neon-purple text-4xl align-top">.</span>
+            </h1>
+            <p
+                class="text-gray-400 text-xl max-w-2xl leading-relaxed border-l-4 border-neon-purple pl-6"
+            >
+                Technical tutorials, research summaries, and engineering logs.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {
+                posts.map((post) => (
+                    // @ts-ignore
+                    <Card {...post} />
+                ))
+            }
+        </div>
+    </div>
+</Layout>

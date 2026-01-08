@@ -1,0 +1,57 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Card from "../../components/Card.astro";
+
+const experiences = [
+    {
+        title: "Research Assistant",
+        subtitle: "UT Austin Autonomous Systems Lab",
+        date: "Jan 2024 - Present",
+        description:
+            "Developing reinforcement learning agents for multi-robot coordination. Implemented a novel decentralized policy gradient algorithm in PyTorch.",
+        tags: ["Python", "PyTorch", "ROS", "Gazebo"],
+        link: "/experiences/research-assistant",
+        color: "red",
+    },
+    {
+        title: "Software Engineering Intern",
+        subtitle: "Google",
+        date: "May 2023 - Aug 2023",
+        description:
+            "Optimized cloud storage latency by 15% contributing to the core infrastructure team. Wrote production-grade C++ code.",
+        tags: ["C++", "Distributed Systems", "GCP"],
+        link: "/experiences/google-intern",
+        color: "red",
+    },
+    {
+        title: "Undergraduate Researcher",
+        subtitle: "Quantum Computing Group",
+        date: "Aug 2022 - Dec 2022",
+        description: "Simulated quantum error correction codes using Qiskit.",
+        tags: ["Python", "Qiskit", "Linear Algebra"],
+        link: "/experiences/quantum-research",
+        color: "red",
+    },
+];
+---
+
+<Layout title="Experiences | Mukund">
+    <div class="container mx-auto px-6 py-20">
+        <h1 class="text-5xl font-black text-white mb-4">
+            Experiences <span class="text-neon-red">.</span>
+        </h1>
+        <p class="text-gray-400 mb-12 max-w-2xl text-lg">
+            My professional journey across software engineering, research, and
+            academia.
+        </p>
+
+        <div class="grid gap-6 max-w-4xl">
+            {
+                experiences.map((exp) => (
+                    // @ts-ignore
+                    <Card {...exp} />
+                ))
+            }
+        </div>
+    </div>
+</Layout>

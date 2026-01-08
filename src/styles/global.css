@@ -1,0 +1,105 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #0f172a;
+  /* Slate 900 base */
+
+  --color-neon-cyan: #00f3ff;
+  --color-neon-red: #ff003c;
+  --color-neon-gold: #ffd700;
+  --color-neon-purple: #bf00ff;
+  --color-neon-orange: #ff9500;
+  --color-lavender: #E6E6FA;
+
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --animate-gradient-x: gradient-x 15s ease infinite;
+  --animate-typing: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+
+  @keyframes gradient-x {
+
+    0%,
+    100% {
+      background-position: 0% 50%;
+    }
+
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+}
+
+@layer base {
+
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: #e5e5e5;
+    font-family: var(--font-sans);
+    position: relative;
+
+    /* 
+      NEW BACKGROUND (Round 8): Blue-Green Gradient (Kadhir Style)
+      Deep Slate -> Deep Teal/Emerald
+    */
+    background: linear-gradient(135deg, #020617 0%, #0f172a 40%, #115e59 100%);
+    background-attachment: fixed;
+  }
+
+  /* 
+     NOTE: Circuit Pattern is now handled dynamically in Hero.astro 
+     to allow for "new design on each refresh".
+  */
+
+  /* Ambient Overlay for depth */
+  body::before {
+    content: "";
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 50% 50%,
+        rgba(255, 255, 255, 0.02) 0%,
+        transparent 60%);
+    pointer-events: none;
+    z-index: -1;
+  }
+}
+
+@layer utilities {
+  .text-glow-cyan {
+    text-shadow: 0 0 10px rgba(0, 243, 255, 0.7);
+  }
+
+  .text-glow-red {
+    text-shadow: 0 0 10px rgba(255, 0, 60, 0.7);
+  }
+
+  .glow-cyan {
+    box-shadow: 0 0 20px -5px rgba(0, 243, 255, 0.5);
+  }
+
+  .glow-red {
+    box-shadow: 0 0 20px -5px rgba(255, 0, 60, 0.5);
+  }
+
+  .glow-gold {
+    box-shadow: 0 0 20px -5px rgba(255, 215, 0, 0.5);
+  }
+
+  .glow-purple {
+    box-shadow: 0 0 20px -5px rgba(191, 0, 255, 0.5);
+  }
+
+  .glass-card {
+    @apply bg-white/5 border border-white/10 backdrop-blur-md;
+  }
+}

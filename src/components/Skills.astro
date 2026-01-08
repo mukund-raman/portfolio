@@ -1,0 +1,24 @@
+---
+const skills = [
+  "JavaScript", "TypeScript", "React", "Next.js", 
+  "Astro", "TailwindCSS", "Node.js", "Python",
+  "PostgreSQL", "Git", "Docker", "Figma"
+];
+---
+
+<section id="skills" class="py-20 w-full">
+  <h3 class="text-3xl font-bold mb-8 text-white flex items-center gap-3">
+    <span class="w-2 h-8 bg-gold-400 rounded-sm"></span>
+    Skills & Technologies
+  </h3>
+  
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+    {skills.map((skill) => (
+      <div class="p-4 rounded-xl border border-white/10 bg-white/5 hover:border-gold-400/50 hover:bg-gold-400/5 transition-all group">
+        <span class="text-gray-300 font-medium group-hover:text-gold-400 transition-colors">
+          {skill}
+        </span>
+      </div>
+    ))}
+  </div>
+</section>

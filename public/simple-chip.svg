@@ -1,0 +1,23 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Clean Circuit Traces (White, variable opacity) -->
+  
+  <!-- Line 1: Top Left to Center -->
+  <path d="M0 40 H40 L60 60 H100" stroke="rgba(255,255,255,0.15)" stroke-width="2" fill="none"/>
+  <circle cx="100" cy="60" r="3" fill="rgba(255,255,255,0.2)"/>
+  
+  <!-- Line 2: Bottom Right -->
+  <path d="M200 160 H160 L140 140 H100" stroke="rgba(255,255,255,0.15)" stroke-width="2" fill="none"/>
+  <circle cx="100" cy="140" r="3" fill="rgba(255,255,255,0.2)"/>
+  
+  <!-- Line 3: Vertical Interconnect -->
+  <path d="M50 0 V50 L70 70 V120" stroke="rgba(255,255,255,0.1)" stroke-width="2" fill="none"/>
+  <rect x="66" y="120" width="8" height="8" fill="rgba(0, 243, 255, 0.3)"/>
+  
+  <!-- Line 4: Wide horizontal -->
+  <path d="M0 100 H30" stroke="rgba(255,255,255,0.1)" stroke-width="2" fill="none"/>
+  <path d="M170 100 H200" stroke="rgba(255,255,255,0.1)" stroke-width="2" fill="none"/>
+  
+  <!-- Subtle Nodes -->
+  <circle cx="40" cy="40" r="2" fill="rgba(255,255,255,0.2)"/>
+  <circle cx="160" cy="160" r="2" fill="rgba(255,255,255,0.2)"/>
+</svg>

@@ -1,0 +1,511 @@
+---
+import "../styles/global.css";
+import Navbar from "../components/Navbar.astro";
+
+interface Props {
+	title: string;
+	description?: string;
+}
+
+const { title, description = "A modern personal portfolio." } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content={description} />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;900&family=JetBrains+Mono:wght@400;700&display=swap"
+			rel="stylesheet"
+		/>
+		<title>{title}</title>
+	</head>
+	<body class="bg-background text-gray-200 antialiased min-h-screen relative">
+		<!-- Dynamic Circuit Background Layer (Global) -->
+		<div
+			id="circuit-container"
+			class="fixed inset-0 z-0 pointer-events-none overflow-hidden"
+		>
+			<svg
+				id="circuit-svg"
+				width="100%"
+				height="100%"
+				xmlns="http://www.w3.org/2000/svg"
+			>
+				<defs>
+					<filter id="glow">
+						<feGaussianBlur stdDeviation="2" result="coloredBlur"
+						></feGaussianBlur>
+						<feMerge>
+							<feMergeNode in="coloredBlur"></feMergeNode>
+							<feMergeNode in="SourceGraphic"></feMergeNode>
+						</feMerge>
+					</filter>
+				</defs>
+			</svg>
+		</div>
+
+		<Navbar />
+		<main class="relative z-10">
+			<slot />
+		</main>
+
+		<!-- DYNAMIC CIRCUIT GENERATOR SCRIPT -->
+		<script is:inline>
+			const CONFIG = {
+				color: "#DFC5FE", // Lavender
+				gridSize: 32,
+				strokeWidth: 8,
+				opacity: 0.25, // Solid
+				dotRadius: 14,
+			};
+
+			function generateCircuit() {
+				const svg = document.getElementById("circuit-svg");
+				if (!svg) return;
+
+				while (svg.lastChild && svg.lastChild.nodeName !== "defs") {
+					svg.removeChild(svg.lastChild);
+				}
+
+				const width = window.innerWidth;
+				const height = window.innerHeight;
+				svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+
+				const cols = Math.ceil(width / CONFIG.gridSize);
+				const rows = Math.ceil(height / CONFIG.gridSize);
+				const grid = new Int16Array(cols * rows).fill(0);
+
+				function idx(x, y) {
+					return y * cols + x;
+				}
+				function inBounds(x, y) {
+					return x >= 0 && x < cols && y >= 0 && y < rows;
+				}
+
+				function isSafe(x, y, myId) {
+					if (!inBounds(x, y)) return false;
+					if (grid[idx(x, y)] !== 0) return false;
+
+					// 8-way neighbor check
+					for (let bx = -1; bx <= 1; bx++)
+						for (let by = -1; by <= 1; by++) {
+							if (bx === 0 && by === 0) continue;
+							let nx = x + bx,
+								ny = y + by;
+							if (inBounds(nx, ny)) {
+								let val = grid[idx(nx, ny)];
+								if (val !== 0 && val !== myId) return false;
+							}
+						}
+					return true;
+				}
+
+				function isPathClear(x, y, tx, ty) {
+					let dx = tx - x;
+					let dy = ty - y;
+					if (Math.abs(dx) === 1 && Math.abs(dy) === 1) {
+						if (grid[idx(x + dx, y)] !== 0) return false;
+						if (grid[idx(x, y + dy)] !== 0) return false;
+					}
+					return true;
+				}
+
+				const cardinals = [
+					{ x: 1, y: 0 },
+					{ x: 0, y: 1 },
+					{ x: -1, y: 0 },
+					{ x: 0, y: -1 },
+				];
+
+				// SYSTEMATIC FILLING
+				let busCounter = 1;
+				let startOffX = Math.floor(Math.random() * 2);
+				let startOffY = Math.floor(Math.random() * 2);
+
+				// We force busWidth = 1 for UNIFORM spacing
+				const busWidth = 1;
+				const MIN_STEPS = 8;
+				const MAX_STEPS = 12;
+
+				for (let y = startOffY; y < rows; y += 2) {
+					for (let x = startOffX; x < cols; x += 2) {
+						// if (Math.random() < 0.1) continue; // REMOVED for max coverage
+						if (!isSafe(x, y, busCounter)) continue;
+
+						let bestDir = -1;
+						let dirs = [0, 1, 2, 3].sort(() => Math.random() - 0.5);
+
+						for (let d of dirs) {
+							if (checkStart(x, y, d, busWidth, busCounter)) {
+								bestDir = d;
+								break;
+							}
+						}
+						if (bestDir === -1) continue;
+
+						// Route!
+						let currentBusId = busCounter++;
+						let traces = [];
+
+						// Init traces
+						let dx = cardinals[bestDir].x;
+						let dy = cardinals[bestDir].y;
+						let ox = -dy,
+							oy = dx;
+
+						for (let w = 0; w < busWidth; w++) {
+							let tx = x + ox * w;
+							let ty = y + oy * w;
+							grid[idx(tx, ty)] = currentBusId;
+							traces.push([{ x: tx, y: ty }]);
+						}
+
+						let cDir = bestDir;
+						let state = 0; // 0: Ortho, 1: Diag
+						let stepsInState = 0;
+						let minStepsInState = 2; // Minimum length before turning
+
+						let totalSteps =
+							Math.floor(
+								Math.random() * (MAX_STEPS - MIN_STEPS),
+							) + MIN_STEPS;
+
+						// Define constants missing from the snippet
+						const minStepsOrtho = 2;
+						const minStepsDiag = 5;
+						let diagDx = 0;
+						let diagDy = 0;
+
+						for (let s = 0; s < totalSteps; s++) {
+							// Get current position (head of the first wire in the bus)
+							let head = traces[0][traces[0].length - 1];
+							let px = head.x;
+							let py = head.y;
+
+							let nextX, nextY;
+							let attemptMove = false;
+
+							if (state === 0) {
+								// === ORTHO STATE ===
+								let canTurn = stepsInState >= minStepsOrtho;
+								// Higher chance to turn if we've been going straight
+								let wantTurn = canTurn && Math.random() < 0.3;
+
+								if (wantTurn) {
+									// Switch to Diag
+									// We want a 45 degree turn.
+									// Current dir is cDir.
+									// Turn offset +1 (90 deg right) or +3 (90 deg left = -1).
+									// Diag vector is sum of current vector + new vector.
+									// But wait, the previous code logic seemed to rely on 8-way grid neighbors?
+									// Let's pick a diagonal. valid diagonals are (cDir + 1) or (cDir - 1) essentially.
+
+									let turnOffset =
+										Math.random() < 0.5 ? 1 : 3;
+									let nextDir = (cDir + turnOffset) % 4;
+
+									diagDx =
+										cardinals[cDir].x +
+										cardinals[nextDir].x;
+									diagDy =
+										cardinals[cDir].y +
+										cardinals[nextDir].y;
+
+									state = 1;
+									stepsInState = 0;
+									s--; // Retry this step in new state
+									continue;
+								} else {
+									// Continue Ortho
+									nextX = px + cardinals[cDir].x;
+									nextY = py + cardinals[cDir].y;
+
+									if (
+										checkMove(
+											nextX,
+											nextY,
+											cDir,
+											busWidth,
+											currentBusId,
+										)
+									) {
+										attemptMove = true;
+									} else {
+										// Blocked? Try turning immediately?
+										if (canTurn || stepsInState > 0) {
+											// Try to force a turn if stuck
+											let turnOffset =
+												Math.random() < 0.5 ? 1 : 3;
+											let nextDir =
+												(cDir + turnOffset) % 4;
+
+											diagDx =
+												cardinals[cDir].x +
+												cardinals[nextDir].x;
+											diagDy =
+												cardinals[cDir].y +
+												cardinals[nextDir].y;
+
+											state = 1;
+											stepsInState = 0;
+											s--;
+											continue;
+										} else {
+											break; // Stuck
+										}
+									}
+								}
+							} else {
+								// === DIAG STATE ===
+								let canTurn = stepsInState >= minStepsDiag;
+								let wantTurn = canTurn && Math.random() < 0.4;
+
+								if (wantTurn) {
+									// Switch back to Ortho
+									// We decompose our diagonal (dx, dy) into its two ortho components,
+									// and pick one as the new direction.
+									let possibleExits = [];
+
+									// Diag is e.g. (1, 1). Components are (1,0) and (0,1).
+									if (diagDx !== 0) {
+										let dIdx = cardinals.findIndex(
+											(c) => c.x === diagDx && c.y === 0,
+										);
+										if (dIdx !== -1)
+											possibleExits.push(dIdx);
+									}
+									if (diagDy !== 0) {
+										let dIdx = cardinals.findIndex(
+											(c) => c.x === 0 && c.y === diagDy,
+										);
+										if (dIdx !== -1)
+											possibleExits.push(dIdx);
+									}
+
+									if (possibleExits.length > 0) {
+										let exitDir =
+											possibleExits[
+												Math.floor(
+													Math.random() *
+														possibleExits.length,
+												)
+											];
+										cDir = exitDir;
+										state = 0;
+										stepsInState = 0;
+										s--;
+										continue;
+									} else {
+										break;
+									}
+								} else {
+									// Continue Diag
+									nextX = px + diagDx;
+									nextY = py + diagDy;
+
+									// For diag move check, we check if the destination is clear,
+									// and ideally if the "cross" neighbors are also clear to avoid pinching?
+									// The original isPathClear checked the cross neighbors.
+									// But checkMove checks the bus width.
+									// Let's simplify: check if the whole bus can move to nextX, nextY
+									// We also need to be careful about geometry on diagonals for wide buses,
+									// but busWidth is forced to 1 in this code.
+
+									if (
+										isPathClear(px, py, nextX, nextY) &&
+										checkMove(
+											nextX,
+											nextY,
+											cDir,
+											busWidth,
+											currentBusId,
+										)
+									) {
+										// Note: checkMove takes a 'dirIdx' for geometry.
+										// For diagonal, we don't strictly have a single dirIdx that matches perfectly
+										// for the "width" projection if width > 1.
+										// But since width=1, checkMove just checks the point itself basically.
+										// We can pass cDir (the old ortho dir) or just ignore it implies
+										// ox, oy are calculated from it.
+										// Actually checkMove uses dirIdx to determine the perpendicular vector (ox, oy).
+										// If we are diagonal, our perpendicular is different.
+										// BUT: busWidth is 1, so the loop in checkMove runs once (w=0, ox*0=0).
+										// So dirIdx doesn't matter for width=1!
+										attemptMove = true;
+									} else {
+										// Blocked, try Ortho
+										let possibleExits = [];
+										if (diagDx !== 0) {
+											let dIdx = cardinals.findIndex(
+												(c) =>
+													c.x === diagDx && c.y === 0,
+											);
+											if (dIdx !== -1)
+												possibleExits.push(dIdx);
+										}
+										if (diagDy !== 0) {
+											let dIdx = cardinals.findIndex(
+												(c) =>
+													c.x === 0 && c.y === diagDy,
+											);
+											if (dIdx !== -1)
+												possibleExits.push(dIdx);
+										}
+
+										if (possibleExits.length > 0) {
+											let exitDir =
+												possibleExits[
+													Math.floor(
+														Math.random() *
+															possibleExits.length,
+													)
+												];
+											cDir = exitDir;
+											state = 0;
+											stepsInState = 0;
+											s--;
+											continue;
+										} else {
+											break;
+										}
+									}
+								}
+							}
+
+							if (attemptMove) {
+								for (let w = 0; w < busWidth; w++) {
+									let prevTracePoint =
+										traces[w][traces[w].length - 1];
+									// Calculate actual move delta for this specific wire
+									// (Should be same as nextX-px, since they move in parallel)
+
+									// Wait, nextX/nextY were calculated based on px/py (trace[0]).
+									// So delta is:
+									let mDx = nextX - px;
+									let mDy = nextY - py;
+
+									let newTx = prevTracePoint.x + mDx;
+									let newTy = prevTracePoint.y + mDy;
+
+									if (
+										!inBounds(newTx, newTy) ||
+										grid[idx(newTx, newTy)] !== 0
+									) {
+										// Oops, collision for one of the bus wires?
+										// If so, abort the whole step?
+										// For width=1 this shouldn't happen if checkMove passed,
+										// assuming checkMove checked bounds/grid.
+										totalSteps = s;
+										break;
+									}
+
+									grid[idx(newTx, newTy)] = currentBusId;
+									traces[w].push({ x: newTx, y: newTy });
+								}
+								stepsInState++;
+							}
+						}
+
+						if (traces[0].length >= MIN_STEPS) {
+							renderPath(traces, currentBusId);
+						}
+					}
+				}
+
+				function checkStart(x, y, dirIdx, width, id) {
+					let dx = cardinals[dirIdx].x;
+					let dy = cardinals[dirIdx].y;
+					let ox = -dy,
+						oy = dx;
+					for (let w = 0; w < width; w++) {
+						let tx = x + ox * w;
+						let ty = y + oy * w;
+						if (!isSafe(tx, ty, id)) return false;
+					}
+					return true;
+				}
+
+				function checkMove(x, y, dirIdx, width, id) {
+					let dx = cardinals[dirIdx].x;
+					let dy = cardinals[dirIdx].y;
+					let ox = -dy,
+						oy = dx;
+					for (let w = 0; w < width; w++) {
+						let tx = x + ox * w;
+						let ty = y + oy * w;
+						if (!isSafe(tx, ty, id)) return false;
+					}
+					return true;
+				}
+
+				function renderPath(traces, id) {
+					const svg = document.getElementById("circuit-svg");
+					if (!svg) return;
+
+					for (const trace of traces) {
+						if (trace.length < 2) continue;
+
+						let pathData = `M ${trace[0].x * CONFIG.gridSize + CONFIG.gridSize / 2} ${trace[0].y * CONFIG.gridSize + CONFIG.gridSize / 2}`;
+						for (let i = 1; i < trace.length; i++) {
+							pathData += ` L ${trace[i].x * CONFIG.gridSize + CONFIG.gridSize / 2} ${trace[i].y * CONFIG.gridSize + CONFIG.gridSize / 2}`;
+						}
+
+						const path = document.createElementNS(
+							"http://www.w3.org/2000/svg",
+							"path",
+						);
+						path.setAttribute("d", pathData);
+						path.setAttribute("fill", "none");
+						path.setAttribute("stroke", CONFIG.color);
+						path.setAttribute("stroke-width", CONFIG.strokeWidth);
+						path.setAttribute("stroke-linecap", "round");
+						path.setAttribute("stroke-linejoin", "round");
+						path.setAttribute("stroke-opacity", CONFIG.opacity);
+						svg.appendChild(path);
+
+						// Add dots ONLY at start and end
+						const pointsToRender = [
+							trace[0],
+							trace[trace.length - 1],
+						];
+						for (const point of pointsToRender) {
+							const circle = document.createElementNS(
+								"http://www.w3.org/2000/svg",
+								"circle",
+							);
+							circle.setAttribute(
+								"cx",
+								point.x * CONFIG.gridSize + CONFIG.gridSize / 2,
+							);
+							circle.setAttribute(
+								"cy",
+								point.y * CONFIG.gridSize + CONFIG.gridSize / 2,
+							);
+							circle.setAttribute("r", CONFIG.dotRadius);
+							circle.setAttribute("fill", CONFIG.color);
+							circle.setAttribute("opacity", CONFIG.opacity);
+							svg.appendChild(circle);
+						}
+					}
+				}
+			}
+
+			// Initial generation
+			generateCircuit();
+
+			// Regenerate on resize
+			let resizeTimer;
+			window.addEventListener("resize", () => {
+				clearTimeout(resizeTimer);
+				resizeTimer = setTimeout(generateCircuit, 250);
+			});
+		</script>
+	</body>
+</html>
