@@ -23,14 +23,14 @@ const experiences = allExperiences
     }));
 ---
 
-<Layout title="Experiences | Mukund">
+<Layout title="Experiences">
     <!-- Add more top padding to account for fixed navbar -->
     <div class="pt-40 pb-20 px-6">
         <div class="container mx-auto max-w-7xl">
             <!-- Header - Left aligned with indent to match card start (7.5% + 50% for center = 57.5% from left edge on left cards) -->
             <div class="mb-12 ml-0 md:ml-[5.5%]">
                 <h1 class="text-5xl md:text-6xl font-black text-white mb-4">
-                    Experience <span class="text-neon-red">.</span>
+                    Experiences <span class="text-neon-red">.</span>
                 </h1>
                 <div class="flex items-center gap-3">
                     <div class="w-1 h-6 bg-neon-red"></div>
@@ -44,7 +44,7 @@ const experiences = allExperiences
             <div class="relative max-w-6xl mx-auto">
                 <!-- Center vertical line -->
                 <div
-                    class="absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-gradient-to-b from-neon-red/50 via-neon-red/30 to-transparent"
+                    class="hidden md:block absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-gradient-to-b from-neon-red/50 via-neon-red/30 to-transparent"
                 >
                 </div>
 
@@ -53,7 +53,7 @@ const experiences = allExperiences
                         const isLeft = index % 2 === 0;
 
                         return (
-                            <div class="group relative -mb-45 md:-mb-45">
+                            <div class="group relative mb-8 md:-mb-45">
                                 {/* Content Card - fully left or right of timeline */}
                                 <div
                                     class={`peer relative w-full md:w-[45%] ${isLeft ? "md:mr-auto" : "md:ml-auto"}`}
@@ -122,7 +122,7 @@ const experiences = allExperiences
                                 </div>
 
                                 {/* Timeline Node - centered - comes after peer */}
-                                <div class="absolute left-1/2 transform -translate-x-1/2 top-12 w-5 h-5 rounded-full bg-black border-3 border-neon-red shadow-[0_0_20px_rgba(255,0,60,0.5)] peer-hover:bg-neon-red z-10 peer-hover:scale-110 transition-all" />
+                                <div class="hidden md:block absolute left-1/2 transform -translate-x-1/2 top-12 w-5 h-5 rounded-full bg-black border-3 border-neon-red shadow-[0_0_20px_rgba(255,0,60,0.5)] peer-hover:bg-neon-red z-10 peer-hover:scale-110 transition-all" />
                             </div>
                         );
                     })

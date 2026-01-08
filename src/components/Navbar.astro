@@ -1,13 +1,13 @@
 ---
 const links = [
     { text: "HOME", href: "/", color: "cyan" },
-    { text: "EXPERIENCE", href: "/experiences", color: "red" },
+    { text: "EXPERIENCES", href: "/experiences", color: "red" },
     { text: "PROJECTS", href: "/projects", color: "gold" },
     { text: "INTERESTS", href: "/interests", color: "orange" },
     { text: "BLOG", href: "/blog", color: "purple" },
 ];
 
-const colorMap = {
+const colorMap: Record<string, string> = {
     cyan: "text-neon-cyan drop-shadow-[0_0_8px_rgba(0,243,255,0.8)]",
     red: "text-neon-red drop-shadow-[0_0_8px_rgba(255,0,60,0.8)]",
     gold: "text-neon-gold drop-shadow-[0_0_8px_rgba(255,215,0,0.8)]",
@@ -15,7 +15,7 @@ const colorMap = {
     purple: "text-neon-purple drop-shadow-[0_0_8px_rgba(191,0,255,0.8)]",
 };
 
-const colors = {
+const colors: Record<string, string> = {
     cyan: "text-neon-cyan",
     red: "text-neon-red",
     gold: "text-neon-gold",
@@ -60,23 +60,146 @@ const pathname = new URL(Astro.request.url).pathname;
         }
     </div>
 
-    <!-- Mobile Menu Button (Placeholder) -->
-    <button class="md:hidden text-white">
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            ><line x1="3" y1="12" x2="21" y2="12"></line><line
-                x1="3"
-                y1="6"
-                x2="21"
-                y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg
-        >
+    <!-- Mobile Menu Button -->
+    <button
+        id="mobile-menu-btn"
+        class="md:hidden text-white z-[70] relative w-10 h-10 flex items-center justify-center focus:outline-none"
+    >
+        <div class="space-y-2 group">
+            <span
+                class="block w-8 h-0.5 bg-white transition-all duration-300 ease-in-out group-hover:bg-neon-cyan"
+                id="bar1"></span>
+            <span
+                class="block w-8 h-0.5 bg-white transition-all duration-300 ease-in-out group-hover:bg-neon-cyan"
+                id="bar2"></span>
+            <span
+                class="block w-8 h-0.5 bg-white transition-all duration-300 ease-in-out group-hover:bg-neon-cyan"
+                id="bar3"></span>
+        </div>
     </button>
+
+    <!-- Mobile Menu Overlay -->
+    <div
+        id="mobile-menu"
+        class="fixed inset-0 bg-black/80 bg-[url('/noise.png')] z-[60] flex flex-col items-center justify-start opacity-0 pointer-events-none transition-all duration-500 ease-in-out"
+    >
+        <!-- Geometric Decorations -->
+        <div
+            class="absolute top-0 right-0 w-96 h-96 bg-neon-cyan/10 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2 pointer-events-none"
+        >
+        </div>
+        <div
+            class="absolute bottom-0 left-0 w-80 h-80 bg-neon-purple/10 rounded-full blur-[80px] translate-y-1/2 -translate-x-1/2 pointer-events-none"
+        >
+        </div>
+
+        <nav class="flex flex-col items-center w-full relative z-50 pt-24">
+            {
+                links
+                    .filter((link) => link.text !== "HOME")
+                    .map((link, index) => (
+                        <a
+                            href={link.href}
+                            class={`group relative w-full h-24 flex items-center justify-center overflow-hidden transition-all duration-300 opacity-0 translate-y-8 mobile-link border-b border-white/5 bg-black/75 backdrop-blur-sm hover:bg-black`}
+                            style={`transition-delay: ${index * 100}ms`}
+                        >
+                            <div
+                                class={`absolute inset-0 bg-gradient-to-r ${
+                                    link.color === "cyan"
+                                        ? "from-neon-cyan/10 to-transparent"
+                                        : link.color === "red"
+                                          ? "from-neon-red/10 to-transparent"
+                                          : link.color === "gold"
+                                            ? "from-neon-gold/10 to-transparent"
+                                            : link.color === "orange"
+                                              ? "from-orange-500/10 to-transparent"
+                                              : "from-neon-purple/10 to-transparent"
+                                } opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
+                            />
+
+                            <div class="relative flex items-center gap-4">
+                                <span
+                                    class={`text-2xl font-black tracking-[0.2em] text-white ${link.color === "orange" ? "group-hover:text-orange-500" : `group-hover:text-neon-${link.color}`} transition-colors duration-300`}
+                                >
+                                    {link.text}
+                                </span>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="text-white/30 transform transition-all duration-300 group-hover:translate-x-2 group-hover:text-white group-hover:opacity-100"
+                                >
+                                    <>
+                                        <line x1="5" y1="12" x2="19" y2="12" />
+                                        <polyline points="12 5 19 12 12 19" />
+                                    </>
+                                </svg>
+                            </div>
+                        </a>
+                    ))
+            }
+        </nav>
+    </div>
 </nav>
+
+<script is:inline>
+    const btn = document.getElementById("mobile-menu-btn");
+    const menu = document.getElementById("mobile-menu");
+    const bar1 = document.getElementById("bar1");
+    const bar2 = document.getElementById("bar2");
+    const bar3 = document.getElementById("bar3");
+    const links = document.querySelectorAll(".mobile-link");
+
+    let isMenuOpen = false;
+
+    function toggleMenu() {
+        isMenuOpen = !isMenuOpen;
+
+        if (isMenuOpen) {
+            // Open Menu
+            menu.classList.remove("opacity-0", "pointer-events-none");
+            menu.classList.add("opacity-100", "pointer-events-auto");
+
+            // Animate burger to X
+            bar1.classList.add("rotate-45", "translate-y-2.5");
+            bar2.classList.add("opacity-0");
+            bar3.classList.add("-rotate-45", "-translate-y-2.5");
+
+            // Animate links in
+            setTimeout(() => {
+                links.forEach((link) => {
+                    link.classList.remove("opacity-0", "translate-y-8");
+                });
+            }, 100);
+        } else {
+            // Close Menu
+            menu.classList.remove("opacity-100", "pointer-events-auto");
+            menu.classList.add("opacity-0", "pointer-events-none");
+
+            // Animate X back to burger
+            bar1.classList.remove("rotate-45", "translate-y-2.5");
+            bar2.classList.remove("opacity-0");
+            bar3.classList.remove("-rotate-45", "-translate-y-2.5");
+
+            // Reset links
+            links.forEach((link) => {
+                link.classList.add("opacity-0", "translate-y-8");
+            });
+        }
+    }
+
+    btn.addEventListener("click", toggleMenu);
+
+    // Close menu on link click
+    links.forEach((link) => {
+        link.addEventListener("click", () => {
+            if (isMenuOpen) toggleMenu();
+        });
+    });
+</script>

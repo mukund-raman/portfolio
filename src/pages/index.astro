@@ -50,7 +50,7 @@ const experiences = sortedExperiences.slice(0, 4).map((exp) => ({
 }));
 ---
 
-<Layout title="Mukund | Computer Scientist">
+<Layout title="Home">
 	<Hero />
 
 	<!-- Skills Header -->
@@ -140,7 +140,7 @@ const experiences = sortedExperiences.slice(0, 4).map((exp) => ({
 		<div class="relative max-w-6xl mx-auto">
 			<!-- Center vertical line -->
 			<div
-				class="absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-gradient-to-b from-neon-red/50 via-neon-red/30 to-transparent"
+				class="hidden md:block absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-gradient-to-b from-neon-red/50 via-neon-red/30 to-transparent"
 			>
 			</div>
 
@@ -151,7 +151,7 @@ const experiences = sortedExperiences.slice(0, 4).map((exp) => ({
 
 					return (
 						<div
-							class="relative -mb-30 -md:mb-20"
+							class="relative mb-8 md:-mb-30"
 							style={`margin-top: ${index === 0 ? "0" : "0px"}`}
 						>
 							{/* Content Card - alternating sides - MUST come first for peer */}
@@ -222,7 +222,7 @@ const experiences = sortedExperiences.slice(0, 4).map((exp) => ({
 							</div>
 
 							{/* Timeline Node - centered - comes after peer */}
-							<div class="absolute left-1/2 transform -translate-x-1/2 top-8 w-5 h-5 rounded-full bg-black border-3 border-neon-red shadow-[0_0_20px_rgba(255,0,60,0.5)] peer-hover:bg-neon-red z-10 peer-hover:scale-110 transition-all" />
+							<div class="hidden md:block absolute left-1/2 transform -translate-x-1/2 top-8 w-5 h-5 rounded-full bg-black border-3 border-neon-red shadow-[0_0_20px_rgba(255,0,60,0.5)] peer-hover:bg-neon-red z-10 peer-hover:scale-110 transition-all" />
 						</div>
 					);
 				})
