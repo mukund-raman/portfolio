@@ -26,9 +26,9 @@ const experiences = allExperiences
 <Layout title="Experiences">
     <!-- Add more top padding to account for fixed navbar -->
     <div class="pt-40 pb-20 px-6">
-        <div class="container mx-auto max-w-7xl">
+        <div class="w-full max-w-[90%] mx-auto">
             <!-- Header - Left aligned with indent to match card start (7.5% + 50% for center = 57.5% from left edge on left cards) -->
-            <div class="mb-12 ml-0 md:ml-[5.5%]">
+            <div class="mb-12">
                 <h1 class="text-5xl md:text-6xl font-black text-white mb-4">
                     Experiences <span class="text-neon-red">.</span>
                 </h1>
@@ -41,10 +41,10 @@ const experiences = allExperiences
                 </div>
             </div>
             <!-- Centered Timeline with Fully Left/Right Cards -->
-            <div class="relative max-w-6xl mx-auto">
+            <div class="relative w-full mx-auto">
                 <!-- Center vertical line -->
                 <div
-                    class="hidden md:block absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-gradient-to-b from-neon-red/50 via-neon-red/30 to-transparent"
+                    class="hidden lg:block absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-gradient-to-b from-neon-red/50 via-neon-red/30 to-transparent"
                 >
                 </div>
 
@@ -54,16 +54,16 @@ const experiences = allExperiences
 
                         return (
                             <div
-                                class={`group relative ${index === experiences.length - 1 ? "" : "mb-8"} md:-mb-45`}
+                                class={`group relative ${index === experiences.length - 1 ? "" : "mb-8"} lg:-mb-35`}
                             >
                                 {/* Content Card - fully left or right of timeline */}
                                 <div
-                                    class={`peer relative w-full md:w-[45%] ${isLeft ? "md:mr-auto" : "md:ml-auto"}`}
+                                    class={`peer relative w-full lg:w-[48%] ${isLeft ? "lg:mr-auto" : "lg:ml-auto"}`}
                                 >
                                     <div class="p-8 rounded-2xl bg-black/40 backdrop-blur-md border border-white/10 hover:border-neon-red/50 hover:shadow-[0_0_30px_rgba(255,0,60,0.2)] transition-all duration-300">
                                         {/* Connecting line from card edge to center */}
                                         <div
-                                            class={`hidden md:block absolute top-12 w-12 h-0.5 bg-gradient-to-${isLeft ? "r" : "l"} from-neon-red/30 to-transparent ${isLeft ? "left-full" : "right-full"}`}
+                                            class={`hidden lg:block absolute top-12 w-12 h-0.5 bg-gradient-to-${isLeft ? "r" : "l"} from-neon-red/30 to-transparent ${isLeft ? "left-full" : "right-full"}`}
                                         />
 
                                         <div class="flex flex-col gap-3 mb-4">
@@ -124,7 +124,7 @@ const experiences = allExperiences
                                 </div>
 
                                 {/* Timeline Node - centered - comes after peer */}
-                                <div class="hidden md:block absolute left-1/2 transform -translate-x-1/2 top-12 w-5 h-5 rounded-full bg-black border-3 border-neon-red shadow-[0_0_20px_rgba(255,0,60,0.5)] peer-hover:bg-neon-red z-10 peer-hover:scale-110 transition-all" />
+                                <div class="hidden lg:block absolute left-1/2 transform -translate-x-1/2 top-12 w-5 h-5 rounded-full bg-black border-3 border-neon-red shadow-[0_0_20px_rgba(255,0,60,0.5)] peer-hover:bg-neon-red z-10 peer-hover:scale-110 transition-all" />
                             </div>
                         );
                     })

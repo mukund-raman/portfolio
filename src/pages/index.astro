@@ -128,7 +128,7 @@ const experiences = sortedExperiences.slice(0, 4).map((exp) => ({
 	</section>
 
 	<!-- Experience Timeline Section -->
-	<section class="w-full py-20 px-6 container mx-auto">
+	<section class="w-full py-20 px-6 max-w-[90%] mx-auto">
 		<div class="mb-12">
 			<h2 class="text-4xl font-black text-white mb-2">
 				Experience <span class="text-neon-red">.</span>
@@ -137,10 +137,10 @@ const experiences = sortedExperiences.slice(0, 4).map((exp) => ({
 		</div>
 
 		<!-- Centered Alternating Timeline -->
-		<div class="relative max-w-6xl mx-auto">
+		<div class="relative w-full mx-auto">
 			<!-- Center vertical line -->
 			<div
-				class="hidden md:block absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-gradient-to-b from-neon-red/50 via-neon-red/30 to-transparent"
+				class="hidden lg:block absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-gradient-to-b from-neon-red/50 via-neon-red/30 to-transparent"
 			>
 			</div>
 
@@ -151,17 +151,17 @@ const experiences = sortedExperiences.slice(0, 4).map((exp) => ({
 
 					return (
 						<div
-							class={`relative ${index === experiences.length - 1 ? "" : "mb-8"} md:-mb-30`}
+							class={`relative ${index === experiences.length - 1 ? "" : "mb-8"} lg:-mb-25`}
 							style={`margin-top: ${index === 0 ? "0" : "0px"}`}
 						>
 							{/* Content Card - alternating sides - MUST come first for peer */}
 							<div
-								class={`peer relative md:w-[45%] ${isLeft ? "md:mr-auto md:pr-12" : "md:ml-auto md:pl-12"}`}
+								class={`peer relative lg:w-[48%] ${isLeft ? "lg:mr-auto lg:pr-12" : "lg:ml-auto lg:pl-12"}`}
 							>
 								<div class="group p-6 rounded-2xl bg-black/40 backdrop-blur-md border border-white/10 hover:border-neon-red/50 hover:shadow-[0_0_30px_rgba(255,0,60,0.2)] transition-all duration-300">
 									{/* Connecting line from card to center */}
 									<div
-										class={`hidden md:block absolute top-8 w-12 h-0.5 bg-gradient-to-${isLeft ? "r" : "l"} from-neon-red/30 to-transparent ${isLeft ? "right-0 translate-x-full" : "left-0 -translate-x-full"}`}
+										class={`hidden lg:block absolute top-8 w-12 h-0.5 bg-gradient-to-${isLeft ? "r" : "l"} from-neon-red/30 to-transparent ${isLeft ? "right-0 translate-x-full" : "left-0 -translate-x-full"}`}
 									/>
 
 									<div class="flex flex-col gap-2 mb-3">
@@ -222,7 +222,7 @@ const experiences = sortedExperiences.slice(0, 4).map((exp) => ({
 							</div>
 
 							{/* Timeline Node - centered - comes after peer */}
-							<div class="hidden md:block absolute left-1/2 transform -translate-x-1/2 top-8 w-5 h-5 rounded-full bg-black border-3 border-neon-red shadow-[0_0_20px_rgba(255,0,60,0.5)] peer-hover:bg-neon-red z-10 peer-hover:scale-110 transition-all" />
+							<div class="hidden lg:block absolute left-1/2 transform -translate-x-1/2 top-8 w-5 h-5 rounded-full bg-black border-3 border-neon-red shadow-[0_0_20px_rgba(255,0,60,0.5)] peer-hover:bg-neon-red z-10 peer-hover:scale-110 transition-all" />
 						</div>
 					);
 				})
