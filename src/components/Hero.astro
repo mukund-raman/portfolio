@@ -161,10 +161,14 @@
     </div>
   </div>
 
-  <!-- Kadhir-style Scroll Indicator -->
+  <!-- Scroll Indicator -->
+  <!-- 
+    ADJUSTMENT INSTRUCTION: 
+    The visibility is now controlled by the CSS style block at the bottom of this file.
+    Look for the '.scroll-indicator' class and the @media query.
+  -->
   <div
-    class="hidden lg:flex absolute left-1/2 transform -translate-x-1/2 flex-col items-center gap-2 opacity-80 hover:opacity-100 transition-opacity cursor-pointer mb-2"
-    style="bottom: calc(5vw - 40px);"
+    class="scroll-indicator absolute left-1/2 transform -translate-x-1/2 flex-col items-center gap-2 opacity-80 hover:opacity-100 transition-opacity cursor-pointer bottom-8"
   >
     <div
       class="w-[24px] h-[40px] rounded-[12px] border-2 border-white/40 flex justify-center pt-2"
@@ -174,6 +178,25 @@
     <span class="text-xs uppercase tracking-[0.2em] text-white">Scroll</span>
   </div>
 </section>
+
+<style>
+  /* 
+    SCROLL INDICATOR VISIBILITY
+    - Default: Hidden
+    - Visible ONLY if:
+      1. Screen is wider than 1024px (Desktop)
+      2. Screen is taller than 840px (Prevents overlap on short screens)
+  */
+  .scroll-indicator {
+    display: none;
+  }
+
+  @media (min-width: 1024px) and (min-height: 840px) {
+    .scroll-indicator {
+      display: flex;
+    }
+  }
+</style>
 
 <!-- DYNAMIC CIRCUIT GENERATOR SCRIPT -->
 <script is:inline>
