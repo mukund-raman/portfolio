@@ -1,0 +1,366 @@
+# Existing Papers (3)
+
+- slug: "attention-is-all-you-need"
+  title: "Attention Is All You Need"
+  authors: ["Vaswani et al."]
+  conference: "NIPS 2017"
+  link: "https://arxiv.org/abs/1706.03762"
+  tags: ["NLP", "Transformer"]
+  content: |
+    ## Abstract
+
+    The dominant sequence transduction models are based on complex recurrent or convolutional neural networks that include an encoder and a decoder. The best performing models also connect the encoder and decoder through an attention mechanism. We propose a new simple network architecture, the **Transformer**, based solely on attention mechanisms, dispensing with recurrence and convolutions entirely.
+
+    ## Key Contribution
+
+    This paper introduced the **Transformer** model, which replaced RNNs/LSTMs as the state-of-the-art for NLP tasks.
+
+    ### The Problem with RNNs
+    Recurrent networks process data sequentially ($t, t+1, t+2...$). This means:
+    1.  **No Parallelization**: You can't compute step 100 before step 99. Training is slow.
+    2.  **Long-term Memory Loss**: Information from step 1 dilutes by step 1000, despite LSTM gates.
+
+    ### The Solution: Self-Attention
+    The authors proposed a mechanism where every token in the sequence looks at *every other token* simultaneously to determine context.
+
+    $$
+    \text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
+    $$
+
+    ## Impact
+
+    This paper is arguably the most impactful AI paper of the decade. It is the foundation for:
+    - **BERT** (Bidirectional Encoder Representations from Transformers)
+    - **GPT** (Generative Pre-trained Transformer) series
+    - **AlphaFold 2** (Protein Structure Prediction)
+
+    > "We show that the Transformer generalizes well to other tasks by applying it successfully to English constituency parsing both with large and limited training data."
+
+- slug: "bert"
+  title: "BERT: Pre-training of Deep Bidirectional Transformers"
+  authors: ["Devlin et al."]
+  conference: "NAACL 2019"
+  link: "https://arxiv.org/abs/1810.04805"
+  tags: ["NLP", "BERT"]
+  content: |
+    ## Abstract
+
+    We introduce a new language representation model called **BERT**, which stands for Bidirectional Encoder Representations from Transformers. Unlike recent language representation models (ELMo, GPT), BERT is designed to pre-train deep bidirectional representations from unlabeled text by jointly conditioning on both left and right context in all layers.
+
+    ## Key Innovation: Bidirectionality
+
+    Previous models were unidirectional.
+    - **GPT (OpenAI)**: Left-to-Right. It predicts the next word based on previous words.
+    - **ELMo**: Shallow concatenation of Left-to-Right and Right-to-Left.
+
+    BERT uses the **Masked Language Model (MLM)** objective.
+    It randomly masks 15% of the input tokens and trains the model to predict them based on context from *both* sides simultaneously.
+
+    ```
+    Input:  the man went to the [MASK] to buy a [MASK] of milk
+    Target: store, gallon
+    ```
+
+    ## Setup
+
+    - **Encoder-only architecture**: Uses the Transformer encoder stack.
+    - **Next Sentence Prediction (NSP)**: Also trained to predict if sentence B follows sentence A, helping it understand relationships between sentences (useful for QA tasks).
+
+    ## Impact
+
+    BERT smashed the leaderboards on 11 NLP tasks, including GLUE, SQuAD, and SWAG. Ideally, it marked the beginning of the "ImageNet moment" for NLP, where pre-trained models could be fine-tuned for specific tasks with minimal data.
+
+    > "BERT is the first fine-tuning based representation model that achieves state-of-the-art performance on a large suite of sentence-level and token-level tasks, outperforming many task-specific architectures."
+
+- slug: "resnet"
+  title: "Deep Residual Learning for Image Recognition"
+  authors: ["He et al."]
+  conference: "CVPR 2016"
+  link: "https://arxiv.org/abs/1512.03385"
+  tags: ["Computer Vision", "CNN"]
+  content: |
+    ## Problem
+
+    Deeper neural networks are harder to train. Degradation: as networks get deeper, accuracy saturates and then degrades (not due to overfitting).
+
+    ## Solution: Residual Learning
+
+    Instead of learning $H(x)$, learn the residual $F(x) = H(x) - x$.
+
+    ```
+    Traditional: H(x)
+    ResNet:      F(x) = H(x) - x, so output = F(x) + x
+    ```
+
+    This is implemented via **skip connections** (identity mappings).
+
+    ```python
+    def residual_block(x):
+        residual = x
+        x = conv(x)
+        x = relu(x)
+        x = conv(x)
+        x = x + residual  # Skip connection
+        x = relu(x)
+        return x
+    ```
+
+    ## Why It Works
+
+    - If the optimal mapping is close to identity, it's easier to learn $F(x) = 0$ than to learn $H(x) = x$ from scratch.
+    - Gradients flow directly through skip connections, mitigating vanishing gradients.
+
+    ## Impact
+
+    ResNet won ImageNet 2015 with 152 layers. Without residual connections, such depth was impossible to train.
+
+# New Papers (~10)
+
+- slug: "alexnet"
+  title: "ImageNet Classification with Deep Convolutional Neural Networks"
+  authors: ["Krizhevsky, Sutskever, Hinton"]
+  conference: "NIPS 2012"
+  link: "https://papers.nips.cc/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html"
+  tags: ["Computer Vision", "CNN", "ImageNet"]
+  content: |
+    ## Abstract
+
+    AlexNet sparked the deep learning revolution by winning ImageNet 2012 by a massive margin. It demonstrated that deep CNNs could outperform traditional computer vision methods.
+
+    ## Architecture
+
+    - 5 convolutional layers
+    - 3 fully connected layers
+    - ReLU activation (first major use)
+    - Dropout for regularization
+    - Data augmentation
+
+    ## Impact
+
+    This paper made deep learning mainstream in computer vision and triggered the AI boom of the 2010s.
+
+- slug: "gan"
+  title: "Generative Adversarial Networks"
+  authors: ["Goodfellow et al."]
+  conference: "NIPS 2014"
+  link: "https://arxiv.org/abs/1406.2661"
+  tags: ["Generative Models", "GAN"]
+  content: |
+    ## Abstract
+
+    We propose a new framework for estimating generative models via an adversarial process: a generator that creates fake samples, and a discriminator that tries to distinguish real from fake.
+
+    ## Game Theory Framework
+
+    - **Generator G**: Tries to fool the discriminator, minimizes log(1 - D(G(z)))
+    - **Discriminator D**: Tries to correctly classify real vs fake, maximizes log(D(x))
+
+    They play a minimax game until Nash equilibrium.
+
+    ## Impact
+
+    GANs enabled photorealistic image generation, style transfer, and countless creative applications. Yann LeCun called them "the most interesting idea in deep learning in the last 10 years."
+
+- slug: "adam-optimizer"
+  title: "Adam: A Method for Stochastic Optimization"
+  authors: ["Kingma, Ba"]
+  conference: "ICLR 2015"
+  link: "https://arxiv.org/abs/1412.6980"
+  tags: ["Optimization", "Deep Learning"]
+  content: |
+    ## Abstract
+
+    Adam (Adaptive Moment Estimation) combines the advantages of AdaGrad and RMSProp. It computes adaptive learning rates for each parameter.
+
+    ## Algorithm
+
+    - Maintains exponentially decaying averages of past gradients (momentum)
+    - Also maintains exponentially decaying averages of past squared gradients (adaptive learning rate)
+
+    ## Impact
+
+    Adam became the default optimizer for deep learning. While SGD with momentum is still preferred for some vision tasks, Adam is ubiquitous in NLP and general deep learning.
+
+- slug: "dropout"
+  title: "Dropout: A Simple Way to Prevent Neural Networks from Overfitting"
+  authors: ["Srivastava et al."]
+  conference: "JMLR 2014"
+  link: "https://jmlr.org/papers/v15/srivastava14a.html"
+  tags: ["Regularization", "Deep Learning"]
+  content: |
+    ## Abstract
+
+    Dropout randomly drops units during training, preventing co-adaptation and reducing overfitting.
+
+    ## Method
+
+    During training, randomly set activations to zero with probability p (typically 0.5). At test time, multiply activations by (1 - p) to account for the additional units.
+
+    ## Why It Works
+
+    - Forces network to learn redundant representations
+    - Approximates ensemble of exponentially many networks
+    - Acts as strong regularizer
+
+    Essential technique for training deep networks on small datasets.
+
+- slug: "vgg"
+  title: "Very Deep Convolutional Networks for Large-Scale Image Recognition"
+  authors: ["Simonyan, Zisserman"]
+  conference: "ICLR 2015"
+  link: "https://arxiv.org/abs/1409.1556"
+  tags: ["Computer Vision", "CNN"]
+  content: |
+    ## Abstract
+
+    VGGNet demonstrated that depth matters. By using small 3x3 filters but stacking them deep (16-19 layers), they achieved state-of-the-art performance on ImageNet.
+
+    ## Key Insight
+
+    Stack of three 3x3 conv layers has same receptive field as one 7x7 layer, but:
+    - More non-linearities (deeper)
+    - Fewer parameters
+
+    ## Legacy
+
+    VGG-16 and VGG-19 became the go-to feature extractors for transfer learning before ResNet.
+
+- slug: "batch-normalization"
+  title: "Batch Normalization: Accelerating Deep Network Training"
+  authors: ["Ioffe, Szegedy"]
+  conference: "ICML 2015"
+  link: "https://arxiv.org/abs/1502.03167"
+  tags: ["Deep Learning", "Optimization"]
+  content: |
+    ## Problem
+
+    Internal covariate shift: distribution of layer inputs changes during training, slowing convergence.
+
+    ## Solution
+
+    Normalize layer inputs to have zero mean and unit variance within each mini-batch.
+
+    ## Impact
+
+    - Allows higher learning rates
+    - Acts as regularizer (reduces need for dropout)
+    - Enables training of much deeper networks
+
+    Became standard component in most architectures.
+
+- slug: "seq2seq"
+  title: "Sequence to Sequence Learning with Neural Networks"
+  authors: ["Sutskever et al."]
+  conference: "NIPS 2014"
+  link: "https://arxiv.org/abs/1409.3215"
+  tags: ["NLP", "Machine Translation", "LSTM"]
+  content: |
+    ## Abstract
+
+    Introduced the encoder-decoder architecture for sequence-to-sequence tasks like machine translation.
+
+    ## Architecture
+
+    - **Encoder LSTM**: Reads input sequence, produces fixed-size context vector
+    - **Decoder LSTM**: Generates output sequence conditioned on context vector
+
+    ## Impact
+
+    Before Transformers, this was the dominant architecture for NLP tasks. Laid groundwork for attention mechanisms and modern NLP.
+
+- slug: "alphago"
+  title: "Mastering the Game of Go with Deep Neural Networks and Tree Search"
+  authors: ["Silver et al."]
+  conference: "Nature 2016"
+  link: "https://www.nature.com/articles/nature16961"
+  tags: ["Reinforcement Learning", "Game AI"]
+  content: |
+    ## Abstract
+
+    AlphaGo defeated the world champion Lee Sedol in Go, a game previously thought to be decades away from computer mastery.
+
+    ## Techniques
+
+    - **Policy Network**: Predicts expert moves
+    - **Value Network**: Evaluates board positions
+    - **Monte Carlo Tree Search**: Planning algorithm
+    - **Self-Play**: Training by playing against itself
+
+    ## Impact
+
+    Demonstrated that deep RL could solve complex strategic problems. Inspired AlphaZero (chess, shogi) and AlphaFold (protein folding).
+
+- slug: "word2vec"
+  title: "Efficient Estimation of Word Representations in Vector Space"
+  authors: ["Mikolov et al."]
+  conference: "ICLR 2013"
+  link: "https://arxiv.org/abs/1301.3781"
+  tags: ["NLP", "Embeddings"]
+  content: |
+    ## Abstract
+
+    Word2Vec learns dense vector representations of words where semantic similarity is captured by vector distance.
+
+    ## Models
+
+    - **CBOW**: Predicts word from context
+    - **Skip-gram**: Predicts context from word
+
+    ## Magic
+
+    Vector arithmetic works:
+    ```
+    king - man + woman ≈ queen
+    Paris - France + Italy ≈ Rome
+    ```
+
+    ## Impact
+
+    Made word embeddings practical and ubiquitous. Foundation for modern NLP before Transformers.
+
+- slug: "mobilenet"
+  title: "MobileNets: Efficient Convolutional Neural Networks for Mobile Vision"
+  authors: ["Howard et al."]
+  conference: "arXiv 2017"
+  link: "https://arxiv.org/abs/1704.04861"
+  tags: ["Computer Vision", "Mobile", "Efficiency"]
+  content: |
+    ## Abstract
+
+    MobileNet uses depthwise separable convolutions to build lightweight models for mobile and embedded devices.
+
+    ## Key Innovation
+
+    Depthwise separable convolution:
+    - **Depthwise**: Apply single filter per input channel
+    - **Pointwise**: 1x1 convolution to combine
+
+    This reduces computation by 8-9x compared to standard convolutions.
+
+    ## Impact
+
+    Enabled real-time computer vision on smartphones and edge devices. Widely used in mobile apps for object detection, segmentation, etc.
+
+- slug: "efficientnet"
+  title: "EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks"
+  authors: ["Tan, Le"]
+  conference: "ICML 2019"
+  link: "https://arxiv.org/abs/1905.11946"
+  tags: ["Computer Vision", "Neural Architecture"]
+  content: |
+    ## Abstract
+
+    EfficientNet systematically studies model scaling and proposes compound scaling: uniformly scaling depth, width, and resolution.
+
+    ## Key Insight
+
+    Scaling dimensions independently is suboptimal. Compound scaling:
+    - Depth: Number of layers
+    - Width: Number of channels
+    - Resolution: Input image size
+
+    Use neural architecture search to find the baseline, then scale all three dimensions with a fixed ratio.
+
+    ## Impact
+
+    EfficientNet-B7 achieved state-of-the-art ImageNet accuracy with 8.4x fewer parameters than the previous best model. Sets new standard for efficiency.

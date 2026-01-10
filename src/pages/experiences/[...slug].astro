@@ -1,27 +1,75 @@
 ---
-import { getCollection } from "astro:content";
+import { getEntry } from "astro:content";
 import DetailLayout from "../../layouts/DetailLayout.astro";
+import { marked } from "marked";
 
 export async function getStaticPaths() {
-    const experiences = await getCollection("experiences");
-    return experiences.map((entry) => ({
-        params: { slug: entry.slug },
-        props: { entry },
+    const experiencesEntry = await getEntry("experiences", "data");
+    const experiences = experiencesEntry?.data || [];
+
+    return experiences.map((exp) => ({
+        params: { slug: exp.slug },
+        props: { experience: exp },
     }));
 }
 
-const { entry } = Astro.props;
-const { Content } = await entry.render();
+const { experience } = Astro.props;
+
+// Configure marked for better rendering
+marked.setOptions({
+    gfm: true,
+    breaks: true,
+});
+
+// Render markdown content to HTML
+const contentHtml = experience.content ? marked(experience.content) : "";
 ---
 
 <DetailLayout
-    title={entry.data.role}
-    subtitle={entry.data.company}
-    date={entry.data.date}
-    tags={entry.data.skills}
-    color="red"
+    title={experience.role}
+    subtitle={`@ ${experience.company}`}
+    tags={experience.skills}
+    color={experience.color || "red"}
     backLink="/experiences"
     backText="Experiences"
 >
-    <Content />
+    <!-- Display experience metadata -->
+    <div class="mb-8 flex flex-wrap items-center gap-4">
+        <div class="flex items-center gap-2 text-neon-red">
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            <span class="font-mono">{experience.date}</span>
+        </div>
+    </div>
+
+    <!-- Description -->
+    <div class="mb-12 p-6 rounded-xl bg-white/5 border border-white/10">
+        <p class="text-gray-300 text-lg leading-relaxed">
+            {experience.description}
+        </p>
+    </div>
+
+    <!-- Render markdown content -->
+    {
+        contentHtml && (
+            <div
+                class="prose prose-invert prose-lg max-w-none"
+                set:html={contentHtml}
+            />
+        )
+    }
 </DetailLayout>

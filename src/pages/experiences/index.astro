@@ -1,10 +1,11 @@
 ---
-import { getCollection } from "astro:content";
+import { getEntry } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 import TechTooltip from "../../components/TechTooltip.astro";
 
-// Fetch experiences from content collection
-const allExperiences = await getCollection("experiences");
+// Fetch experiences from YAML data
+const experiencesEntry = await getEntry("experiences", "data");
+const allExperiences = experiencesEntry?.data || [];
 
 // Sort experiences by date (newest first)
 const experiences = allExperiences
@@ -16,10 +17,10 @@ const experiences = allExperiences
             if (end.toLowerCase() === "present") return 9999;
             return parseInt(end, 10) || 0;
         };
-        return getDateVal(b.data.date) - getDateVal(a.data.date);
+        return getDateVal(b.date) - getDateVal(a.date);
     })
     .map((exp) => ({
-        ...exp.data,
+        ...exp,
         link: `/experiences/${exp.slug}`,
     }));
 ---

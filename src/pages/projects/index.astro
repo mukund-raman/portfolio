@@ -2,14 +2,15 @@
 import Layout from "../../layouts/Layout.astro";
 import Card from "../../components/Card.astro";
 
-import { getCollection } from "astro:content";
+import { getEntry } from "astro:content";
 
-const allProjects = await getCollection("projects");
+const projectsEntry = await getEntry("projects", "data");
+const allProjects = projectsEntry?.data || [];
 const projects = allProjects.map((project) => ({
-    ...project.data,
+    ...project,
     link: `/projects/${project.slug}`,
     // Ensure we pass the viewLink from frontmatter if it exists
-    viewLink: project.data.viewLink,
+    viewLink: project.viewLink,
 }));
 
 console.log("DEBUG: Final Projects Array:", JSON.stringify(projects, null, 2));

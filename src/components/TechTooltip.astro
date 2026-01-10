@@ -1,5 +1,5 @@
 ---
-import { SKILL_DATA, COMPANY_DATA, FALLBACK_DATA } from "../data/metadata";
+import { getEntry } from "astro:content";
 
 interface Props {
     text: string;
@@ -14,6 +14,34 @@ const {
     overrideClass = "",
     color = "orange",
 } = Astro.props;
+
+// Load data from YAML collections
+const skillsEntry = await getEntry("skills", "data");
+const allSkills = skillsEntry?.data || [];
+const companiesEntry = await getEntry("companies", "data");
+const allCompanies = companiesEntry?.data || [];
+
+// Convert arrays to lookup objects
+const SKILL_DATA = allSkills.reduce(
+    (acc, skill) => {
+        acc[skill.name] = skill;
+        return acc;
+    },
+    {} as Record<string, any>,
+);
+
+const COMPANY_DATA = allCompanies.reduce(
+    (acc, company) => {
+        acc[company.name] = company;
+        return acc;
+    },
+    {} as Record<string, any>,
+);
+
+const FALLBACK_DATA = {
+    description: "A key technology in my stack.",
+    tagline: "Essential Tool",
+};
 
 // Normalize key lookup
 const data =

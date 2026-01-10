@@ -1,0 +1,355 @@
+# Existing Books (4)
+
+- slug: "clean-code"
+  title: "Clean Code"
+  author: "Robert C. Martin"
+  cover: "https://m.media-amazon.com/images/I/51E2055ZGUL._SY445_SX342_.jpg"
+  rating: 5
+  dateRead: "2020-05-10"
+  tags: ["Software Engineering", "Best Practices"]
+  content: |
+    ## Review
+
+    *Clean Code* is arguably the most influential book for software developers. "Uncle Bob" Martin presents a school of thought that prioritizes readability and maintainability above cleverness. While some examples (Java) feel dated, the principles are timeless.
+
+    > "Any fool can write code that a computer can understand. Good programmers write code that humans can understand."
+
+    ## Key Takeaways
+
+    1.  **Meaningful Names**: Variables should answer *why* they exist, *what* they do, and *how* they are used. `int d; // elapsed time in days` is bad. `int daysSinceModification` is good.
+    2.  **Functions**: Should do one thing, do it well, and do it only. If a function contains sections (e.g., declarations, initializations, logic), it's probably doing too much.
+    3.  **Comments**: The goal is to express yourself in code. Comments are often a failure to make the code clear enough. "Don't comment bad code—rewrite it."
+    4.  **Formatting**: Code is communication. Vertical openness between concepts and vertical density within concepts affect readability heavily.
+    5.  **Error Handling**: Create clean boundaries between application logic and error handling. Prefer exceptions to return codes.
+
+    ## Personal Impact
+
+    Reading this book early in my career changed my mindset from "getting it to work" to "crafting it to last." I apply the **Boy Scout Rule** (Leave the campground cleaner than you found it) to every pull request I submit.
+
+- slug: "pragmatic-programmer"
+  title: "The Pragmatic Programmer"
+  author: "Andrew Hunt & David Thomas"
+  cover: "https://m.media-amazon.com/images/I/71f743sOPoL._AC_UF1000,1000_QL80_.jpg"
+  rating: 5
+  dateRead: "2019-11-05"
+  tags: ["Software Engineering", "Career"]
+  content: |
+    ## Review
+
+    While *Clean Code* focuses on the code, *The Pragmatic Programmer* focuses on the coder. It's a collection of tips and warnings that guide you towards becoming a simpler, more effective developer.
+
+    ## Key Philosophies
+
+    ### 1. DRY (Don't Repeat Yourself)
+    Every piece of knowledge must have a single, unambiguous, authoritative representation within a system. This applies to code, documentation, and build scripts.
+
+    ### 2. Orthogonality
+    Unrelated things should not affect each other. If I change the database schema, the UI rendering logic shouldn't break. Decoupled code is easier to test and modify.
+
+    ### 3. Tracer Bullets
+    When exploring a new technology or architecture, build a thin slice of the application that works end-to-end (UI -> Logic -> DB). This validates the architecture early, unlike "prototypes" which are often thrown away.
+
+    ### 4. Broken Windows
+    Fix bad designs, wrong decisions, and poor code when you see them. Ignoring them implies that no one cares, which accelerates rot.
+
+    ## Quote
+
+    > "You can't write perfect software. Did that hurt? It shouldn't. Accept it as an axiom of life. Embrace it. Celebrate it. Because perfect software doesn't exist."
+
+- slug: "deep-learning"
+  title: "Deep Learning"
+  author: "Ian Goodfellow, et al."
+  cover: "https://m.media-amazon.com/images/I/A10G+oKN3LL._AC_UF1000,1000_QL80_.jpg"
+  rating: 5
+  dateRead: "2022-08-20"
+  tags: ["AI", "Math", "Textbook"]
+  content: |
+    ## Review
+
+    Often referred to as the "Bible of Deep Learning," this textbook covers the mathematical and conceptual foundations of modern AI. It's dense, rigorous, and absolutely essential for researchers.
+
+    ## Summary
+
+    The book is divided into three parts:
+
+    1.  **Applied Math and Machine Learning Basics**: Linear Algebra, Probability, Numerical Computation.
+    2.  **Deep Networks: Modern Practices**: Feedforward Networks, Regularization (Dropout, L1/L2), Optimization (RMSProp, Adam), CNNs, and RNNs.
+    3.  **Deep Learning Research**: Linear Factor Models, Autoencoders, Representation Learning, and Generative Models (GANs).
+
+    ## Key Takeaways
+
+    - **Regularization is Key**: The capacity of neural networks is massive. Without techniques like Dropout, Weight Decay, and Data Augmentation, overfitting is inevitable.
+    - **Optimization Geometry**: The landscape of loss functions in high dimensions is complex. Saddle points are surprisingly more common and problematic than local minima.
+    - **Representation Learning**: The true power of Deep Learning is its ability to learn a hierarchy of features without manual feature engineering.
+
+    > "The hierarchy of concepts allows the computer to learn complicated concepts by building them out of simpler ones."
+
+- slug: "atomic-habits"
+  title: "Atomic Habits"
+  author: "James Clear"
+  cover: "https://m.media-amazon.com/images/I/81YkqyaFVEL._AC_UF1000,1000_QL80_.jpg"
+  rating: 5
+  dateRead: "2021-01-15"
+  tags: ["Self Help", "Productivity"]
+  content: |
+    ## Review
+
+    James Clear's *Atomic Habits* provides a practical framework for improving every day. The core thesis is that massive success doesn't require massive action, but rather small, consistent habits that compound over time.
+
+    > "You do not rise to the level of your goals. You fall to the level of your systems."
+
+    ## Key Concepts
+
+    ### The 1% Rule
+    improving by just 1% every day results in being **37x better** by the end of the year. Conversely, getting 1% worse brings you to nearly zero.
+
+    ### The 4 Laws of Behavior Change
+
+    1.  **Make it Obvious**: Design your environment. If you want to floss, put the floss on your toothbrush.
+    2.  **Make it Attractive**: Bundle habits. Do something you *need* to do before something you *want* to do.
+    3.  **Make it Easy**: Reduce friction. Automation, prime the environment, keep the habit small (e.g., "Two Minute Rule").
+    4.  **Make it Satisfying**: Use immediate rewards. Track your habits visually.
+
+    ## Application to Engineering
+
+    I use these principles to build better coding habits. For example, I use the "Two Minute Rule" to start documentation—I just promise to write one sentence. Usually, once started, I finish the whole doc.
+
+# New Books (~10)
+
+- slug: "designing-data-intensive-applications"
+  title: "Designing Data-Intensive Applications"
+  author: "Martin Kleppmann"
+  cover: "https://m.media-amazon.com/images/I/91aFc8sCdUL._AC_UF1000,1000_QL80_.jpg"
+  rating: 5
+  dateRead: "2023-03-15"
+  tags: ["System Design", "Databases", "Architecture"]
+  content: |
+    ## Review
+
+    The best book on distributed systems and data engineering. Kleppmann expertly explains complex concepts like consistency, replication, partitioning, and stream processing with clarity and depth.
+
+    ## Key Concepts
+
+    - **Replication vs Partitioning**: When to use each for scalability
+    - **CAP Theorem**: Understanding the tradeoffs between Consistency, Availability, and Partition tolerance
+    - **Event Sourcing**: Treating data as an immutable log of events
+    - **Batch vs Stream Processing**: MapReduce vs Kafka Streams
+
+    This book fundamentally changed how I design backend systems.
+
+- slug: "system-design-interview"
+  title: "System Design Interview Vol 1"
+  author: "Alex Xu"
+  cover: "https://m.media-amazon.com/images/I/61MWeJseTBL._AC_UF1000,1000_QL80_.jpg"
+  rating: 4
+  dateRead: "2022-11-20"
+  tags: ["Interview", "System Design", "Career"]
+  content: |
+    ## Review
+
+    An excellent practical guide for system design interviews at FAANG companies. Covers key systems like URL shorteners, rate limiters, notification systems, and more.
+
+    ## Highlights
+
+    - Step-by-step framework for approaching design questions
+    - Real-world examples with diagrams
+    - Back-of-the-envelope calculations (QPS, storage, bandwidth)
+    - Discusses tradeoffs clearly
+
+    Helped me ace my Google interview!
+
+- slug: "refactoring"
+  title: "Refactoring: Improving the Design of Existing Code"
+  author: "Martin Fowler"
+  cover: "https://m.media-amazon.com/images/I/71D2WIl7lNL._AC_UF1000,1000_QL80_.jpg"
+  rating: 5
+  dateRead: "2020-09-10"
+  tags: ["Software Engineering", "Best Practices"]
+  content: |
+    ## Review
+
+    Fowler's catalog of refactoring patterns is indispensable. The book teaches you to recognize code smells and apply specific refactorings to fix them.
+
+    ## Favorite Refactorings
+
+    - **Extract Method**: Break long methods into smaller, named pieces
+    - **Replace Temp with Query**: Eliminate temporary variables
+    - **Introduce Parameter Object**: Group params that go together
+    - **Replace Conditional with Polymorphism**: OOP over if/else chains
+
+    The examples use Java, but the concepts apply to any language.
+
+- slug: "grokking-algorithms"
+  title: "Grokking Algorithms"
+  author: "Aditya Bhargava"
+  cover: "https://m.media-amazon.com/images/I/71Veg7GnLUL._AC_UF1000,1000_QL80_.jpg"
+  rating: 4
+  dateRead: "2019-06-25"
+  tags: ["Algorithms", "Data Structures", "Beginner"]
+  content: |
+    ## Review
+
+    A beautifully illustrated introduction to algorithms. Perfect for visual learners or anyone intimidated by CLRS.
+
+    ## Coverage
+
+    - Search algorithms (binary search, BFS, DFS)
+    - Sorting (quicksort, selection sort)
+    - Dynamic programming
+    - Greedy algorithms
+    - Hash tables
+
+    The diagrams make complex concepts incredibly clear. Great first algorithms book.
+
+- slug: "cracking-the-coding-interview"
+  title: "Cracking the Coding Interview"
+  author: "Gayle Laakmann McDowell"
+  cover: "https://m.media-amazon.com/images/I/81IHAFJmBNL._AC_UF1000,1000_QL80_.jpg"
+  rating: 5
+  dateRead: "2021-07-14"
+  tags: ["Interview", "Algorithms", "Career"]
+  content: |
+    ## Review
+
+    The definitive guide on technical interviews. Not just LeetCode patterns, but also how to approach problems, communicate with interviewers, and negotiate offers.
+
+    ## Structure
+
+    - **Technical concepts**: Big O, data structures, algorithms  
+    - **189 programming questions** with solutions
+    - **Behavioral interview prep**
+    - **Behind-the-scenes** of hiring processes
+
+    I literally got every job I interviewed for after studying this book.
+
+- slug: "phoenix-project"
+  title: "The Phoenix Project"
+  author: "Gene Kim, et al."
+  cover: "https://m.media-amazon.com/images/I/81D3YqWdR1L._AC_UF1000,1000_QL80_.jpg"
+  rating: 4
+  dateRead: "2022-01-30"
+  tags: ["DevOps", "Management", "Fiction"]
+  content: |
+    ## Review
+
+    A novel about IT and DevOps that somehow makes infrastructure exciting. Follows an IT manager saving a failing project through DevOps principles.
+
+    ## Key Lessons
+
+    - **The Three Ways**: Flow, Feedback, Continuous Learning
+    - **Theory of Constraints**: Identify and eliminate bottlenecks
+    - **WIP Limits**: Too much work-in-progress kills velocity
+    - **Automation**: Manual processes don't scale
+
+    Makes you rethink how engineering teams should operate.
+
+- slug: "dont-make-me-think"
+  title: "Don't Make Me Think"
+  author: "Steve Krug"
+  cover: "https://m.media-amazon.com/images/I/51pnouuPO5L._AC_UF1000,1000_QL80_.jpg"
+  rating: 5
+  dateRead: "2023-05-12"
+  tags: ["UX", "Design", "Web Development"]
+  content: |
+    ## Review
+
+    The classic on web usability. Despite being written in 2000, the principles remain timeless.
+
+    ## Core Principles
+
+    - **Self-evident design**: Users shouldn't have to think
+    - **Conventions are your friend**: Don't reinvent the wheel
+    - **Less is more**: Remove anything that doesn't add value
+    - **Test with users**: Watch 3 people use your product
+
+    Changed how I think about frontend development entirely.
+
+- slug: "accelerate"
+  title: "Accelerate: The Science of Lean Software and DevOps"
+  author: "Nicole Forsgren, et al."
+  cover: "https://m.media-amazon.com/images/I/71zoSYD9MFL._AC_UF1000,1000_QL80_.jpg"
+  rating: 5
+  dateRead: "2021-12-08"
+  tags: ["DevOps", "Management", "Research"]
+  content: |
+    ## Review
+
+    Data-driven insights from studying thousands of software organizations. Identifies what actually predicts high-performing teams.
+
+    ## Key Metrics
+
+    - **Lead Time**: Code commit to production
+    - **Deployment Frequency**: How often you ship
+    - **MTTR**: Mean time to restore service
+    - **Change Failure Rate**: % of deployments causing incidents
+
+    ## Findings
+
+    - CI/CD practices strongly correlate with performance
+    - Trunk-based development beats long-lived feature branches
+    - Monitoring and observability are crucial
+
+    Essential reading for engineering leaders.
+
+- slug: "the-algorithm-design-manual"
+  title: "The Algorithm Design Manual"
+  author: "Steven S. Skiena"
+  cover: "https://m.media-amazon.com/images/I/81ij4+NKvUL._AC_UF1000,1000_QL80_.jpg"
+  rating: 4
+  dateRead: "2020-03-22"
+  tags: ["Algorithms", "Computer Science", "Reference"]
+  content: |
+    ## Review
+
+    A practical alternative to CLRS. Focuses on when and how to apply algorithms to real problems, not just theory.
+
+    ## Structure
+
+    - **Part I**: Practical algorithm design techniques
+    - **Part II**: Catalog of algorithmic problems and solutions
+
+    The "war stories" from Skiena's consulting make abstract algorithms concrete.
+
+- slug: "introduction-to-algorithms"
+  title: "Introduction to Algorithms (CLRS)"
+  author: "Cormen, Leiserson, Rivest, Stein"
+  cover: "https://m.media-amazon.com/images/I/81YiXB2bC6L._AC_UF1000,1000_QL80_.jpg"
+  rating: 5
+  dateRead: "2019-08-30"
+  tags: ["Algorithms", "Computer Science", "Textbook"]
+  content: |
+    ## Review
+
+    The comprehensive algorithms textbook. Dense, rigorous, mathematically precise. Used in MIT's algorithms course.
+
+    ## Coverage
+
+    - Sorting and order statistics
+    - Data structures (heaps, hash tables, BSTs)
+    - Advanced algorithms (graph, dynamic programming, greedy, NP-completeness)
+    - Advanced data structures (B-trees, Fibonacci heaps)
+
+    Not for casual reading, but an essential reference for any computer scientist.
+
+- slug: "eloquent-javascript"
+  title: "Eloquent JavaScript"
+  author: "Marijn Haverbeke"
+  cover: "https://eloquentjavascript.net/img/cover.jpg"
+  rating: 4
+  dateRead: "2023-09-18"
+  tags: ["JavaScript", "Programming", "Web Development"]
+  content: |
+    ## Review
+
+    The best book for learning modern JavaScript. Goes beyond syntax to teach programming concepts through JS.
+
+    ## Highlights
+
+    - **Values and Types**: Understanding JS's quirks
+    - **Functions**: First-class functions, closures, higher-order functions
+    - **Objects and Arrays**: Prototypal inheritance
+    - **Modules**: Code organization
+    - **Async Programming**: Promises, async/await
+    - **Node.js basics**
+
+    Available free online, but worth buying the physical copy.

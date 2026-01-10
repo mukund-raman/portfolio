@@ -1,23 +1,34 @@
 ---
-import { getCollection } from "astro:content";
+import { getEntry } from "astro:content";
 import DetailLayout from "../../layouts/DetailLayout.astro";
+import { marked } from "marked";
 
 export async function getStaticPaths() {
-    const projects = await getCollection("projects");
-    return projects.map((entry) => ({
-        params: { slug: entry.slug },
-        props: { entry },
+    const projectsEntry = await getEntry("projects", "data");
+    const projects = projectsEntry?.data || [];
+
+    return projects.map((project) => ({
+        params: { slug: project.slug },
+        props: { project },
     }));
 }
 
-const { entry } = Astro.props;
-const { Content } = await entry.render();
+const { project } = Astro.props;
+
+// Configure marked for better rendering
+marked.setOptions({
+    gfm: true,
+    breaks: true,
+});
+
+// Render markdown content to HTML
+const contentHtml = project.content ? marked(project.content) : "";
 ---
 
 <DetailLayout
-    title={entry.data.title}
-    subtitle={entry.data.subtitle}
-    tags={entry.data.tags}
+    title={project.title}
+    subtitle={project.subtitle}
+    tags={project.tags}
     color="gold"
     backLink="/projects"
     backText="Projects"
@@ -27,10 +38,10 @@ const { Content } = await entry.render();
     >
         <!-- Display project image if available -->
         {
-            entry.data.image && (
+            project.image && (
                 <img
-                    src={entry.data.image}
-                    alt={entry.data.title}
+                    src={project.image}
+                    alt={project.title}
                     class="w-full h-auto object-cover max-h-[500px]"
                 />
             )
@@ -38,18 +49,22 @@ const { Content } = await entry.render();
     </div>
 
     <div class="flex gap-4 mb-12 not-prose">
-        <a
-            href={entry.data.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="px-6 py-3 rounded-lg bg-neon-gold text-black font-bold hover:bg-white transition-colors"
-        >
-            View Source Code
-        </a>
         {
-            entry.data.viewLink && (
+            project.viewLink && (
                 <a
-                    href={entry.data.viewLink}
+                    href={project.viewLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="px-6 py-3 rounded-lg bg-neon-gold text-black font-bold hover:bg-white transition-colors"
+                >
+                    View Source Code
+                </a>
+            )
+        }
+        {
+            project.link && project.link !== `/projects/${project.slug}` && (
+                <a
+                    href={project.link}
                     target="_blank"
                     rel="noopener noreferrer"
                     class="px-6 py-3 rounded-lg border border-neon-gold text-neon-gold font-bold hover:bg-neon-gold/10 transition-colors"
@@ -60,5 +75,9 @@ const { Content } = await entry.render();
         }
     </div>
 
-    <Content />
+    <!-- Render markdown content -->
+    <div
+        class="prose prose-invert prose-lg max-w-none"
+        set:html={contentHtml}
+    />
 </DetailLayout>

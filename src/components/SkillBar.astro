@@ -1,20 +1,11 @@
 ---
-const skills = [
-    "C++",
-    "Python",
-    "Java",
-    "Typescript",
-    "React",
-    "Astro",
-    "Tailwind",
-    "Docker",
-    "Kubernetes",
-    "PyTorch",
-    "TensorFlow",
-    "Linux",
-    "Git",
-];
+import { getEntry } from "astro:content";
 import TechTooltip from "./TechTooltip.astro";
+
+// Load first 13 skills from YAML for the bar
+const skillsEntry = await getEntry("skills", "data");
+const allSkills = skillsEntry?.data || [];
+const skills = allSkills.slice(0, 13).map((s) => s.name);
 ---
 
 <div

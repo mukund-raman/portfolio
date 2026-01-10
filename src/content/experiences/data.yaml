@@ -1,0 +1,403 @@
+# Existing Experiences (8)
+
+- slug: "senior-swe"
+  role: "Senior Software Engineer"
+  company: "Amazon"
+  date: "2024 - Present"
+  description: "Leading the development of cloud-native microservices architecture serving millions of users. Architected a distributed event-driven system using Kafka and Redis, reducing latency by 40%. Mentoring junior developers and establishing code quality standards across teams through comprehensive code reviews and technical documentation."
+  skills: ["Go", "Kubernetes", "AWS", "PostgreSQL", "Kafka"]
+  color: "red"
+  content: |
+    ## Overview
+
+    At Amazon, I serve as a Senior Software Engineer in the Platform Engineering division. My primary responsibility is to architect and maintain the core infrastructure that powers our high-scale consumer applications.
+
+    ## Key Responsibilities
+
+    - **Architectural Leadership**: Designed and implemented a migration strategy from a monolithic application to a microservices architecture, improving system scalability and developer velocity.
+    - **Performance Optimization**: Identified bottlenecks in our data ingestion pipeline and implemented a caching layer using Redis, which reduced average response times from 300ms to 50ms.
+    - **Mentorship**: Actively mentoring 3 junior developers, conducting code reviews, and organizing weekly technical knowledge-sharing sessions.
+
+    ## Technical Highlights
+
+    ### Event-Driven Architecture
+    I led the design and implementation of an event-driven architecture using **Apache Kafka** to handle real-time user activity data. This system processes over 50,000 events per second with 99.99% reliability.
+
+    ### Kubernetes Orchestration
+    Managed the deployment of over 50 microservices on **AWS EKS**. Implemented auto-scaling policies based on custom metrics to handle traffic spikes during peak hours, reducing infrastructure costs by 20%.
+
+    ## Technologies Used
+    - **Languages**: Go, Python
+    - **Infrastructure**: Kubernetes, Terraform, AWS
+    - **Data**: PostgreSQL, Redis, Kafka
+
+- slug: "ml-engineer-openai"
+  role: "Machine Learning Engineer"
+  company: "OpenAI"
+  date: "2023 - 2024"
+  description: "Contributed to RLHF pipelines for large language model alignment. Optimized inference engines for lower latency. Collaborated with research teams to productionalize experimental models."
+  skills: ["Python", "PyTorch", "Kubernetes", "Redis", "Docker"]
+  color: "purple"
+  content: |
+    ## Role Overview
+
+    Worked with the alignment team to improve model safety and helpfulness. Focus was on scalable data pipelines and efficient training infrastructure.
+
+    ## Key Projects
+
+    ### RLHF Pipeline
+    Built a robust data pipeline for Reinforcement Learning from Human Feedback, processing millions of preference pairs daily.
+
+    ### Inference Optimization
+    Reduced model inference latency by 30% through kernel fusion and quantization techniques.
+
+- slug: "swe-google"
+  role: "Software Engineer II"
+  company: "Google"
+  date: "2021 - 2024"
+  description: "Developed scalable backend services for Google Cloud. Optimized database queries and improved API latency. Collaborated with cross-functional teams to launch new features."
+  skills: ["Python", "C++", "Go", "TensorFlow", "Kubernetes"]
+  color: "cyan"
+  content: |
+    ## Role Overview
+
+    As a Software Engineer at Google, I worked on the core infrastructure for Google Cloud Platform. This role allowed me to work with massive scale systems.
+
+    ## Key Projects
+
+    ### Cloud API Optimization
+    Optimized the response time of critical cloud management APIs by 25% through efficient caching and query optimization.
+
+    ### Internal Tools
+    Built internal tooling to streamline the deployment process for thousands of engineers, reducing deployment time by 15%.
+
+    ## Growth
+    - Gained deep expertise in distributed systems.
+    - Learned best practices for code quality and testing at scale.
+
+- slug: "frontend-eng-meta"
+  role: "Frontend Engineer"
+  company: "Meta"
+  date: "2020 - 2021"
+  description: "Developed user-facing features for Instagram Web. focused on performance and accessibility. Implemented a new design system component library used by 100+ internal developers."
+  skills: ["React", "Typescript", "GraphQL", "Jest", "CSS"]
+  color: "gold"
+  content: |
+    ## Role Overview
+
+    Part of the Instagram Web performance team. Responsible for core user flows and interaction responsiveness.
+
+    ## Key Projects
+
+    ### Accessibility Overhaul
+    Led the initiative to make Instagram Web WCAG 2.1 compliant, improving usability for millions of users.
+
+    ### Component Library
+    Architected a new internal UI library using React and Flow, standardizing design patterns across the organization.
+
+- slug: "research-assistant-mit"
+  role: "Research Assistant"
+  company: "MIT CSAIL"
+  date: "2019 - 2020"
+  description: "Conducted research on computer vision for autonomous navigation. Published a paper at CVPR. Developed a simulation environment for testing reinforcement learning agents."
+  skills: ["Python", "TensorFlow", "C++", "Linux", "Git"]
+  color: "red"
+  content: |
+    ## Research Focus
+
+    Worked in the Robust Robotics Group under Professor [Name]. Focused on visual SLAM and semantic segmentation for robot perception.
+
+    ## Key Contributions
+
+    ### Simulator
+    Built a high-fidelity simulator using Unity and C++ to train RL agents for obstacle avoidance in cluttered environments.
+
+    ### CVPR Paper
+    Co-authored a paper on "Robust Visual Navigation in Dynamic Environments" accepted at CVPR 2020.
+
+- slug: "swe-intern-microsoft"
+  role: "Software Engineering Intern"
+  company: "Microsoft"
+  date: "Summer 2019"
+  description: "Worked on the Azure Storage team. Implemented a new feature for blob tiering policy management. Gained experience with high-availability distributed systems."
+  skills: ["C#", "Azure", "JavaScript", "SQL", "Git"]
+  color: "purple"
+  content: |
+    ## Internship Overview
+
+    Azure Storage team. Tasked with improving the developer experience for managing data lifecycle policies.
+
+    ## Project
+
+    ### Policy Manager
+    Built a full-stack dashboard allowing users to visualize and simulate their blob storage lifecycle policies before applying them, preventing costly misconfigurations.
+
+- slug: "ta-stanford"
+  role: "Teaching Assistant"
+  company: "Stanford University"
+  date: "2018 - 2019"
+  description: "TA for CS106B (Programming Abstractions). Led weekly sections, held office hours, and graded assignments for a class of 300+ students. Mentored students on data structures and algorithms."
+  skills: ["C++", "Teaching", "Algorithms", "Data Structures", "Public Speaking"]
+  color: "cyan"
+  content: |
+    ## Course Overview
+
+    CS106B covers advanced programming topics including recursion, dynamic data structures, and algorithms.
+
+    ## Responsibilities
+
+    - **Section Leading**: Taught a weekly 2-hour section for 15 students, reviewing course material and solving practice problems.
+    - **Grading**: Evaluated code style and correctness for bi-weekly programming assignments.
+
+- slug: "web-dev-intern-tesla"
+  role: "Web Development Intern"
+  company: "Tesla"
+  date: "Summer 2018"
+  description: "Interned with the internal tools team. Built a dashboard for monitoring factory production metrics. Learned about real-time data visualization."
+  skills: ["React", "D3.js", "Python", "Flask", "SQL"]
+  color: "gold"
+  content: |
+    ## Internship Overview
+
+    Factory Software team. Focused on visualization tools for production line efficiency.
+
+    ## Project
+
+    ### Production Dashboard
+    Developed a real-time dashboard using React and D3.js to display key performance indicators (KPIs) from the assembly line, replacing a legacy Excel-based reporting system.
+
+# New Experiences (~10)
+
+- slug: "staff-eng-netflix"
+  role: "Staff Software Engineer"
+  company: "Netflix"
+  date: "2022 - 2024"
+  description: "Led the design and implementation of Netflix's new API gateway serving 200M+ users globally. Improved streaming service reliability and reduced video startup time by 35%."
+  skills: ["Java", "Kubernetes", "AWS", "Redis", "GraphQL"]
+  color: "red"
+  content: |
+    ## Overview
+
+    Worked on the Edge Gateway team responsible for the global API infrastructure that powers all Netflix client applications.
+
+    ## Key Achievements
+
+    ### API Gateway Redesign
+    Led a team of 5 engineers to redesign Netflix's API gateway from scratch, introducing GraphQL federation and reducing client roundtrips by 60%.
+
+    ### Video Startup Optimization
+    Identified and eliminated network latency bottlenecks in the video initialization flow, improving play delay from 2.1s to 1.4s globally.
+
+    ### Chaos Engineering
+    Implemented automated chaos engineering tests that run in production, improving service resilience and catching edge cases before users encounter them.
+
+    ## Technologies
+    - Backend: Java Spring Boot
+    - Orchestration: Kubernetes on AWS
+    - Data Layer: Cassandra, Redis
+    - Observability: Grafana, Prometheus
+
+- slug: "backend-eng-uber"
+  role: "Backend Engineer"
+  company: "Uber"
+  date: "2021 - 2022"
+  description: "Built and scaled real-time dispatch systems for Uber's ride-sharing platform. Implemented geospatial indexing and matching algorithms serving millions of concurrent users."
+  skills: ["Go", "PostgreSQL", "Kafka", "Redis"]
+  color: "cyan"
+  content: |
+    ## Overview
+
+    Part of the Marketplace team responsible for matching riders with drivers in real-time across hundreds of cities globally.
+
+    ## Projects
+
+    ### Geospatial Matching Engine
+    Rewrote the geospatial indexing system using Go and PostGIS, reducing average match time from 8 seconds to 3 seconds.
+
+    ### Surge Pricing V2
+    Implemented a new surge pricing algorithm that better balanced supply and demand while being more transparent to users.
+
+    ## Impact
+    - Processed 10M+ matches per day
+    - Improved driver utilization by 18%
+    - Reduced rider wait times in dense areas by 25%
+
+- slug: "sre-stripe"
+  role: "Site Reliability Engineer"
+  company: "Stripe"
+  date: "2020 - 2021"
+  description: "Ensured 99.999% uptime for Stripe's payment processing infrastructure. Built monitoring and alerting systems, automated incident response, and improved deployment pipelines."
+  skills: ["Python", "Kubernetes", "Terraform", "PostgreSQL"]
+  color: "purple"
+  content: |
+    ## Responsibilities
+
+    Maintained the reliability and performance of payment processing systems handling billions of dollars in transactions annually.
+
+    ## Key Contributions
+
+    ### Incident Response Automation
+    Built an automated runbook execution system that reduced mean time to recovery (MTTR) from 15 minutes to 5 minutes for common incidents.
+
+    ### Observability Platform
+    Designed and implemented a centralized logging and metrics platform using the ELK stack and Prometheus, providing real-time visibility into system health.
+
+    ### Zero-Downtime Deployments
+    Implemented blue-green deployment strategies for critical payment services, achieving zero-downtime releases for the first time.
+
+- slug: "fullstack-airbnb"
+  role: "Full-Stack Engineer"
+  company: "Airbnb"
+  date: "2019 - 2020"
+  description: "Developed features for Airbnb's booking platform and host dashboard. Improved search performance and built analytics tools for hosts to optimize their listings."
+  skills: ["React", "Ruby", "PostgreSQL", "Redis"]
+  color: "gold"
+  content: |
+    ## Overview
+
+    Worked on the Guest and Host Experience teams, building features that directly impacted booking conversion and host satisfaction.
+
+    ## Projects
+
+    ### Smart Pricing Recommendations
+    Built a machine learning-powered pricing suggestion tool for hosts, increasing booking rates by 12% for hosts who adopted the recommendations.
+
+    ### Search Performance
+    Optimized the search results page to load 40% faster by implementing server-side rendering and intelligent caching strategies.
+
+    ### Host Analytics Dashboard
+    Created a comprehensive analytics dashboard showing hosts detailed metrics about their listing performance, views, and conversion rates.
+
+- slug: "ml-intern-shopify"
+  role: "Machine Learning Intern"
+  company: "Shopify"
+  date: "Summer 2019"
+  description: "Developed fraud detection models for e-commerce transactions. Implemented real-time scoring systems and improved model accuracy by 15%."
+  skills: ["Python", "TensorFlow", "PostgreSQL"]
+  color: "cyan"
+  content: |
+    ## Internship Focus
+
+    Worked with the Risk and Trust team to build machine learning models that detect fraudulent transactions in real-time.
+
+    ## Project
+
+    ### Fraud Detection Pipeline
+    Built an end-to-end ML pipeline from data ingestion to model serving, processing millions of transactions daily.
+
+    ### Feature Engineering
+    Discovered novel features combining transaction history, device fingerprinting, and behavioral patterns that improved model precision by 15% while maintaining recall.
+
+    ## Results
+    - Prevented $2M+ in fraudulent transactions during internship
+    - Model deployed to production and serving 100% of Shopify merchants
+
+- slug: "data-eng-coinbase"
+  role: "Data Engineer"
+  company: "Coinbase"
+  date: "2020 - 2021"
+  description: "Built data pipelines for crypto trading analytics. Processed billions of trades and market data events daily. Implemented real-time anomaly detection for trading patterns."
+  skills: ["Python", "Apache Spark", "Kafka", "PostgreSQL"]
+  color: "red"
+  content: |
+    ## Overview
+
+    Part of the Data Platform team responsible for collecting, processing, and serving trading and market data to analysts and traders.
+
+    ## Key Projects
+
+    ### Real-Time Analytics Pipeline
+    Built a streaming data pipeline using Kafka and Spark Streaming to process trade executions and order book updates with sub-second latency.
+
+    ### Data Warehouse
+    Designed and implemented a Snowflake-based data warehouse for historical trading data, enabling complex analytical queries across petabytes of data.
+
+    ### Anomaly Detection
+    Developed real-time anomaly detection algorithms to identify unusual trading patterns and potential market manipulation.
+
+- slug: "devops-eng-ibm"
+  role: "DevOps Engineer"
+  company: "IBM"
+  date: "2019 - 2020"
+  description: "Automated infrastructure provisioning and deployment for enterprise cloud services. Reduced deployment time by 70% through CI/CD pipeline improvements."
+  skills: ["Terraform", "Kubernetes", "Jenkins", "Python"]
+  color: "purple"
+  content: |
+    ## Role Overview
+
+    Worked on the Cloud Infrastructure team, automating the deployment and management of IBM Cloud services.
+
+    ## Achievements
+
+    ### Infrastructure as Code
+    Migrated 50+ legacy services to Terraform-managed infrastructure, enabling version control and automated provisioning.
+
+    ### CI/CD Pipeline
+    Built a comprehensive CI/CD pipeline using Jenkins and GitLab CI, reducing deployment time from 2 hours to 15 minutes.
+
+    ### Monitoring and Alerting
+    Implemented comprehensive monitoring using Prometheus and Grafana, reducing mean time to detection (MTTD) for outages.
+
+- slug: "backend-salesforce"
+  role: "Backend Developer"
+  company: "Salesforce"
+  date: "2018 - 2019"
+  description: "Developed APIs and backend services for Salesforce CRM platform. Improved query performance and implemented new integrations with third-party services."
+  skills: ["Java", "SQL", "AWS", "Redis"]
+  color: "cyan"
+  content: |
+    ## Overview
+
+    Worked on the Platform Services team, building and maintaining core backend APIs used by millions of Salesforce customers.
+
+    ## Projects
+
+    ### API Performance Optimization
+    Identified and resolved N+1 query problems in critical API endpoints, improving response times by 50%.
+
+    ### Third-Party Integrations
+    Built integration adapters for popular business tools (Slack, Zoom, DocuSign), expanding Salesforce's ecosystem.
+
+- slug: "swe-intern-oracle"
+  role: "Software Engineering Intern"
+  company: "Oracle"
+  date: "Summer 2018"
+  description: "Contributed to Oracle Database Cloud Service. Implemented automated testing frameworks and fixed critical bugs in the database management console."
+  skills: ["Java", "SQL", "JavaScript", "Git"]
+  color: "gold"
+  content: |
+    ## Internship Overview
+
+    Worked with the Database Cloud team on improving the management console for Oracle Database as a Service.
+
+    ## Contributions
+
+    ### Automated Testing
+    Built a Selenium-based automated testing framework for the web console, increasing test coverage from 40% to 75%.
+
+    ### Bug Fixes
+    Resolved 15+ critical bugs in the database provisioning workflow, improving customer satisfaction scores.
+
+- slug: "frontend-intern-adobe"
+  role: "Frontend Engineering Intern"
+  company: "Adobe"
+  date: "Summer 2017"
+  description: "Worked on Adobe Creative Cloud web applications. Built UI components for asset management and improved accessibility across the platform."
+  skills: ["React", "JavaScript", "CSS", "Node.js"]
+  color: "red"
+  content: |
+    ## Internship Focus
+
+    Worked on the Creative Cloud Web team, building modern web interfaces for creative professionals.
+
+    ## Projects
+
+    ### Component Library
+    Contributed to Adobe's internal React component library (React Spectrum), building reusable UI components used across multiple products.
+
+    ### Accessibility Improvements
+    Conducted accessibility audits and implemented fixes to meet WCAG 2.1 AA standards across the Creative Cloud web apps.
+
+    ## Learning
+    - Gained experience with design systems and component-driven development
+    - Learned best practices for accessible web development

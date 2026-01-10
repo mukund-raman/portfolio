@@ -1,18 +1,20 @@
 ---
-import { getCollection } from "astro:content";
+import { getEntry } from "astro:content";
 import Layout from "../layouts/Layout.astro";
 import Card from "../components/Card.astro";
 
-const allBooks = await getCollection("books");
+const booksEntry = await getEntry("books", "data");
+const allBooks = booksEntry?.data || [];
 const books = allBooks.map((book) => ({
-    ...book.data,
+    ...book,
     // Add link to detailed page (we'll need to update the card/display to use this link)
     link: `/interests/books/${book.slug}`,
 }));
 
-const allPapers = await getCollection("papers");
+const papersEntry = await getEntry("papers", "data");
+const allPapers = papersEntry?.data || [];
 const papers = allPapers.map((paper) => ({
-    ...paper.data,
+    ...paper,
     // Add link to detailed page
     link: `/interests/papers/${paper.slug}`,
 }));

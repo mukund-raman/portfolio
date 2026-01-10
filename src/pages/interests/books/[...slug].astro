@@ -1,43 +1,105 @@
 ---
-import { getCollection } from "astro:content";
+import { getEntry } from "astro:content";
 import DetailLayout from "../../../layouts/DetailLayout.astro";
+import { marked } from "marked";
 
 export async function getStaticPaths() {
-    const books = await getCollection("books");
-    return books.map((entry) => ({
-        params: { slug: entry.slug },
-        props: { entry },
+    const booksEntry = await getEntry("books", "data");
+    const books = booksEntry?.data || [];
+
+    return books.map((book) => ({
+        params: { slug: book.slug },
+        props: { book },
     }));
 }
 
-const { entry } = Astro.props;
-const { Content } = await entry.render();
+const { book } = Astro.props;
+
+// Configure marked for better rendering
+marked.setOptions({
+    gfm: true,
+    breaks: true,
+});
+
+// Render markdown content to HTML
+const contentHtml = book.content ? marked(book.content) : "";
 ---
 
 <DetailLayout
-    title={entry.data.title}
-    subtitle={entry.data.author}
-    date={`Read: ${entry.data.dateRead} | Rating: ${entry.data.rating}/5`}
+    title={book.title}
+    subtitle={`by ${book.author}`}
+    tags={book.tags || []}
     color="orange"
     backLink="/interests"
     backText="Interests"
 >
-    <div class="flex flex-col md:flex-row gap-8 mb-12 not-prose">
-        <div class="w-full md:w-1/3 max-w-[250px] mx-auto md:mx-0">
-            <div
-                class="aspect-[2/3] rounded-lg overflow-hidden border border-white/10 shadow-2xl"
-            >
-                <img
-                    src={entry.data.cover}
-                    alt={entry.data.title}
-                    class="w-full h-full object-cover"
-                />
-            </div>
+    <div class="grid md:grid-cols-3 gap-8 mb-12">
+        <!-- Book cover -->
+        <div class="md:col-span-1">
+            {
+                book.cover && (
+                    <div class="rounded-xl overflow-hidden border border-white/10 bg-white/5 sticky top-24">
+                        <img
+                            src={book.cover}
+                            alt={book.title}
+                            class="w-full h-auto object-cover"
+                        />
+                        {book.rating && (
+                            <div class="p-4 bg-black/40 backdrop-blur-sm">
+                                <div class="flex items-center gap-2">
+                                    <span class="text-orange-500 font-bold">
+                                        Rating:
+                                    </span>
+                                    <div class="flex gap-1">
+                                        {Array.from({ length: 5 }).map(
+                                            (_, i) => (
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    width="16"
+                                                    height="16"
+                                                    viewBox="0 0 24 24"
+                                                    fill={
+                                                        i < (book.rating || 0)
+                                                            ? "currentColor"
+                                                            : "none"
+                                                    }
+                                                    stroke="currentColor"
+                                                    stroke-width="2"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    class="text-orange-500"
+                                                >
+                                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                                                </svg>
+                                            ),
+                                        )}
+                                    </div>
+                                    <span class="text-gray-400">
+                                        {book.rating}/5
+                                    </span>
+                                </div>
+                                {book.dateRead && (
+                                    <div class="mt-2 text-sm text-gray-400">
+                                        Read: {book.dateRead}
+                                    </div>
+                                )}
+                            </div>
+                        )}
+                    </div>
+                )
+            }
         </div>
-        <div class="flex-1">
-            <!-- Content will be rendered here via slot, but adding extra context if needed -->
+
+        <!-- Book content -->
+        <div class="md:col-span-2">
+            {
+                contentHtml && (
+                    <div
+                        class="prose prose-invert prose-lg max-w-none"
+                        set:html={contentHtml}
+                    />
+                )
+            }
         </div>
     </div>
-
-    <Content />
 </DetailLayout>

@@ -1,20 +1,19 @@
 ---
-import { getCollection } from "astro:content";
+import { getEntry } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 import Card from "../../components/Card.astro";
 
-const allPosts = await getCollection("blog");
+const blogEntry = await getEntry("blog", "data");
+const allPosts = blogEntry?.data || [];
 const posts = allPosts
     .sort((a, b) => {
-        return (
-            new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
-        );
+        return new Date(b.date).getTime() - new Date(a.date).getTime();
     })
     .map((post) => ({
-        ...post.data,
+        ...post,
         link: `/blog/${post.slug}`,
         // Card expects 'purple' color for blog posts
-        color: post.data.color || "purple",
+        color: post.color || "purple",
     }));
 ---
 

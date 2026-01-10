@@ -1,0 +1,863 @@
+# Existing Projects (4)
+
+- slug: "portfolio-v2"
+  title: "Portfolio v2"
+  subtitle: "Web Development"
+  date: "Jan 2026"
+  description: "A high-performance personal portfolio built with Astro, Tailwind v4, and a custom neon cyberpunk aesthetic."
+  tags: ["Astro", "Tailwind", "Vercel"]
+  link: "/projects/portfolio-v2"
+  viewLink: "https://github.com/mkraman/portfolio"
+  image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&h=400&fit=crop"
+  color: "gold"
+  isFeatured: true
+  content: |
+    ## Overview
+
+    This portfolio represents a complete redesign of my personal brand, moving from a standard React SPA to a high-performance static site generated with **Astro**. The goal was to achieve perfect Lighthouse scores while maintaining a rich, interactive user experience with a "Cyberpunk/Neon" aesthetic.
+
+    ![Code Screenshot](https://images.unsplash.com/photo-1555099962-4199c345e5dd?q=80&w=2000&auto=format&fit=crop)
+
+    ## Tech Stack
+
+    - **Astro**: For zero-JS by default and islands architecture.
+    - **Tailwind CSS v4**: For utility-first styling and JIT compilation.
+    - **TypeScript**: For type safety across the entire codebase.
+    - **Vercel**: for edge deployment and CI/CD.
+
+    ## Key Features
+
+    ### 1. Circuit Board Background
+    I implemented a custom procedural generation algorithm to create the background circuit lines that connect nodes dynamically.
+
+    ```javascript
+    // Simplified circuit generation logic
+    function generateCircuit(width, height) {
+        const grid = createGrid(width, height);
+        const start = getRandomPoint();
+        // ... pathfinding A* algorithm
+        return path;
+    }
+    ```
+
+    ### 2. View Transitions
+    Using Astro's View Transitions API, page navigations feel like a native app, with elements morphing between states.
+
+    ## Performance
+
+    The switch to Astro resulted in a **95% reduction in main-thread blocking time** compared to the previous Next.js version.
+
+    | Metric | Previous (Next.js) | Current (Astro) |
+    | :--- | :--- | :--- |
+    | LCP | 1.2s | 0.8s |
+    | TTI | 2.5s | 0.4s |
+    | Bundle Size | 450kb | 42kb |
+
+    ## Future Improvements
+
+    - Add a 3D interactive element using Three.js.
+    - Implement a CMS backend for easier blog posting.
+
+- slug: "ecosense"
+  title: "EcoSense"
+  subtitle: "IoT & ML"
+  date: "Nov 2025"
+  description: "Smart agriculture system using ESP32 sensors and TFlite for disease detection in crops."
+  tags: ["C++", "Python", "TensorFlow Lite"]
+  link: "/projects/ecosense"
+  image: "https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?w=600&h=400&fit=crop"
+  color: "gold"
+  isFeatured: true
+  content: |
+    ## Project Overview
+
+    **EcoSense** is an IoT solution designed to help small-scale farmers monitor crop health and environmental conditions in real-time. By deploying a network of low-power ESP32 microcontrollers, the system collects data on soil moisture, temperature, and humidity, while a local camera module checks for early signs of leaf disease.
+
+    ![IoT Setup](https://images.unsplash.com/photo-1558002038-1055907df827?q=80&w=2000&auto=format&fit=crop)
+
+    ## Architecture
+
+    The system consists of three main layers:
+
+    1.  **Edge Layer**: ESP32 + ESP32-CAM running TensorFlow Lite models.
+    2.  **Connectivity Layer**: MQTT protocol over WiFi/LoRaWAN.
+    3.  **Cloud Layer**: AWS IoT Core + Lambda for data processing.
+
+    ## Machine Learning on the Edge
+
+    Running ML on a microcontroller with 520KB RAM was a significant challenge. I used **quantization** to reduce the model size.
+
+    ```cpp
+    // Loading the quantized model on ESP32
+    #include "model_quantized.h"
+
+    void setup() {
+        tflite::MicroErrorReporter micro_error_reporter;
+        model = tflite::GetModel(g_model_quantized_data);
+        
+        // Define tensor arena
+        constexpr int kTensorArenaSize = 60 * 1024;
+        static uint8_t tensor_arena[kTensorArenaSize];
+    }
+    ```
+
+    ## Results
+
+    - **92% accuracy** in detecting Tomato Blight.
+    - **30% reduction** in water usage through smart irrigation triggers.
+    - Battery life extended to **6 months** using deep sleep cycles.
+
+- slug: "distributed-kv-store"
+  title: "Distributed KV Store"
+  subtitle: "Systems"
+  date: "Aug 2025"
+  description: "Fault-tolerant key-value store using Raft consensus algorithm."
+  tags: ["Go", "Distributed Systems"]
+  link: "/projects/distributed-kv-store"
+  image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&h=400&fit=crop"
+  color: "gold"
+  isFeatured: false
+  content: |
+    ## What is it?
+
+    A distributed, sharded Key-Value store inspired by DynamoDB and Etcd. It is capable of handling node failures transparently and maintaining strict consistency guarantees using the **Raft Consensus Algorithm**.
+
+    ## System Design
+
+    The system is composed of several components:
+
+    1.  **Gateway Service**: Routes client requests to the correct shard.
+    2.  **Shard Masters**: Maintain the mapping of keys to shards.
+    3.  **Data Nodes**: Store the actual data and replicate logs.
+
+    ### Leader Election
+
+    One of the most complex parts of Raft is Leader Election. When a follower doesn't hear from a leader within a randomized timeout, it becomes a candidate.
+
+    ```go
+    func (rf *Raft) ticker() {
+        for !rf.killed() {
+            // Check if we received a heartbeat
+            if time.Since(rf.lastHeartbeat) > rf.electionTimeout {
+                rf.startElection()
+            }
+            time.Sleep(10 * time.Millisecond)
+        }
+    }
+    ```
+
+    ## Features
+
+    - **Sharding**: Consistent hashing ring for even data distribution.
+    - **Replication**: 3x replication factor for fault tolerance.
+    - **Strong Consistency**: Linearizability for all read/write operations.
+
+    ## Challenges
+
+    Debugging distributed systems is notoriously difficult due to non-determinism. I built a discrete-event simulator to test network partitions, packet drops, and random node crashes to verify the correctness of the consensus logic.
+
+- slug: "neural-style-transfer"
+  title: "Neural Style Transfer"
+  subtitle: "Computer Vision"
+  date: "Oct 2025"
+  description: "Implementation of artistic style transfer using VGG19 network."
+  tags: ["PyTorch", "Deep Learning"]
+  link: "/projects/neural-style-transfer"
+  image: "https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8?w=600&h=400&fit=crop"
+  color: "gold"
+  isFeatured: false
+  content: |
+    ## Introduction
+
+    This project reproduces the results from the famous paper *A Neural Algorithm of Artistic Style* (Gatys et al.). By defining a content loss and a style loss, we can iteratively update a noise image to match the content of one photo and the artistic style of another.
+
+    ![Artistic Style Transfer](https://images.unsplash.com/photo-1549490349-8643362247b5?q=80&w=2000&auto=format&fit=crop)
+
+    ## Loss Functions
+
+    The magic happens in how we define "style". The style representation is computed using the **Gram Matrix** of the feature maps from intermediate layers of a VGG-19 network.
+
+    ### The Gram Matrix
+
+    $$
+    G_{ij}^l = \sum_k F_{ik}^l F_{jk}^l
+    $$
+
+    Where $F$ represents the feature map.
+
+    ```python
+    def gram_matrix(input):
+        a, b, c, d = input.size() 
+        # a=batch size(=1)
+        # b=number of feature maps
+        # (c,d)=dimensions of a f. map (N=c*d)
+
+        features = input.view(a * b, c * d)
+        G = torch.mm(features, features.t())
+
+        return G.div(a * b * c * d)
+    ```
+
+    ## Implementation Details
+
+    - **Framework**: PyTorch
+    - **Model**: Pre-trained VGG-19 (features only)
+    - **Optimizer**: L-BFGS (converges faster than Adam for this specific task)
+
+    ## Gallery
+
+    I experimented with various style images, including *Starry Night* (Van Gogh) and *The Great Wave off Kanagawa*. The results show how the network captures textures—swirls, brush strokes, and geometric patterns—and applies them to photographs.
+
+# New Projects (~10)
+
+- slug: "realtime-chat-app"
+  title: "Real-time Chat Application"
+  subtitle: "Full-Stack Development"
+  date: "Sep 2025"
+  description: "WebSocket-based chat application with Redis pub/sub for horizontal scaling across multiple servers."
+  tags: ["Node.js", "React", "Redis", "WebSockets"]
+  link: "/projects/realtime-chat-app"
+  viewLink: "https://github.com/mkraman/realtime-chat"
+  image: "https://images.unsplash.com/photo-1611606063065-7597e5f0f61c?w=600&h=400&fit=crop"
+  color: "gold"
+  isFeatured: true
+  content: |
+    ## Overview
+
+    A production-grade real-time chat application supporting private messaging, group chats, and presence detection. Built to scale horizontally using Redis pub/sub for message distribution across multiple server instances.
+
+    ![Chat Interface](https://images.unsplash.com/photo-1587620962725-abab7fe55159?q=80&w=2000&auto=format&fit=crop)
+
+    ## Technical Architecture
+
+    ### WebSocket Server
+    - **Socket.io** for WebSocket management with fallback to long-polling
+    - Connection pooling and heartbeat mechanism for connection health
+    - JWT-based authentication for secure WebSocket connections
+
+    ### Scaling Strategy
+    - Redis pub/sub for broadcasting messages across server instances
+    - Sticky sessions using Nginx for load balancing
+    - Horizontal pod autoscaling in Kubernetes based on active connections
+
+    ```javascript
+    // Redis pub/sub for cross-server messaging
+    const redis = require('redis');
+    const subscriber = redis.createClient();
+    const publisher = redis.createClient();
+
+    subscriber.subscribe('chat-messages');
+    subscriber.on('message', (channel, message) => {
+        const msg = JSON.parse(message);
+        io.to(msg.roomId).emit('message', msg);
+    });
+    ```
+
+    ## Features
+
+    - **Real-time Messaging**: Sub-100ms message delivery
+    - **Typing Indicators**: Live feedback when users are composing messages
+    - **Read Receipts**: Track message delivery and read status
+    - **File Sharing**: Image and document upload with preview
+    - **Emoji Reactions**: Quick reactions to messages
+    - **Search**: Full-text search across conversation history
+
+    ## Performance Metrics
+
+    - Handles **10,000+ concurrent connections** per server instance
+    - Average message latency: **75ms**
+    - 99th percentile latency: **200ms**
+
+- slug: "ecommerce-platform"
+  title: "E-Commerce Platform"
+  subtitle: "Full-Stack Development"
+  date: "Jul 2025"
+  description: "Headless e-commerce platform with Stripe integration and inventory management."
+  tags: ["Next.js", "PostgreSQL", "Stripe"]
+  link: "/projects/ecommerce-platform"
+  viewLink: "https://github.com/mkraman/ecommerce"
+  image: "https://images.unsplash.com/photo-1557821552-17105176677c?w=600&h=400&fit=crop"
+  color: "gold"
+  isFeatured: false
+  content: |
+    ## Project Summary
+
+    A modern headless e-commerce platform built with Next.js and Stripe. Features include product catalog, shopping cart, checkout, order management, and an admin dashboard for inventory control.
+
+    ## Key Features
+
+    ### Payment Processing
+    - Stripe Checkout for secure payment collection
+    - Support for multiple payment methods (cards, Apple Pay, Google Pay)
+    - Automatic tax calculation based on shipping address
+    - Subscription billing for recurring products
+
+    ### Inventory Management
+    - Real-time stock tracking with low-stock alerts
+    - Variant management (size, color, etc.)
+    - Bulk import/export via CSV
+    - Automatic reorder point notifications
+
+    ```typescript
+    // Optimistic inventory locking
+    async function reserveInventory(productId: string, quantity: number) {
+        const result = await db.query(
+            'UPDATE products SET stock = stock - $1 WHERE id = $2 AND stock >= $1 RETURNING *',
+            [quantity, productId]
+        );
+        
+        if (result.rowCount === 0) {
+            throw new Error('Insufficient stock');
+        }
+        
+        return result.rows[0];
+    }
+    ```
+
+    ## Tech Stack
+
+    - **Frontend**: Next.js 14 with App Router, Server Components
+    - **Backend**: Next.js API Routes, PostgreSQL
+    - **Payments**: Stripe API v3
+    - **Storage**: AWS S3 for product images
+    - **Search**: Algolia for fast product search
+
+    ## Performance
+
+    - **Core Web Vitals**: All green (LCP < 2.5s, FID < 100ms, CLS < 0.1)
+    - **SEO Score**: 95/100 on Lighthouse
+    - Product images lazy-loaded with BlurHash placeholders
+
+- slug: "code-review-bot"
+  title: "AI Code Review Bot"
+  subtitle: "DevOps & AI"
+  date: "Jun 2025"
+  description: "Automated code review assistant using GPT-4 for pull request analysis and suggestions."
+  tags: ["Python", "OpenAI", "GitHub Actions"]
+  link: "/projects/code-review-bot"
+  viewLink: "https://github.com/mkraman/code-review-bot"
+  image: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=600&h=400&fit=crop"
+  color: "gold"
+  isFeatured: false
+  content: |
+    ## Motivation
+
+    Code reviews are essential but time-consuming. This bot leverages GPT-4 to provide instant feedback on pull requests, catching common issues and suggesting improvements before human reviewers step in.
+
+    ## How It Works
+
+    1. **Trigger**: GitHub webhook on PR creation/update
+    2. **Analysis**: Extract diff and send to GPT-4 with custom prompts
+    3. **Comment**: Post inline comments on specific lines with suggestions
+
+    ```python
+    import openai
+    from github import Github
+
+    def review_pr(pr_number):
+        pr = repo.get_pull(pr_number)
+        diff = pr.get_files()
+        
+        for file in diff:
+            if file.patch:
+                response = openai.ChatCompletion.create(
+                    model="gpt-4",
+                    messages=[
+                        {"role": "system", "content": "You are a code reviewer."},
+                        {"role": "user", "content": f"Review this code:\n{file.patch}"}
+                    ]
+                )
+                
+                suggestion = response.choices[0].message.content
+                pr.create_review_comment(suggestion, file.sha, file.filename, 1)
+    ```
+
+    ## Review Categories
+
+    - **Code Quality**: Naming conventions, duplication, complexity
+    - **Security**: SQL injection, XSS, sensitive data exposure
+    - **Performance**: N+1 queries, inefficient algorithms
+    - **Best Practices**: Framework-specific patterns
+
+    ## Results
+
+    - **50% reduction** in time to first review
+    - **30% fewer** bugs merged to main
+    - Developers report learning from AI suggestions
+
+- slug: "fitness-tracker"
+  title: "Fitness Tracker PWA"
+  subtitle: "Mobile Development"
+  date: "May 2025"
+  description: "Progressive Web App for tracking workouts with offline support and data visualization."
+  tags: ["React", "IndexedDB", "Chart.js"]
+  link: "/projects/fitness-tracker"
+  viewLink: "https://github.com/mkraman/fitness-tracker"
+  image: "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=600&h=400&fit=crop"
+  color: "gold"
+  isFeatured: false
+  content: |
+    ## Overview
+
+    A Progressive Web App for fitness enthusiasts to log workouts, track progress, and visualize trends over time. Works offline and can be installed on any device.
+
+    ![Dashboard](https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2000&auto=format&fit=crop)
+
+    ## Features
+
+    ### Offline-First Architecture
+    - Service Worker caches app shell and assets
+    - IndexedDB stores workout data locally
+    - Background sync uploads data when online
+
+    ### Data Visualization
+    - Interactive charts showing progress over time
+    - Personal records tracking
+    - Volume load calculations
+
+    ```javascript
+    // Service Worker registration
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js').then(reg => {
+            console.log('SW registered', reg);
+        });
+    }
+
+    // IndexedDB wrapper
+    const db = await openDB('fitness-tracker', 1, {
+        upgrade(db) {
+            db.createObjectStore('workouts', { keyPath: 'id', autoIncrement: true });
+        }
+    });
+    ```
+
+    ## Technical Highlights
+
+    - **Installable**: Add to home screen on iOS and Android
+    - **Responsive**: Optimized layouts for mobile, tablet, desktop
+    - **Fast**: App shell loads in < 1 second
+    - **Reliable**: Works fully offline after first load
+
+    ## User Engagement
+
+    - Average session duration: **8 minutes**
+    - 70% of users install to home screen
+    - Daily active usage increased 3x after PWA launch
+
+- slug: "log-analyzer"
+  title: "Distributed Log Analyzer"
+  subtitle: "Data Engineering"
+  date: "Apr 2025"
+  description: "Stream processing pipeline for analyzing application logs in real-time using Apache Kafka and ClickHouse."
+  tags: ["Kafka", "Python", "ClickHouse"]
+  link: "/projects/log-analyzer"
+  viewLink: "https://github.com/mkraman/log-analyzer"
+  image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop"
+  color: "gold"
+  isFeatured: false
+  content: |
+    ## Problem Statement
+
+    Processing millions of log events per minute from microservices, extracting insights, and detecting anomalies in real-time.
+
+    ## Architecture
+
+    ```
+    App Servers → Kafka → Stream Processor → ClickHouse → Grafana
+    ```
+
+    ### Components
+    1. **Producers**: Apps send structured logs to Kafka topics
+    2. **Stream Processor**: Python consumers aggregate and enrich data
+    3. **Storage**: ClickHouse for column-oriented analytics
+    4. **Visualization**: Grafana dashboards for monitoring
+
+    ```python
+    from kafka import KafkaConsumer
+    import clickhouse_driver
+
+    consumer = KafkaConsumer('app-logs', bootstrap_servers=['localhost:9092'])
+    client = clickhouse_driver.Client('localhost')
+
+    for message in consumer:
+        log = json.loads(message.value)
+        
+        # Extract metrics
+        if log['level'] == 'ERROR':
+            client.execute(
+                'INSERT INTO error_logs VALUES',
+                [(log['timestamp'], log['service'], log['message'])]
+            )
+    ```
+
+    ## Features
+
+    - **Real-time Processing**: Sub-second latency from log to dashboard
+    - **Anomaly Detection**: Statistical models flag unusual patterns
+    - **Alerting**: PagerDuty integration for critical errors
+    - **Retention**: 30-day hot storage, 1-year cold storage in S3
+
+    ## Scale
+
+    - Processes **5M events/minute** at peak
+    - 99.9% delivery guarantee
+    - Sub-100ms query latency on ClickHouse
+
+- slug: "markdown-cms"
+  title: "Markdown-based CMS"
+  subtitle: "Content Management"
+  date: "Mar 2025"
+  description: "Git-based content management system with visual markdown editor and version control."
+  tags: ["Vue.js", "Node.js", "Git"]
+  link: "/projects/markdown-cms"
+  viewLink: "https://github.com/mkraman/markdown-cms"
+  image: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=600&h=400&fit=crop"
+  color: "gold"
+  isFeatured: false
+  content: |
+    ## Concept
+
+    A CMS where content is stored as Markdown files in a Git repository. Editors get a WYSIWYG interface, while developers maintain full control via Git.
+
+    ## Why Markdown + Git?
+
+    - **Version Control**: Every change is tracked with full history
+    - **Collaboration**: Built-in merge conflict resolution
+    - **Portability**: Content isn't locked in a database
+    - **Developer-Friendly**: Easy to migrate, backup, and script
+
+    ## Features
+
+    ### Visual Editor
+    - Split-pane editor with live preview
+    - Drag-and-drop image uploads
+    - Code syntax highlighting
+    - Keyboard shortcuts for formatting
+
+    ### Git Integration
+    ```javascript
+    const simpleGit = require('simple-git');
+    const git = simpleGit('/content');
+
+    async function savePost(filename, content) {
+        await fs.writeFile(`/content/${filename}`, content);
+        await git.add(filename);
+        await git.commit(`Update ${filename}`);
+        await git.push();
+    }
+    ```
+
+    ## Tech Stack
+
+    - **Frontend**: Vue 3 with Composition API
+    - **Editor**: ProseMirror for rich text editing
+    - **Backend**: Express.js with simple-git
+    - **Deployment**: Auto-deploy via webhooks to Netlify
+
+    ## Use Cases
+
+    - **Documentation Sites**: Technical docs with version control
+    - **Blogs**: Simple publishing workflow
+    - **Knowledge Bases**: Team wikis with Git backing
+
+- slug: "api-gateway"
+  title: "Custom API Gateway"
+  subtitle: "Backend Engineering"
+  date: "Feb 2025"
+  description: "High-performance API gateway with rate limiting, caching, and circuit breaker patterns."
+  tags: ["Go", "Redis", "Docker"]
+  link: "/projects/api-gateway"
+  viewLink: "https://github.com/mkraman/api-gateway"
+  image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&h=400&fit=crop"
+  color: "gold"
+  isFeatured: false
+  content: |
+    ## Overview
+
+    A custom-built API gateway in Go that sits in front of microservices, providing authentication, rate limiting, caching, and observability.
+
+    ## Core Features
+
+    ### Rate Limiting
+    Token bucket algorithm with Redis backend for distributed rate limiting.
+
+    ```go
+    func (r *RateLimiter) Allow(userID string) bool {
+        key := fmt.Sprintf("ratelimit:%s", userID)
+        tokens, _ := r.redis.Get(key).Int()
+        
+        if tokens < 1 {
+            return false
+        }
+        
+        r.redis.Decr(key)
+        return true
+    }
+    ```
+
+    ### Circuit Breaker
+    Prevents cascading failures by opening circuit after consecutive failures.
+
+    ### Response Caching
+    Redis-backed cache with TTL and cache invalidation strategies.
+
+    ## Performance
+
+    - **Latency Overhead**: < 5ms p99
+    - **Throughput**: 50k requests/second per instance
+    - **Memory**: 128MB average footprint
+
+    ## Observability
+
+    - Prometheus metrics for request counts, latency, errors
+    - Jaeger tracing for distributed request tracing
+    - Structured JSON logging
+
+    ## Deployment
+
+    Containerized with Docker, deployed on Kubernetes with horizontal autoscaling.
+
+- slug: "task-scheduler"
+  title: "Distributed Task Scheduler"
+  subtitle: "Backend Engineering"
+  date: "Jan 2025"
+  description: "Cron-like task scheduler with distributed locking and retry logic for background jobs."
+  tags: ["Python", "Redis", "PostgreSQL"]
+  link: "/projects/task-scheduler"
+  viewLink: "https://github.com/mkraman/task-scheduler"
+  image: "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=600&h=400&fit=crop"
+  color: "gold"
+  isFeatured: false
+  content: |
+    ## Problem
+
+    Running background tasks reliably in a distributed environment without duplicate execution or missed jobs.
+
+    ## Solution
+
+    A task scheduler inspired by Celery and Sidekiq, with distributed locking to ensure only one worker picks up each task.
+
+    ```python
+    import redis
+    from contextlib import contextmanager
+
+    @contextmanager
+    def distributed_lock(lock_name, timeout=10):
+        lock = redis_client.lock(lock_name, timeout=timeout)
+        acquired = lock.acquire(blocking=False)
+        
+        try:
+            yield acquired
+        finally:
+            if acquired:
+                lock.release()
+
+    def execute_task(task_id):
+        with distributed_lock(f"task:{task_id}") as acquired:
+            if not acquired:
+                return  # Another worker is handling this
+            
+            # Execute task
+            process_task(task_id)
+    ```
+
+    ## Features
+
+    - **Cron Expressions**: Standard cron syntax for scheduling
+    - **Retries**: Exponential backoff with max attempts
+    - **Priorities**: High/medium/low priority queues
+    - **Dead Letter Queue**: Failed tasks for manual review
+
+    ## Reliability
+
+    - Exactly-once execution guarantee
+    - Persistent queue in PostgreSQL
+    - Worker health checks and automatic restart
+
+- slug: "video-transcoder"
+  title: "Video Transcoding Service"
+  subtitle: "Media Processing"
+  date: "Dec 2024"
+  description: "Serverless video transcoding pipeline using AWS Lambda and FFmpeg for multi-resolution encoding."
+  tags: ["AWS", "Lambda", "FFmpeg"]
+  link: "/projects/video-transcoder"
+  viewLink: "https://github.com/mkraman/video-transcoder"
+  image: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=600&h=400&fit=crop"
+  color: "gold"
+  isFeatured: false
+  content: |
+    ## Architecture
+
+    S3 upload triggers Lambda function → Transcode video with FFmpeg → Output multiple resolutions → HLS manifest
+
+    ![Video Processing Pipeline](https://images.unsplash.com/photo-1536240478700-b869070f9279?q=80&w=2000&auto=format&fit=crop)
+
+    ## Implementation
+
+    ### Lambda Function
+    ```python
+    import boto3
+    import subprocess
+
+    def lambda_handler(event, context):
+        bucket = event['Records'][0]['s3']['bucket']['name']
+        key = event['Records'][0]['s3']['object']['key']
+        
+        # Download from S3
+        s3.download_file(bucket, key, '/tmp/input.mp4')
+        
+        # Transcode using FFmpeg
+        subprocess.run([
+            'ffmpeg', '-i', '/tmp/input.mp4',
+            '-vf', 'scale=1920:1080', '/tmp/1080p.mp4',
+            '-vf', 'scale=1280:720', '/tmp/720p.mp4',
+            '-vf', 'scale=854:480', '/tmp/480p.mp4'
+        ])
+        
+        # Upload back to S3
+        for resolution in ['1080p', '720p', '480p']:
+            s3.upload_file(f'/tmp/{resolution}.mp4', bucket, f'transcoded/{resolution}.mp4')
+    ```
+
+    ## Optimizations
+
+    - **Parallel Processing**: Each resolution in separate Lambda
+    - **FFmpeg Tuning**: Hardware acceleration when available
+    - **Chunked Upload**: Stream output directly to S3
+
+    ## Cost Analysis
+
+    - $0.05 per video minute transcoded
+    - 80% cheaper than traditional EC2 fleet
+    - Auto-scales to handle traffic spikes
+
+- slug: "ml-model-server"
+  title: "ML Model Serving API"
+  subtitle: "Machine Learning"
+  date: "Nov 2024"
+  description: "FastAPI server for serving TensorFlow models with batching and GPU optimization."
+  tags: ["Python", "FastAPI", "TensorFlow"]
+  link: "/projects/ml-model-server"
+  viewLink: "https://github.com/mkraman/ml-model-server"
+  image: "https://images.unsplash.com/photo-1555255707-c07966088b7b?w=600&h=400&fit=crop"
+  color: "gold"
+  isFeatured: false
+  content: |
+    ## Overview
+
+    A production-ready API for serving machine learning models with automatic batching, model versioning, and GPU utilization.
+
+    ## Key Features
+
+    ### Request Batching
+    Groups multiple incoming requests to maximize GPU throughput.
+
+    ```python
+    from fastapi import FastAPI
+    import tensorflow as tf
+
+    app = FastAPI()
+    model = tf.keras.models.load_model('model.h5')
+
+    class RequestBatcher:
+        def __init__(self, max_batch_size=32, timeout=0.01):
+            self.queue = []
+            self.max_batch_size = max_batch_size
+            
+        async def add_request(self, data):
+            self.queue.append(data)
+            if len(self.queue) >= self.max_batch_size:
+                return await self.process_batch()
+            
+        async def process_batch(self):
+            batch = np.array(self.queue)
+            predictions = model.predict(batch)
+            self.queue = []
+            return predictions
+    ```
+
+    ### Model Versioning
+    - A/B testing between model versions
+    - Gradual rollout with canary deployments
+    - Rollback capability
+
+    ## Performance
+
+    - **Throughput**: 1000 requests/second on single GPU
+    - **Latency**: 15ms p50, 30ms p99
+    - **GPU Utilization**: 85% average
+
+    ## Monitoring
+
+    - Model drift detection
+    - Prediction latency monitoring
+    - Input distribution tracking
+
+- slug: "social-media-analyzer"
+  title: "Social Media Analytics Dashboard"
+  subtitle: "Data Visualization"
+  date: "Oct 2024"
+  description: "Real-time analytics dashboard for social media metrics using D3.js and WebSockets."
+  tags: ["React", "D3.js", "Node.js"]
+  link: "/projects/social-media-analyzer"
+  viewLink: "https://github.com/mkraman/social-analyzer"
+  image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop"
+  color: "gold"
+  isFeatured: false
+  content: |
+    ## Overview
+
+    A real-time dashboard that aggregates social media metrics across platforms (Twitter, Instagram, LinkedIn) and visualizes trends, engagement, and sentiment.
+
+    ![Analytics Dashboard](https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2000&auto=format&fit=crop)
+
+    ## Features
+
+    ### Real-time Visualizations
+    - Line charts for follower growth
+    - Heat maps for engagement by time of day
+    - Word clouds for trending hashtags
+    - Sentiment analysis gauge
+
+    ### D3.js Integration
+    ```javascript
+    import * as d3 from 'd3';
+
+    function renderLineChart(data) {
+        const svg = d3.select('#chart')
+            .append('svg')
+            .attr('width', 800)
+            .attr('height', 400);
+        
+        const xScale = d3.scaleTime()
+            .domain(d3.extent(data, d => d.date))
+            .range([0, 800]);
+        
+        const yScale = d3.scaleLinear()
+            .domain([0, d3.max(data, d => d.value)])
+            .range([400, 0]);
+        
+        const line = d3.line()
+            .x(d => xScale(d.date))
+            .y(d => yScale(d.value));
+        
+        svg.append('path')
+            .datum(data)
+            .attr('d', line)
+            .attr('stroke', '#00ffff');
+    }
+    ```
+
+    ## Data Pipeline
+
+    1. **Collection**: Scheduled jobs fetch data from APIs
+    2. **Processing**: Calculate metrics and sentiment scores
+    3. **Streaming**: WebSocket pushes updates to dashboard
+    4. **Storage**: Time-series data in InfluxDB
+
+    ## Insights Provided
+
+    - Best time to post for maximum engagement
+    - Content type performance (images vs. text vs. video)
+    - Audience demographic breakdown
+    - Competitor benchmarking
