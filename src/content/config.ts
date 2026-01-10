@@ -104,6 +104,14 @@ const papers = defineCollection({
     })),
 });
 
+const general = defineCollection({
+    type: 'data',
+    schema: z.array(z.object({
+        name: z.string(),
+        link: z.string(),
+    })),
+});
+
 export const collections = {
     skills,
     companies,
@@ -112,4 +120,5 @@ export const collections = {
     blog,
     books,
     papers,
+    general,
 };
