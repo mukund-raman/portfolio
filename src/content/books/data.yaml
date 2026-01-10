@@ -3,7 +3,7 @@
 - slug: "clean-code"
   title: "Clean Code"
   author: "Robert C. Martin"
-  cover: "https://m.media-amazon.com/images/I/51E2055ZGUL._SY445_SX342_.jpg"
+  cover: "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1436202607i/3735293.jpg"
   rating: 5
   dateRead: "2020-05-10"
   tags: ["Software Engineering", "Best Practices"]
@@ -29,7 +29,7 @@
 - slug: "pragmatic-programmer"
   title: "The Pragmatic Programmer"
   author: "Andrew Hunt & David Thomas"
-  cover: "https://m.media-amazon.com/images/I/71f743sOPoL._AC_UF1000,1000_QL80_.jpg"
+  cover: "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1401432508i/4099.jpg"
   rating: 5
   dateRead: "2019-11-05"
   tags: ["Software Engineering", "Career"]
@@ -59,7 +59,7 @@
 - slug: "deep-learning"
   title: "Deep Learning"
   author: "Ian Goodfellow, et al."
-  cover: "https://m.media-amazon.com/images/I/A10G+oKN3LL._AC_UF1000,1000_QL80_.jpg"
+  cover: "https://covers.openlibrary.org/b/isbn/9780262035613-L.jpg"
   rating: 5
   dateRead: "2022-08-20"
   tags: ["AI", "Math", "Textbook"]
@@ -87,7 +87,7 @@
 - slug: "atomic-habits"
   title: "Atomic Habits"
   author: "James Clear"
-  cover: "https://m.media-amazon.com/images/I/81YkqyaFVEL._AC_UF1000,1000_QL80_.jpg"
+  cover: "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1655988385i/40121378.jpg"
   rating: 5
   dateRead: "2021-01-15"
   tags: ["Self Help", "Productivity"]
@@ -119,7 +119,7 @@
 - slug: "designing-data-intensive-applications"
   title: "Designing Data-Intensive Applications"
   author: "Martin Kleppmann"
-  cover: "https://m.media-amazon.com/images/I/91aFc8sCdUL._AC_UF1000,1000_QL80_.jpg"
+  cover: "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1415816873i/23463279.jpg"
   rating: 5
   dateRead: "2023-03-15"
   tags: ["System Design", "Databases", "Architecture"]
@@ -140,7 +140,7 @@
 - slug: "system-design-interview"
   title: "System Design Interview Vol 1"
   author: "Alex Xu"
-  cover: "https://m.media-amazon.com/images/I/61MWeJseTBL._AC_UF1000,1000_QL80_.jpg"
+  cover: "https://m.media-amazon.com/images/I/615KGTRs1OL._UF1000,1000_QL80_.jpg"
   rating: 4
   dateRead: "2022-11-20"
   tags: ["Interview", "System Design", "Career"]
@@ -161,7 +161,7 @@
 - slug: "refactoring"
   title: "Refactoring: Improving the Design of Existing Code"
   author: "Martin Fowler"
-  cover: "https://m.media-amazon.com/images/I/71D2WIl7lNL._AC_UF1000,1000_QL80_.jpg"
+  cover: "https://covers.openlibrary.org/b/isbn/9780134757599-L.jpg"
   rating: 5
   dateRead: "2020-09-10"
   tags: ["Software Engineering", "Best Practices"]
@@ -182,7 +182,7 @@
 - slug: "grokking-algorithms"
   title: "Grokking Algorithms"
   author: "Aditya Bhargava"
-  cover: "https://m.media-amazon.com/images/I/71Veg7GnLUL._AC_UF1000,1000_QL80_.jpg"
+  cover: "https://covers.openlibrary.org/b/isbn/9781617292231-L.jpg"
   rating: 4
   dateRead: "2019-06-25"
   tags: ["Algorithms", "Data Structures", "Beginner"]
@@ -204,7 +204,7 @@
 - slug: "cracking-the-coding-interview"
   title: "Cracking the Coding Interview"
   author: "Gayle Laakmann McDowell"
-  cover: "https://m.media-amazon.com/images/I/81IHAFJmBNL._AC_UF1000,1000_QL80_.jpg"
+  cover: "https://covers.openlibrary.org/b/isbn/9780984782857-L.jpg"
   rating: 5
   dateRead: "2021-07-14"
   tags: ["Interview", "Algorithms", "Career"]
@@ -225,7 +225,7 @@
 - slug: "phoenix-project"
   title: "The Phoenix Project"
   author: "Gene Kim, et al."
-  cover: "https://m.media-amazon.com/images/I/81D3YqWdR1L._AC_UF1000,1000_QL80_.jpg"
+  cover: "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1361113128i/17255186.jpg"
   rating: 4
   dateRead: "2022-01-30"
   tags: ["DevOps", "Management", "Fiction"]
@@ -246,7 +246,7 @@
 - slug: "dont-make-me-think"
   title: "Don't Make Me Think"
   author: "Steve Krug"
-  cover: "https://m.media-amazon.com/images/I/51pnouuPO5L._AC_UF1000,1000_QL80_.jpg"
+  cover: "https://covers.openlibrary.org/b/isbn/9780321965516-L.jpg"
   rating: 5
   dateRead: "2023-05-12"
   tags: ["UX", "Design", "Web Development"]
@@ -267,7 +267,7 @@
 - slug: "accelerate"
   title: "Accelerate: The Science of Lean Software and DevOps"
   author: "Nicole Forsgren, et al."
-  cover: "https://m.media-amazon.com/images/I/71zoSYD9MFL._AC_UF1000,1000_QL80_.jpg"
+  cover: "https://covers.openlibrary.org/b/isbn/9781942788331-L.jpg"
   rating: 5
   dateRead: "2021-12-08"
   tags: ["DevOps", "Management", "Research"]
@@ -294,7 +294,7 @@
 - slug: "the-algorithm-design-manual"
   title: "The Algorithm Design Manual"
   author: "Steven S. Skiena"
-  cover: "https://m.media-amazon.com/images/I/81ij4+NKvUL._AC_UF1000,1000_QL80_.jpg"
+  cover: "https://m.media-amazon.com/images/I/61iyea8oHHL._AC_UF1000,1000_QL80_.jpg"
   rating: 4
   dateRead: "2020-03-22"
   tags: ["Algorithms", "Computer Science", "Reference"]
@@ -313,7 +313,7 @@
 - slug: "introduction-to-algorithms"
   title: "Introduction to Algorithms (CLRS)"
   author: "Cormen, Leiserson, Rivest, Stein"
-  cover: "https://m.media-amazon.com/images/I/81YiXB2bC6L._AC_UF1000,1000_QL80_.jpg"
+  cover: "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1387741681i/108986.jpg"
   rating: 5
   dateRead: "2019-08-30"
   tags: ["Algorithms", "Computer Science", "Textbook"]
