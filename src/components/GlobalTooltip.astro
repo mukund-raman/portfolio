@@ -1,0 +1,208 @@
+<div
+    id="global-tooltip"
+    class="fixed z-[99999] opacity-0 pointer-events-none transition-opacity duration-300 w-80 will-change-transform"
+    style="left: 0; top: 0;"
+>
+    <!-- Tooltip Card -->
+    <div
+        class="bg-[#0a0a0a]/95 backdrop-blur-xl border border-white/10 rounded-xl p-5 shadow-[0_10px_40px_rgba(0,0,0,0.8),0_0_20px_rgba(255,255,255,0.05)] overflow-hidden relative"
+    >
+        <!-- Background Gradient Splash -->
+        <div
+            class="absolute -top-10 -right-10 w-32 h-32 bg-gradient-to-br from-neon-purple/20 to-neon-gold/20 blur-3xl rounded-full"
+        >
+        </div>
+
+        <div class="relative z-10">
+            <div class="flex items-center gap-3 mb-3">
+                <!-- Dynamic Icon Container -->
+                <div
+                    class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center border border-white/10 shadow-inner overflow-hidden p-2"
+                >
+                    <img
+                        id="tooltip-icon"
+                        src=""
+                        alt=""
+                        class="w-full h-full object-contain hidden"
+                    />
+                    <span id="tooltip-fallback-icon" class="text-xl">⚡</span>
+                </div>
+
+                <div>
+                    <h4
+                        id="tooltip-title"
+                        class="text-white font-bold text-lg leading-tight"
+                    >
+                        <!-- JS populated -->
+                    </h4>
+                    <p
+                        id="tooltip-tagline"
+                        class="text-xs font-mono text-neon-gold/80 uppercase tracking-wider mt-0.5 hidden"
+                    >
+                        <!-- JS populated -->
+                    </p>
+                </div>
+            </div>
+
+            <p
+                id="tooltip-desc"
+                class="text-gray-300 text-sm leading-relaxed border-t border-white/10 pt-3"
+            >
+                <!-- JS populated -->
+            </p>
+
+            <div
+                id="tooltip-meta"
+                class="mt-3 flex items-center gap-2 text-xs text-gray-500 font-mono hidden"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    ><rect x="3" y="4" width="18" height="18" rx="2" ry="2"
+                    ></rect><line x1="16" y1="2" x2="16" y2="6"></line><line
+                        x1="8"
+                        y1="2"
+                        x2="8"
+                        y2="6"></line><line x1="3" y1="10" x2="21" y2="10"
+                    ></line></svg
+                >
+                <span id="tooltip-year"><!-- JS populated --></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let tooltip = document.getElementById("global-tooltip");
+    let titleEl = document.getElementById("tooltip-title");
+    let taglineEl = document.getElementById("tooltip-tagline");
+    let descEl = document.getElementById("tooltip-desc");
+    let yearEl = document.getElementById("tooltip-year");
+    let metaEl = document.getElementById("tooltip-meta");
+    let iconImg = document.getElementById("tooltip-icon") as HTMLImageElement;
+    let fallbackIcon = document.getElementById("tooltip-fallback-icon");
+
+    function initGlobalTooltip() {
+        // Re-grab elements just in case of DOM updates (view transitions)
+        tooltip = document.getElementById("global-tooltip");
+        if (!tooltip) return;
+
+        const triggers = document.querySelectorAll(".tech-tooltip-trigger");
+
+        triggers.forEach((trigger) => {
+            trigger.addEventListener("mouseenter", (e) => {
+                const target = e.currentTarget as HTMLElement;
+                const data = JSON.parse(target.dataset.metadata || "{}");
+                const text = target.dataset.text || "";
+                const type = target.dataset.type || "skill";
+                const color = target.dataset.color || "orange";
+
+                // Color Mapping
+                const colorMap: Record<string, string> = {
+                    orange: "text-orange-500",
+                    red: "text-neon-red",
+                    "light-orange": "text-orange-300",
+                    purple: "text-neon-purple",
+                    yellow: "text-neon-gold",
+                    cyan: "text-neon-cyan",
+                };
+                const textColorClass = colorMap[color] || "text-neon-gold";
+
+                // Populate Content
+                if (titleEl) titleEl.textContent = text;
+                if (descEl)
+                    descEl.textContent =
+                        data.description || "A powerful technology.";
+
+                if (taglineEl) {
+                    if (data.tagline) {
+                        taglineEl.textContent = data.tagline;
+                        taglineEl.className = `text-xs font-mono uppercase tracking-wider mt-0.5 ${textColorClass}`;
+                        taglineEl.classList.remove("hidden");
+                    } else {
+                        taglineEl.classList.add("hidden");
+                    }
+                }
+
+                if (metaEl && yearEl) {
+                    if (data.year) {
+                        yearEl.textContent = data.year;
+                        metaEl.classList.remove("hidden");
+                    } else {
+                        metaEl.classList.add("hidden");
+                    }
+                }
+
+                // Icon Logic
+                if (iconImg && fallbackIcon) {
+                    if (data.icon) {
+                        if (
+                            data.icon.startsWith("http") ||
+                            data.icon.startsWith("/")
+                        ) {
+                            iconImg.src = data.icon;
+                        } else {
+                            iconImg.src = `https://cdn.simpleicons.org/${data.icon}`; // Original colors
+                        }
+                        iconImg.classList.remove("hidden");
+                        fallbackIcon.classList.add("hidden");
+                    } else {
+                        iconImg.classList.add("hidden");
+                        fallbackIcon.classList.remove("hidden");
+                        fallbackIcon.textContent =
+                            type === "company" ? "🏢" : "⚡";
+                    }
+                }
+
+                // Initial Position (will update on mousemove)
+                updatePosition(e as MouseEvent);
+
+                // Show
+                tooltip?.classList.remove("opacity-0");
+            });
+
+            trigger.addEventListener("mousemove", (e) => {
+                updatePosition(e as MouseEvent);
+            });
+
+            trigger.addEventListener("mouseleave", () => {
+                tooltip?.classList.add("opacity-0");
+            });
+        });
+    }
+
+    function updatePosition(e: MouseEvent) {
+        if (!tooltip) return;
+
+        const tooltipWidth = 320;
+        const gap = 20;
+
+        let left = e.clientX - tooltipWidth / 2;
+        let top = e.clientY + gap;
+
+        // Boundary checks
+        if (left < 10) left = 10;
+        if (left + tooltipWidth > window.innerWidth - 10) {
+            left = window.innerWidth - tooltipWidth - 10;
+        }
+
+        if (top + tooltip.offsetHeight > window.innerHeight - 10) {
+            top = e.clientY - tooltip.offsetHeight - gap;
+        }
+
+        tooltip.style.transform = `translate(${left}px, ${top}px)`;
+    }
+
+    // Init
+    initGlobalTooltip();
+    document.addEventListener("astro:page-load", initGlobalTooltip);
+    // Also re-init on scroll execution purely for safety if new elements appear,
+    // though rarely needed. Sticking to page-load is usually sufficient for Astro.
+</script>

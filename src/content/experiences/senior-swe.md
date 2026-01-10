@@ -1,6 +1,6 @@
 ---
 role: "Senior Software Engineer"
-company: "Tech Innovations Inc"
+company: "Amazon"
 date: "2024 - Present"
 description: "Leading the development of cloud-native microservices architecture serving millions of users. Architected a distributed event-driven system using Kafka and Redis, reducing latency by 40%. Mentoring junior developers and establishing code quality standards across teams through comprehensive code reviews and technical documentation."
 skills: ["Go", "Kubernetes", "AWS", "PostgreSQL", "Kafka"]
@@ -8,7 +8,7 @@ skills: ["Go", "Kubernetes", "AWS", "PostgreSQL", "Kafka"]
 
 ## Overview
 
-At Tech Innovations Inc, I serve as a Senior Software Engineer in the Platform Engineering division. My primary responsibility is to architect and maintain the core infrastructure that powers our high-scale consumer applications.
+At Amazon, I serve as a Senior Software Engineer in the Platform Engineering division. My primary responsibility is to architect and maintain the core infrastructure that powers our high-scale consumer applications.
 
 ## Key Responsibilities
 

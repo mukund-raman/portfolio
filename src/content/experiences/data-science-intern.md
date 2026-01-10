@@ -1,17 +1,19 @@
 ---
-role: "Data Science Intern"
-company: "Analytics Firm"
-date: "2018 - 2019"
-description: "Analyzed large datasets to extract actionable business insights for Fortune 500 clients. Built predictive models using machine learning techniques that improved forecasting accuracy by 30%. Created interactive dashboards using Tableau and Python, enabling stakeholders to make data-driven decisions."
-skills: ["Python", "Pandas", "Scikit-learn", "Tableau", "SQL"]
+role: "Machine Learning Engineer"
+company: "OpenAI"
+date: "2023 - 2024"
+description: "Contributed to RLHF pipelines for large language model alignment. Optimized inference engines for lower latency. Collaborated with research teams to productionalize experimental models."
+skills: ["Python", "PyTorch", "Kubernetes", "Redis", "Docker"]
 ---
 
-## Summary
+## Role Overview
 
-Interned at a boutique analytics firm specializing in retail and supply chain analytics. I focused on data cleaning, exploratory data analysis (EDA), and building predictive models.
+Worked with the alignment team to improve model safety and helpfulness. Focus was on scalable data pipelines and efficient training infrastructure.
 
-## Detailed Work
+## Key Projects
 
-- **Demand Forecasting**: Built a time-series forecasting model using **Facebook Prophet** and **Scikit-learn** to predict inventory demand for a retail client, improving forecast accuracy by **30%**.
-- **Data Visualization**: Created interactive dashboards in **Tableau** that tracked key performance indicators (KPIs) in real-time.
-- **Data Pipeline**: Automated data extraction and cleaning scripts using **Python (Pandas)** and **SQL**, saving the team 5 hours of manual work per week.
+### RLHF Pipeline
+Built a robust data pipeline for Reinforcement Learning from Human Feedback, processing millions of preference pairs daily.
+
+### Inference Optimization
+Reduced model inference latency by 30% through kernel fusion and quantization techniques.

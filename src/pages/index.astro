@@ -3,6 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
 import SkillBar from "../components/SkillBar.astro";
 import Card from "../components/Card.astro";
+import TechTooltip from "../components/TechTooltip.astro";
 import { getCollection } from "astro:content";
 
 // Fetch Projects
@@ -156,7 +157,7 @@ const experiences = sortedExperiences.slice(0, 4).map((exp) => ({
 						>
 							{/* Content Card - alternating sides - MUST come first for peer */}
 							<div
-								class={`peer relative lg:w-[48%] ${isLeft ? "lg:mr-auto lg:pr-12" : "lg:ml-auto lg:pl-12"}`}
+								class={`peer relative lg:w-[48%] ${isLeft ? "lg:mr-auto lg:pr-12" : "lg:ml-auto lg:pl-12"} z-20`}
 							>
 								<div class="group p-6 rounded-2xl bg-black/40 backdrop-blur-md border border-white/10 hover:border-neon-red/50 hover:shadow-[0_0_30px_rgba(255,0,60,0.2)] transition-all duration-300">
 									{/* Connecting line from card to center */}
@@ -175,9 +176,18 @@ const experiences = sortedExperiences.slice(0, 4).map((exp) => ({
 												{job.date}
 											</span>
 										</div>
-										<p class="text-gray-500 font-medium">
-											@ {job.company}
-										</p>
+										<div class="text-gray-500 font-medium z-10 relative flex gap-1 items-baseline">
+											<span>@</span>
+											<TechTooltip
+												text={job.company}
+												type="company"
+												color="red"
+											>
+												<span class="hover:text-neon-red transition-colors duration-300 border-b border-transparent hover:border-neon-red/50">
+													{job.company}
+												</span>
+											</TechTooltip>
+										</div>
 									</div>
 
 									<p class="text-gray-400 text-sm leading-relaxed mb-4">
@@ -187,9 +197,14 @@ const experiences = sortedExperiences.slice(0, 4).map((exp) => ({
 									{job.skills && (
 										<div class="flex flex-wrap gap-2">
 											{job.skills.map((skill) => (
-												<span class="text-[10px] uppercase tracking-wider font-bold text-gray-500 px-2 py-1 bg-white/5 rounded border border-white/5 group-hover:border-neon-red/20 transition-colors">
-													{skill}
-												</span>
+												<TechTooltip
+													text={skill}
+													color="red"
+												>
+													<span class="text-[10px] uppercase tracking-wider font-bold text-gray-500 px-2 py-1 bg-white/5 rounded border border-white/5 group-hover:border-neon-red/20 transition-colors">
+														{skill}
+													</span>
+												</TechTooltip>
 											))}
 										</div>
 									)}

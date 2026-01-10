@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import Navbar from "../components/Navbar.astro";
+import GlobalTooltip from "../components/GlobalTooltip.astro";
 
 interface Props {
 	title: string;
@@ -525,5 +526,6 @@ const { title, description = "A modern personal portfolio." } = Astro.props;
 				resizeTimer = setTimeout(generateCircuit, 250);
 			});
 		</script>
+		<GlobalTooltip />
 	</body>
 </html>

@@ -1,0 +1,49 @@
+---
+import { SKILL_DATA, COMPANY_DATA, FALLBACK_DATA } from "../data/metadata";
+
+interface Props {
+    text: string;
+    type?: "skill" | "company";
+    overrideClass?: string;
+    color?: string; // New: Section color
+}
+
+const {
+    text,
+    type = "skill",
+    overrideClass = "",
+    color = "orange",
+} = Astro.props;
+
+// Normalize key lookup
+const data =
+    type === "skill"
+        ? SKILL_DATA[text] ||
+          SKILL_DATA[
+              Object.keys(SKILL_DATA).find(
+                  (k) => k.toLowerCase() === text.toLowerCase(),
+              ) || ""
+          ] ||
+          FALLBACK_DATA
+        : COMPANY_DATA[text] ||
+          COMPANY_DATA[
+              Object.keys(COMPANY_DATA).find(
+                  (k) => k.toLowerCase() === text.toLowerCase(),
+              ) || ""
+          ] || {
+              ...FALLBACK_DATA,
+              description: "Software Engineering & Technology Organization",
+          };
+
+const uniqueId = Math.random().toString(36).substring(2, 9);
+---
+
+<span
+    class={`tech-tooltip-trigger inline-flex items-center justify-center cursor-default pb-0.5 ${overrideClass}`}
+    data-text={text}
+    data-type={type}
+    data-metadata={JSON.stringify(data)}
+    data-color={color}
+>
+    <slot />
+</span>

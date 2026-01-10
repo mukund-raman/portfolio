@@ -1,24 +1,23 @@
 ---
-role: "Junior Developer"
-company: "Digital Agency Co"
-date: "2019 - 2020"
-description: "Created responsive web applications for diverse clients across e-commerce, healthcare, and education sectors. Implemented modern frontend frameworks and maintained high code quality standards. Successfully delivered 15+ projects on time and within budget, earning consistent client satisfaction ratings above 4.8/5."
-skills: ["JavaScript", "React", "Vue.js", "CSS", "Node.js"]
+role: "Software Engineer II"
+company: "Google"
+date: "2021 - 2024"
+description: "Developed scalable backend services for Google Cloud. Optimized database queries and improved API latency. Collaborated with cross-functional teams to launch new features."
+skills: ["Python", "C++", "Go", "TensorFlow", "Kubernetes"]
 ---
 
 ## Role Overview
 
-Started my career at Digital Agency Co, a fast-paced agency environment where I worked on a wide variety of client projects. This role taught me how to adapt quickly to different requirements and tech stacks.
+As a Software Engineer at Google, I worked on the core infrastructure for Google Cloud Platform. This role allowed me to work with massive scale systems.
 
 ## Key Projects
 
-### E-Commerce Revamp
-Rebuilt the frontend of a major local retailer's e-commerce site using **Vue.js**, resulting in a 30% increase in mobile conversion rates.
+### Cloud API Optimization
+Optimized the response time of critical cloud management APIs by 25% through efficient caching and query optimization.
 
-### Healthcare Patient Portal
-Developed a secure patient portal for a healthcare provider, ensuring HIPAA compliance. Utilized **React** for the frontend and **Node.js** for the backend API.
+### Internal Tools
+Built internal tooling to streamline the deployment process for thousands of engineers, reducing deployment time by 15%.
 
 ## Growth
-- Mastered responsive design principles and CSS frameworks (Tailwind, Bootstrap).
-- Learned to communicate technical concepts to non-technical stakeholders.
-- Gained experience with agile methodologies and sprint planning.
+- Gained deep expertise in distributed systems.
+- Learned best practices for code quality and testing at scale.
