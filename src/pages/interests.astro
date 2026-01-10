@@ -115,6 +115,7 @@ const papers = allPapers.map((paper) => ({
                             description={`Authors: ${paper.authors.join(", ")}`}
                             tags={[paper.conference, ...(paper.tags || [])]}
                             link={paper.link}
+                            date={paper.year}
                             color="orange"
                             cardType="paper"
                         />

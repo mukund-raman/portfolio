@@ -27,7 +27,7 @@ const contentHtml = paper.content ? marked(paper.content) : "";
 
 <DetailLayout
     title={paper.title}
-    subtitle={paper.conference}
+    subtitle={`${paper.conference} ${paper.year || ""}`}
     tags={paper.tags || []}
     color="purple"
     backLink="/interests"
@@ -53,6 +53,7 @@ const contentHtml = paper.content ? marked(paper.content) : "";
                     </h3>
                     <p class="text-neon-purple font-semibold">
                         {paper.conference}
+                        {paper.year}
                     </p>
                 </div>
             </div>

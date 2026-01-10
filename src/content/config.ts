@@ -97,6 +97,7 @@ const papers = defineCollection({
         title: z.string(),
         authors: z.array(z.string()),
         conference: z.string(),
+        year: z.string().optional(),
         link: z.string().optional(),
         tags: z.array(z.string()).optional(),
         content: z.string().optional(),
