@@ -1,5 +1,7 @@
 ---
-import { getEntry } from "astro:content";
+import skillsData from "../content/skills.yaml";
+import companiesData from "../content/companies.yaml";
+import type { Skill, Company } from "../types";
 
 interface Props {
     text: string;
@@ -16,14 +18,12 @@ const {
 } = Astro.props;
 
 // Load data from YAML collections
-const skillsEntry = await getEntry("skills", "data");
-const allSkills = skillsEntry?.data || [];
-const companiesEntry = await getEntry("companies", "data");
-const allCompanies = companiesEntry?.data || [];
+const allSkills = (skillsData || []) as Skill[];
+const allCompanies = (companiesData || []) as Company[];
 
 // Convert arrays to lookup objects
 const SKILL_DATA = allSkills.reduce(
-    (acc, skill) => {
+    (acc: Record<string, Skill>, skill: Skill) => {
         acc[skill.name] = skill;
         return acc;
     },
@@ -31,7 +31,7 @@ const SKILL_DATA = allSkills.reduce(
 );
 
 const COMPANY_DATA = allCompanies.reduce(
-    (acc, company) => {
+    (acc: Record<string, Company>, company: Company) => {
         acc[company.name] = company;
         return acc;
     },

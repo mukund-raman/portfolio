@@ -1,11 +1,11 @@
 ---
-import { getEntry } from "astro:content";
+import skillsData from "../content/skills.yaml";
 import TechTooltip from "./TechTooltip.astro";
+import type { Skill } from "../types";
 
 // Load first 13 skills from YAML for the bar
-const skillsEntry = await getEntry("skills", "data");
-const allSkills = skillsEntry?.data || [];
-const skills = allSkills.slice(0, 13).map((s) => s.name);
+const allSkills = (skillsData || []) as Skill[];
+const skills = allSkills.slice(0, 13).map((s: Skill) => s.name);
 ---
 
 <div
@@ -23,7 +23,7 @@ const skills = allSkills.slice(0, 13).map((s) => s.name);
     <div class="flex animate-scroll whitespace-nowrap">
         <div class="flex gap-8 mx-8 items-center">
             {
-                skills.map((skill) => (
+                skills.map((skill: string) => (
                     <TechTooltip text={skill}>
                         <div class="px-6 py-2 rounded-full border border-white/10 bg-white/5 text-gray-300 font-mono text-sm hover:border-orange-500/50 hover:text-orange-500 hover:shadow-[0_0_20px_rgba(249,115,22,0.3)] transition-all duration-300">
                             {skill}
@@ -34,7 +34,7 @@ const skills = allSkills.slice(0, 13).map((s) => s.name);
         </div>
         <div class="flex gap-8 mx-8 items-center" aria-hidden="true">
             {
-                skills.map((skill) => (
+                skills.map((skill: string) => (
                     <TechTooltip text={skill}>
                         <div class="px-6 py-2 rounded-full border border-white/10 bg-white/5 text-gray-300 font-mono text-sm hover:border-orange-500/50 hover:text-orange-500 hover:shadow-[0_0_20px_rgba(249,115,22,0.3)] transition-all duration-300">
                             {skill}

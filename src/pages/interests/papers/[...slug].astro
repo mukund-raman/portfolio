@@ -1,18 +1,22 @@
 ---
-import { getEntry } from "astro:content";
+import papersData from "../../../content/papers.yaml";
 import DetailLayout from "../../../layouts/DetailLayout.astro";
 import { marked } from "marked";
+import type { Paper } from "../../../types";
 
 import markedKatex from "marked-katex-extension";
 
 export async function getStaticPaths() {
-    const papersEntry = await getEntry("papers", "data");
-    const papers = papersEntry?.data || [];
+    const papers = (papersData || []) as Paper[];
 
     return papers.map((paper) => ({
         params: { slug: paper.slug },
         props: { paper },
     }));
+}
+
+export interface Props {
+    paper: Paper;
 }
 
 const { paper } = Astro.props;

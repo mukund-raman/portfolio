@@ -1,13 +1,12 @@
 ---
-import { getEntry } from "astro:content";
+import generalData from "../content/general.yaml";
 
 type SocialLink = {
   name: string;
   link: string;
 };
 
-const generalEntry = await getEntry("general", "data");
-const socialLinks = (generalEntry?.data || []) as SocialLink[];
+const socialLinks = (generalData || []) as SocialLink[];
 
 const socialIcons: Record<string, string> = {
   linkedin:

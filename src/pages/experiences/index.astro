@@ -1,11 +1,11 @@
 ---
-import { getEntry } from "astro:content";
+import experiencesData from "../../content/experiences.yaml";
 import Layout from "../../layouts/Layout.astro";
 import TechTooltip from "../../components/TechTooltip.astro";
+import type { Experience } from "../../types";
 
 // Fetch experiences from YAML data
-const experiencesEntry = await getEntry("experiences", "data");
-const allExperiences = experiencesEntry?.data || [];
+const allExperiences = (experiencesData || []) as Experience[];
 
 // Sort experiences by date (newest first)
 const experiences = allExperiences

@@ -2,11 +2,11 @@
 import Layout from "../../layouts/Layout.astro";
 import Card from "../../components/Card.astro";
 
-import { getEntry } from "astro:content";
+import projectsData from "../../content/projects.yaml";
+import type { Project } from "../../types";
 
-const projectsEntry = await getEntry("projects", "data");
-const allProjects = projectsEntry?.data || [];
-const projects = allProjects.map((project) => ({
+const allProjects = (projectsData || []) as Project[];
+const projects = allProjects.map((project: Project) => ({
     ...project,
     link: `/projects/${project.slug}`,
     // Ensure we pass the viewLink from frontmatter if it exists
@@ -39,7 +39,7 @@ console.log("DEBUG: Final Projects Array:", JSON.stringify(projects, null, 2));
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             {
-                projects.map((project) => (
+                projects.map((project: any) => (
                     <Card
                         title={project.title}
                         subtitle={project.subtitle}

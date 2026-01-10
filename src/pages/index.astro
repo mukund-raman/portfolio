@@ -4,49 +4,55 @@ import Hero from "../components/Hero.astro";
 import SkillBar from "../components/SkillBar.astro";
 import Card from "../components/Card.astro";
 import TechTooltip from "../components/TechTooltip.astro";
-import { getEntry } from "astro:content";
+import type { Project, BlogPost, Experience } from "../types";
+import projectsData from "../content/projects.yaml";
+import blogData from "../content/blog.yaml";
+import experiencesData from "../content/experiences.yaml";
 
 // Fetch Projects from YAML
-const projectsEntry = await getEntry("projects", "data");
-const allProjects = projectsEntry?.data || [];
-let startProjects = allProjects.filter((project) => project.isFeatured);
+const allProjects = (projectsData || []) as Project[];
+let startProjects = allProjects.filter(
+	(project: Project) => project.isFeatured,
+);
 
 // If we have fewer than 3 featured projects, fill with non-featured ones
 if (startProjects.length < 3) {
-	const nonFeatured = allProjects.filter((project) => !project.isFeatured);
+	const nonFeatured = allProjects.filter(
+		(project: Project) => !project.isFeatured,
+	);
 	startProjects = [...startProjects, ...nonFeatured];
 }
 
-const recentProjects = startProjects.slice(0, 3).map((project) => ({
+const recentProjects = startProjects.slice(0, 3).map((project: Project) => ({
 	...project,
 	link: `/projects/${project.slug}`,
 }));
 
 // Fetch Blog Posts from YAML
-const blogEntry = await getEntry("blog", "data");
-const allPosts = blogEntry?.data || [];
+const allPosts = (blogData || []) as BlogPost[];
 // Sort by date (newest first)
-const recentPosts = allPosts.slice(0, 3).map((post) => ({
+const recentPosts = allPosts.slice(0, 3).map((post: BlogPost) => ({
 	...post,
 	link: `/blog/${post.slug}`,
 }));
 
 // Fetch Experiences from YAML
-const experiencesEntry = await getEntry("experiences", "data");
-const allExperiences = experiencesEntry?.data || [];
+const allExperiences = (experiencesData || []) as Experience[];
 // Sort by date (newest first)
-const sortedExperiences = allExperiences.sort((a, b) => {
-	const getDateVal = (dateStr: string) => {
-		if (!dateStr) return 0;
-		const parts = dateStr.split(" - ");
-		const end = parts[1] || parts[0];
-		if (end.toLowerCase() === "present") return 9999;
-		return parseInt(end, 10) || 0;
-	};
-	return getDateVal(b.date) - getDateVal(a.date);
-});
+const sortedExperiences = allExperiences.sort(
+	(a: Experience, b: Experience) => {
+		const getDateVal = (dateStr: string) => {
+			if (!dateStr) return 0;
+			const parts = dateStr.split(" - ");
+			const end = parts[1] || parts[0];
+			if (end.toLowerCase() === "present") return 9999;
+			return parseInt(end, 10) || 0;
+		};
+		return getDateVal(b.date) - getDateVal(a.date);
+	},
+);
 
-const experiences = sortedExperiences.slice(0, 4).map((exp) => ({
+const experiences = sortedExperiences.slice(0, 4).map((exp: Experience) => ({
 	...exp,
 	link: `/experiences/${exp.slug}`,
 }));
@@ -80,7 +86,7 @@ const experiences = sortedExperiences.slice(0, 4).map((exp) => ({
 
 		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
 			{
-				recentProjects.map((project) => (
+				recentProjects.map((project: any) => (
 					<div class="h-full">
 						<Card {...project} />
 					</div>
@@ -111,7 +117,7 @@ const experiences = sortedExperiences.slice(0, 4).map((exp) => ({
 
 		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
 			{
-				recentPosts.map((post) => (
+				recentPosts.map((post: any) => (
 					<div class="h-full">
 						<Card {...post} cardType="blog" />
 					</div>
@@ -147,7 +153,7 @@ const experiences = sortedExperiences.slice(0, 4).map((exp) => ({
 			</div>
 
 			{
-				experiences.map((job, index) => {
+				experiences.map((job: any, index: number) => {
 					const isLeft = index % 2 === 0;
 					const topOffset = index * 280; // Stagger vertically
 
@@ -197,7 +203,7 @@ const experiences = sortedExperiences.slice(0, 4).map((exp) => ({
 
 									{job.skills && (
 										<div class="flex flex-wrap gap-2">
-											{job.skills.map((skill) => (
+											{job.skills.map((skill: string) => (
 												<TechTooltip
 													text={skill}
 													color="red"

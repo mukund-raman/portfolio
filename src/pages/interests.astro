@@ -1,18 +1,18 @@
 ---
-import { getEntry } from "astro:content";
 import Layout from "../layouts/Layout.astro";
 import Card from "../components/Card.astro";
+import booksData from "../content/books.yaml";
+import papersData from "../content/papers.yaml";
+import type { Book, Paper } from "../types";
 
-const booksEntry = await getEntry("books", "data");
-const allBooks = booksEntry?.data || [];
+const allBooks = (booksData || []) as Book[];
 const books = allBooks.map((book) => ({
     ...book,
     // Add link to detailed page (we'll need to update the card/display to use this link)
     link: `/interests/books/${book.slug}`,
 }));
 
-const papersEntry = await getEntry("papers", "data");
-const allPapers = papersEntry?.data || [];
+const allPapers = (papersData || []) as Paper[];
 const papers = allPapers.map((paper) => ({
     ...paper,
     // Add link to detailed page
@@ -115,7 +115,7 @@ const papers = allPapers.map((paper) => ({
                             description={`Authors: ${paper.authors.join(", ")}`}
                             tags={[paper.conference, ...(paper.tags || [])]}
                             link={paper.link}
-                            date={paper.year}
+                            date={paper.year.toString()}
                             color="orange"
                             cardType="paper"
                         />

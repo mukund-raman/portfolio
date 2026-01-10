@@ -1,15 +1,15 @@
 ---
-import { getEntry } from "astro:content";
+import blogData from "../../content/blog.yaml";
 import Layout from "../../layouts/Layout.astro";
 import Card from "../../components/Card.astro";
+import type { BlogPost } from "../../types";
 
-const blogEntry = await getEntry("blog", "data");
-const allPosts = blogEntry?.data || [];
+const allPosts = (blogData || []) as BlogPost[];
 const posts = allPosts
-    .sort((a, b) => {
+    .sort((a: BlogPost, b: BlogPost) => {
         return new Date(b.date).getTime() - new Date(a.date).getTime();
     })
-    .map((post) => ({
+    .map((post: BlogPost) => ({
         ...post,
         link: `/blog/${post.slug}`,
         // Card expects 'purple' color for blog posts
@@ -39,7 +39,7 @@ const posts = allPosts
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {
-                posts.map((post) => (
+                posts.map((post: any) => (
                     <Card
                         title={post.title}
                         subtitle={post.subtitle}
