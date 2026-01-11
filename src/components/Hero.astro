@@ -116,7 +116,7 @@ const socialIcons: Record<string, string> = {
           <img
             src="/profile-picture.jpeg"
             alt="Mukund"
-            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            class="w-full h-full object-cover object-[65%_50%] transition-transform duration-700 group-hover:scale-105"
           />
         </div>
       </div>
@@ -174,7 +174,7 @@ const socialIcons: Record<string, string> = {
     Look for the '.scroll-indicator' class and the @media query.
   -->
 <div
-  class="scroll-indicator absolute left-1/2 transform -translate-x-1/2 flex-col items-center gap-2 opacity-80 hover:opacity-100 transition-opacity cursor-pointer bottom-8"
+  class="scroll-indicator absolute left-1/2 transform -translate-x-1/2 flex-col items-center gap-2 opacity-80 hover:opacity-100 transition-opacity cursor-pointer top-[calc(100vh-8rem)] z-50"
 >
   <div
     class="w-[24px] h-[40px] rounded-[12px] border-2 border-white/40 flex justify-center pt-2"
@@ -183,25 +183,6 @@ const socialIcons: Record<string, string> = {
   </div>
   <span class="text-xs uppercase tracking-[0.2em] text-white">Scroll</span>
 </div>
-
-<style>
-  /* 
-    SCROLL INDICATOR VISIBILITY
-    - Default: Hidden
-    - Visible ONLY if:
-      1. Screen is wider than 1024px (Desktop)
-      2. Screen is taller than 840px (Prevents overlap on short screens)
-  */
-  .scroll-indicator {
-    display: none;
-  }
-
-  @media (min-width: 1024px) and (min-height: 840px) {
-    .scroll-indicator {
-      display: flex;
-    }
-  }
-</style>
 
 <!-- DYNAMIC CIRCUIT GENERATOR SCRIPT -->
 <script is:inline>
@@ -242,8 +223,16 @@ const socialIcons: Record<string, string> = {
   }
   if (element) setTimeout(type, 1000);
 </script>
-
 <style>
+  .scroll-indicator {
+    display: none;
+  }
+  @media (min-width: 1024px) and (min-height: 1100px) {
+    .scroll-indicator {
+      display: flex;
+    }
+  }
+
   .animate-blink {
     animation: blink 1s step-end infinite;
   }
