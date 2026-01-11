@@ -17,7 +17,7 @@ console.log("DEBUG: Final Projects Array:", JSON.stringify(projects, null, 2));
 ---
 
 <Layout title="Projects">
-    <div class="container mx-auto px-6 pt-40 pb-20">
+    <div class="max-w-[90%] mx-auto px-6 pt-40 pb-20">
         <div class="max-w-4xl mb-16">
             <h1 class="text-5xl md:text-6xl font-black text-white mb-4">
                 Projects <span class="text-neon-gold">.</span>
@@ -37,7 +37,9 @@ console.log("DEBUG: Final Projects Array:", JSON.stringify(projects, null, 2));
             Found {projects.length} projects.
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div
+            class="grid grid-cols-1 md:grid-cols-[repeat(auto-fill,minmax(500px,1fr))] gap-8"
+        >
             {
                 projects.map((project: any) => (
                     <Card

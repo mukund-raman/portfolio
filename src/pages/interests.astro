@@ -21,7 +21,7 @@ const papers = allPapers.map((paper) => ({
 ---
 
 <Layout title="Interests">
-    <div class="container mx-auto px-6 pt-40 pb-20">
+    <div class="max-w-[90%] mx-auto px-6 pt-40 pb-20">
         <!-- Intro Section from PDF -->
         <div class="max-w-5xl mb-20 grid md:grid-cols-2 gap-12">
             <div>
@@ -80,7 +80,9 @@ const papers = allPapers.map((paper) => ({
                 <span class="w-12 h-1 bg-orange-300"></span>
                 Books Read
             </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div
+                class="grid grid-cols-1 md:grid-cols-[repeat(auto-fill,minmax(500px,1fr))] gap-6"
+            >
                 {
                     books.map((book) => (
                         <Card
@@ -106,7 +108,9 @@ const papers = allPapers.map((paper) => ({
                 <span class="w-12 h-1 bg-orange-500"></span>
                 Papers Read
             </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div
+                class="grid grid-cols-1 md:grid-cols-[repeat(auto-fill,minmax(500px,1fr))] gap-6"
+            >
                 {
                     papers.map((paper) => (
                         <Card

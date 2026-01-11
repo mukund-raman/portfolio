@@ -18,7 +18,7 @@ const posts = allPosts
 ---
 
 <Layout title="Blog">
-    <div class="container mx-auto px-6 pt-40 pb-20">
+    <div class="max-w-[90%] mx-auto px-6 pt-40 pb-20">
         <div class="max-w-4xl mb-16">
             <h1 class="text-5xl md:text-6xl font-black text-white mb-4">
                 Blog <span class="text-neon-purple">.</span>
@@ -37,7 +37,9 @@ const posts = allPosts
             Found {posts.length} posts.
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div
+            class="grid grid-cols-1 md:grid-cols-[repeat(auto-fill,minmax(500px,1fr))] gap-8"
+        >
             {
                 posts.map((post: any) => (
                     <Card
