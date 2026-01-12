@@ -1,1231 +1,1252 @@
-# Existing Blog Posts (3)
+# Blogs:
 
-- slug: "transformers"
-  title: "Understanding Transformer Architectures"
-  subtitle: "Deep Learning"
-  date: "Dec 15, 2024"
-  description: "A deep dive into the attention mechanism and how Transformers revolutionized NLP."
-  tags: ["AI", "NLP", "Tutorial"]
-  link: "/blog/transformers"
-  image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=2000&auto=format&fit=crop&v=2"
+- slug: "polygence-symposium"
+  title: "Polygence Symposium"
+  subtitle: "Computer Science and Physics Talk on Quantum Computing Research"
+  date: "March 2023"
+  description: "A presentation I delivered at Polygence's 8th Symposium of \
+                Rising Scholars on my quantum computing research. My project \
+                was about solving the Max Cut problem using QAOA to find the \
+                ground state of Ising spin glasses."
+  tags: [
+    "Quantum Computing", "Max Cut", "QAOA", "Ising Spin Glass", "Qiskit",
+    "Polygence", "Research", "Presentation", "Theoretical Computer Science",
+    "Physics", "Software Development", "Communication", "Statistical Mechanics"
+  ]
+  link: "/blog/polygence-symposium"
+  image: "https://media.licdn.com/dms/image/sync/v2/D5627AQHj0DozdGUi6Q/articleshare-shrink_800/articleshare-shrink_800/0/1711941015950?e=1768863600&v=beta&t=cu4xGOVlIYTbMUmLn4WSTp4SQKViembA-o7-xyeE-Zs"
   color: "purple"
-  category: "Tutorial"
-  content: |
-    The Transformer architecture, introduced in the seminal paper *[Attention Is All You Need](https://arxiv.org/abs/1706.03762)* (2017), marked a turning point in Natural Language Processing (NLP). Before Transformers, Recurrent Neural Networks (RNNs) and LSTMs were the de facto standard for sequence-to-sequence tasks. However, they suffered from slow training times due to their sequential nature and struggled with long-range dependencies in text.
+  category: "Presentation"
+  content: "TBD"
 
-    ![Transformer Architecture Diagram](https://machinelearningmastery.com/wp-content/uploads/2021/10/transformer_1.png)
+# Samples for Formatting Reference:
 
-    ## The Attention Mechanism
+# - slug: "transformers"
+#   title: "Understanding Transformer Architectures"
+#   subtitle: "Deep Learning"
+#   date: "Dec 15, 2024"
+#   description: "A deep dive into the attention mechanism and how Transformers revolutionized NLP."
+#   tags: ["AI", "NLP", "Tutorial"]
+#   link: "/blog/transformers"
+#   image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=2000&auto=format&fit=crop&v=2"
+#   color: "purple"
+#   category: "Tutorial"
+#   content: |
+#     The Transformer architecture, introduced in the seminal paper *[Attention Is All You Need](https://arxiv.org/abs/1706.03762)* (2017), marked a turning point in Natural Language Processing (NLP). Before Transformers, Recurrent Neural Networks (RNNs) and LSTMs were the de facto standard for sequence-to-sequence tasks. However, they suffered from slow training times due to their sequential nature and struggled with long-range dependencies in text.
 
-    The core innovation of the Transformer is the **Self-Attention** mechanism. Unlike RNNs that look at words one by one, Self-Attention allows the model to weigh the importance of different words in a sentence relative to each other, regardless of their position.
+#     ![Transformer Architecture Diagram](https://machinelearningmastery.com/wp-content/uploads/2021/10/transformer_1.png)
 
-    > "Attention allows the model to look at other positions in the input sequence for clues that can help lead to a better encoding for this word."
+#     ## The Attention Mechanism
 
-    ### Scaled Dot-Product Attention
+#     The core innovation of the Transformer is the **Self-Attention** mechanism. Unlike RNNs that look at words one by one, Self-Attention allows the model to weigh the importance of different words in a sentence relative to each other, regardless of their position.
 
-    Mathematically, attention is calculated as:
+#     > "Attention allows the model to look at other positions in the input sequence for clues that can help lead to a better encoding for this word."
 
-    $$
-    Attention(Q, K, V) = softmax(\frac{QK^T}{\sqrt{d_k}})V
-    $$
+#     ### Scaled Dot-Product Attention
 
-    Where:
-    - **Q (Query)**: What we are looking for.
-    - **K (Key)**: What we match against.
-    - **V (Value)**: The information we extract.
+#     Mathematically, attention is calculated as:
 
-    These matrices are learned parameters during training.
+#     $$
+#     Attention(Q, K, V) = softmax(\frac{QK^T}{\sqrt{d_k}})V
+#     $$
 
-    ## Implementation in PyTorch
+#     Where:
+#     - **Q (Query)**: What we are looking for.
+#     - **K (Key)**: What we match against.
+#     - **V (Value)**: The information we extract.
 
-    Here is a simplified snippet of how one might implement a single attention head in PyTorch. This demonstrates the calculation of the attention scores and applying the mask (essential for decoder blocks).
+#     These matrices are learned parameters during training.
 
-    ```python
-    import torch
-    import torch.nn as nn
-    import torch.nn.functional as F
+#     ## Implementation in PyTorch
 
-    class SelfAttention(nn.Module):
-        def __init__(self, embed_size, heads):
-            super(SelfAttention, self).__init__()
-            self.embed_size = embed_size
-            self.heads = heads
-            self.head_dim = embed_size // heads
+#     Here is a simplified snippet of how one might implement a single attention head in PyTorch. This demonstrates the calculation of the attention scores and applying the mask (essential for decoder blocks).
 
-            assert (
-                self.head_dim * heads == embed_size
-            ), "Embed size needs to be divisible by heads"
+#     ```python
+#     import torch
+#     import torch.nn as nn
+#     import torch.nn.functional as F
 
-            self.values = nn.Linear(self.head_dim, self.head_dim, bias=False)
-            self.keys = nn.Linear(self.head_dim, self.head_dim, bias=False)
-            self.queries = nn.Linear(self.head_dim, self.head_dim, bias=False)
-            self.fc_out = nn.Linear(heads * self.head_dim, embed_size)
+#     class SelfAttention(nn.Module):
+#         def __init__(self, embed_size, heads):
+#             super(SelfAttention, self).__init__()
+#             self.embed_size = embed_size
+#             self.heads = heads
+#             self.head_dim = embed_size // heads
 
-        def forward(self, values, keys, query, mask):
-            # Implementation of the formula above
-            # ...
-            return out
-    ```
+#             assert (
+#                 self.head_dim * heads == embed_size
+#             ), "Embed size needs to be divisible by heads"
 
-    ## Why Transformers Won
+#             self.values = nn.Linear(self.head_dim, self.head_dim, bias=False)
+#             self.keys = nn.Linear(self.head_dim, self.head_dim, bias=False)
+#             self.queries = nn.Linear(self.head_dim, self.head_dim, bias=False)
+#             self.fc_out = nn.Linear(heads * self.head_dim, embed_size)
 
-    1.  **Parallelization**: Unlike RNNs, the entire sequence can be processed at once. To utilize this, Transformers use **Positional Encodings** to inject order information.
-    2.  **Long-Range Dependencies**: The path length between any two words is $O(1)$ in a Transformer, compared to $O(N)$ in an RNN.
-    3.  **Scalability**: This architecture enabled the creation of massive models like BERT, GPT-3, and GPT-4.
+#         def forward(self, values, keys, query, mask):
+#             # Implementation of the formula above
+#             # ...
+#             return out
+#     ```
 
-    ## Conclusion
+#     ## Why Transformers Won
 
-    Transformers have become the foundation of modern AI, extending beyond text to images (Vision Transformers) and audio. Understanding their architecture is fundamental for anyone working in the field of Deep Learning today.
+#     1.  **Parallelization**: Unlike RNNs, the entire sequence can be processed at once. To utilize this, Transformers use **Positional Encodings** to inject order information.
+#     2.  **Long-Range Dependencies**: The path length between any two words is $O(1)$ in a Transformer, compared to $O(N)$ in an RNN.
+#     3.  **Scalability**: This architecture enabled the creation of massive models like BERT, GPT-3, and GPT-4.
 
-- slug: "astro-vs-nextjs"
-  title: "Astro vs Next.js: My Take"
-  subtitle: "Web Dev"
-  date: "Nov 28, 2024"
-  description: "Why I migrated my personal website from Next.js to Astro and never looked back."
-  tags: ["Astro", "Next.js", "React"]
-  link: "/blog/astro-vs-nextjs"
-  image: "https://images.unsplash.com/photo-1462332420958-a05d1e002413?q=80&w=2000&auto=format&fit=crop&v=4"
-  color: "purple"
-  category: "Opinion"
-  content: |
-    For years, **Next.js** has been the undisputed king of React frameworks. It introduced Server-Side Rendering (SSR) and Static Site Generation (SSG) to the masses. However, for content-heavy sites like blogs and portfolios, it often ships more JavaScript than necessary.
+#     ## Conclusion
 
-    Enter **Astro**.
+#     Transformers have become the foundation of modern AI, extending beyond text to images (Vision Transformers) and audio. Understanding their architecture is fundamental for anyone working in the field of Deep Learning today.
 
-    ![Astro Performance Graph](https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2000&auto=format&fit=crop&v=2)
+# - slug: "astro-vs-nextjs"
+#   title: "Astro vs Next.js: My Take"
+#   subtitle: "Web Dev"
+#   date: "Nov 28, 2024"
+#   description: "Why I migrated my personal website from Next.js to Astro and never looked back."
+#   tags: ["Astro", "Next.js", "React"]
+#   link: "/blog/astro-vs-nextjs"
+#   image: "https://images.unsplash.com/photo-1462332420958-a05d1e002413?q=80&w=2000&auto=format&fit=crop&v=4"
+#   color: "purple"
+#   category: "Opinion"
+#   content: |
+#     For years, **Next.js** has been the undisputed king of React frameworks. It introduced Server-Side Rendering (SSR) and Static Site Generation (SSG) to the masses. However, for content-heavy sites like blogs and portfolios, it often ships more JavaScript than necessary.
 
-    ## The "Islands Architecture"
+#     Enter **Astro**.
 
-    The killer feature of Astro is its **Islands Architecture**. In a traditional React SPA/Next.js app, the entire page is hydrated into an interactive React application. This is expensive (hydration cost).
+#     ![Astro Performance Graph](https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2000&auto=format&fit=crop&v=2)
 
-    Astro treats the page as static HTML by default. You can then *sprinkle* interactivity into specific "islands" of the page.
+#     ## The "Islands Architecture"
 
-    ### Code Comparison
+#     The killer feature of Astro is its **Islands Architecture**. In a traditional React SPA/Next.js app, the entire page is hydrated into an interactive React application. This is expensive (hydration cost).
 
-    In Next.js, everything is a component potentially adding to the bundle.
+#     Astro treats the page as static HTML by default. You can then *sprinkle* interactivity into specific "islands" of the page.
 
-    ```jsx
-    // Next.js (pages/index.js)
-    // This whole page (header, footer, content) typically gets hydrated
-    export default function Home() {
-      return (
-        <Layout>
-          <HeavyComponent /> {/* Hydrated */}
-          <StaticContent />  {/* Also part of React tree */}
-        </Layout>
-      )
-    }
-    ```
+#     ### Code Comparison
 
-    In Astro, you explicitly opt-in:
+#     In Next.js, everything is a component potentially adding to the bundle.
 
-    ```astro
-    ---
-    // Astro (pages/index.astro)
-    import HeavyComponent from '../components/HeavyComponent.jsx';
-    ---
+#     ```jsx
+#     // Next.js (pages/index.js)
+#     // This whole page (header, footer, content) typically gets hydrated
+#     export default function Home() {
+#       return (
+#         <Layout>
+#           <HeavyComponent /> {/* Hydrated */}
+#           <StaticContent />  {/* Also part of React tree */}
+#         </Layout>
+#       )
+#     }
+#     ```
 
-    <!-- 100% Static HTML -->
-    <Header />
+#     In Astro, you explicitly opt-in:
 
-    <!-- Hydrated on load (standard) -->
-    <HeavyComponent client:load />
+#     ```astro
+#     ---
+#     // Astro (pages/index.astro)
+#     import HeavyComponent from '../components/HeavyComponent.jsx';
+#     ---
 
-    <!-- Hydrated only when visible in viewport! -->
-    <HeavyComponent client:visible />
+#     <!-- 100% Static HTML -->
+#     <Header />
 
-    <Footer />
-    ```
+#     <!-- Hydrated on load (standard) -->
+#     <HeavyComponent client:load />
 
-    ## Performance Wins
+#     <!-- Hydrated only when visible in viewport! -->
+#     <HeavyComponent client:visible />
 
-    After migrating this portfolio:
+#     <Footer />
+#     ```
 
-    - **JS Bundle Size**: Reduced by **92%** (from 240kB to 19kB).
-    - **Time to Interactive (TTI)**: Dropped from 1.8s to 0.4s.
-    - **Lighthouse Score**: Consistently 100/100.
+#     ## Performance Wins
 
-    ## When to use what?
+#     After migrating this portfolio:
 
-    | Feature | Astro | Next.js |
-    | :--- | :--- | :--- |
-    | **Content Sites (Blog, Portfolio)** | Best Choice 🏆 | Overkill |
-    | **Marketing Sites** | Excellent | Good |
-    | **Complex Dashboards (SaaS)** | Good (improving) | Best Choice 🏆 |
-    | **E-commerce** | Great (for storefronts) | Excellent |
+#     - **JS Bundle Size**: Reduced by **92%** (from 240kB to 19kB).
+#     - **Time to Interactive (TTI)**: Dropped from 1.8s to 0.4s.
+#     - **Lighthouse Score**: Consistently 100/100.
 
-    ## Conclusion
+#     ## When to use what?
 
-    If you are building a dashboard behind a login, Next.js (or Remix) is still robust. But for almost everything else—marketing pages, documentation, blogs, portfolios—Astro is simply superior in performance and developer experience.
+#     | Feature | Astro | Next.js |
+#     | :--- | :--- | :--- |
+#     | **Content Sites (Blog, Portfolio)** | Best Choice 🏆 | Overkill |
+#     | **Marketing Sites** | Excellent | Good |
+#     | **Complex Dashboards (SaaS)** | Good (improving) | Best Choice 🏆 |
+#     | **E-commerce** | Great (for storefronts) | Excellent |
 
-- slug: "ros2-setup"
-  title: "Getting Started with ROS 2"
-  subtitle: "Robotics"
-  date: "Oct 10, 2024"
-  description: "A comprehensive guide to setting up your first robot simulation with ROS 2 Humble."
-  tags: ["Robotics", "ROS 2", "Ubuntu"]
-  link: "/blog/ros2-setup"
-  image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2000&auto=format&fit=crop"
-  color: "purple"
-  category: "Guide"
-  content: |
-    The Robot Operating System (ROS) is the standard middleware for robotic software development. **ROS 2** is the modern version, redesigned from the ground up to support real-time systems, improved security, and production environments.
+#     ## Conclusion
 
-    In this guide, we will set up **ROS 2 Humble Hawksbill** on Ubuntu 22.04 and run a simple simulation.
+#     If you are building a dashboard behind a login, Next.js (or Remix) is still robust. But for almost everything else—marketing pages, documentation, blogs, portfolios—Astro is simply superior in performance and developer experience.
 
-    ![Robot Simulation](https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=2000&auto=format&fit=crop&v=1)
+# - slug: "ros2-setup"
+#   title: "Getting Started with ROS 2"
+#   subtitle: "Robotics"
+#   date: "Oct 10, 2024"
+#   description: "A comprehensive guide to setting up your first robot simulation with ROS 2 Humble."
+#   tags: ["Robotics", "ROS 2", "Ubuntu"]
+#   link: "/blog/ros2-setup"
+#   image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2000&auto=format&fit=crop"
+#   color: "purple"
+#   category: "Guide"
+#   content: |
+#     The Robot Operating System (ROS) is the standard middleware for robotic software development. **ROS 2** is the modern version, redesigned from the ground up to support real-time systems, improved security, and production environments.
 
-    ## Prerequisites
+#     In this guide, we will set up **ROS 2 Humble Hawksbill** on Ubuntu 22.04 and run a simple simulation.
 
-    - Ubuntu 22.04 LTS (Jammy Jellyfish)
-    - Basic terminal knowledge
+#     ![Robot Simulation](https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=2000&auto=format&fit=crop&v=1)
 
-    ## Installation
+#     ## Prerequisites
 
-    First, we need to ensure our locale supports UTF-8, which is critical for ROS 2.
+#     - Ubuntu 22.04 LTS (Jammy Jellyfish)
+#     - Basic terminal knowledge
 
-    ```bash
-    locale  # check for UTF-8
+#     ## Installation
 
-    sudo apt update && sudo apt install locales
-    sudo locale-gen en_US en_US.UTF-8
-    sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
-    export LANG=en_US.UTF-8
-    ```
+#     First, we need to ensure our locale supports UTF-8, which is critical for ROS 2.
 
-    ### Adding Repositories
+#     ```bash
+#     locale  # check for UTF-8
 
-    ```bash
-    sudo apt install software-properties-common
-    sudo add-apt-repository universe
+#     sudo apt update && sudo apt install locales
+#     sudo locale-gen en_US en_US.UTF-8
+#     sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
+#     export LANG=en_US.UTF-8
+#     ```
 
-    sudo apt update && sudo apt install curl -y
-    sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
+#     ### Adding Repositories
 
-    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
-    ```
+#     ```bash
+#     sudo apt install software-properties-common
+#     sudo add-apt-repository universe
 
-    ### Install ROS 2 Base
+#     sudo apt update && sudo apt install curl -y
+#     sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
 
-    We will install the `desktop` version which includes tools like RViz (visualization) and demos.
+#     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
+#     ```
 
-    ```bash
-    sudo apt update
-    sudo apt upgrade
-    sudo apt install ros-humble-desktop
-    ```
+#     ### Install ROS 2 Base
 
-    ## Running the Demo
+#     We will install the `desktop` version which includes tools like RViz (visualization) and demos.
 
-    Now for the fun part. Open two terminal windows. Source the setup script in both:
+#     ```bash
+#     sudo apt update
+#     sudo apt upgrade
+#     sudo apt install ros-humble-desktop
+#     ```
 
-    ```bash
-    source /opt/ros/humble/setup.bash
-    ```
+#     ## Running the Demo
 
-    In **Terminal 1** (The Talker):
-    ```bash
-    ros2 run demo_nodes_cpp talker
-    ```
+#     Now for the fun part. Open two terminal windows. Source the setup script in both:
 
-    In **Terminal 2** (The Listener):
-    ```bash
-    ros2 run demo_nodes_py listener
-    ```
+#     ```bash
+#     source /opt/ros/humble/setup.bash
+#     ```
 
-    You should see messages being published in T1 and received in T2!
+#     In **Terminal 1** (The Talker):
+#     ```bash
+#     ros2 run demo_nodes_cpp talker
+#     ```
 
-    ## Key Concepts
+#     In **Terminal 2** (The Listener):
+#     ```bash
+#     ros2 run demo_nodes_py listener
+#     ```
 
-    - **Nodes**: Executables that perform computation.
-    - **Topics**: Named buses over which nodes exchange messages.
-    - **Services**: Request/response communication.
-    - **Actions**: Long-running goal-oriented tasks.
+#     You should see messages being published in T1 and received in T2!
 
-    ## Next Steps
+#     ## Key Concepts
 
-    Now that you have the environment running, try installing the `turtlesim` package to control a virtual turtle using your keyboard!
+#     - **Nodes**: Executables that perform computation.
+#     - **Topics**: Named buses over which nodes exchange messages.
+#     - **Services**: Request/response communication.
+#     - **Actions**: Long-running goal-oriented tasks.
 
-# New Blog Posts (~10)
+#     ## Next Steps
 
-- slug: "react-performance-optimization"
-  title: "React Performance: Beyond useMemo"
-  subtitle: "Web Development"
-  date: "Sep 20, 2024"
-  description: "Advanced techniques for optimizing React applications including code splitting, lazy loading, and server components."
-  tags: ["React", "Performance", "Tutorial"]
-  link: "/blog/react-performance-optimization"
-  image: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=2000&h=1200&fit=crop"
-  color: "purple"
-  category: "Tutorial"
-  content: |
-    Most React performance guides tell you to use `useMemo` and `useCallback`. While these are useful, they're often misapplied. Let's explore more impactful optimizations.
+#     Now that you have the environment running, try installing the `turtlesim` package to control a virtual turtle using your keyboard!
 
-    ## 1. Code Splitting with React.lazy
+# # New Blog Posts (~10)
 
-    The biggest performance win comes from not loading code at all.
+# - slug: "react-performance-optimization"
+#   title: "React Performance: Beyond useMemo"
+#   subtitle: "Web Development"
+#   date: "Sep 20, 2024"
+#   description: "Advanced techniques for optimizing React applications including code splitting, lazy loading, and server components."
+#   tags: ["React", "Performance", "Tutorial"]
+#   link: "/blog/react-performance-optimization"
+#   image: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=2000&h=1200&fit=crop"
+#   color: "purple"
+#   category: "Tutorial"
+#   content: |
+#     Most React performance guides tell you to use `useMemo` and `useCallback`. While these are useful, they're often misapplied. Let's explore more impactful optimizations.
 
-    ```javascript
-    import { lazy, Suspense } from 'react';
+#     ## 1. Code Splitting with React.lazy
 
-    const HeavyComponent = lazy(() => import('./HeavyComponent'));
+#     The biggest performance win comes from not loading code at all.
 
-    function App() {
-      return (
-        <Suspense fallback={<div>Loading...</div>}>
-          <HeavyComponent />
-        </Suspense>
-      );
-    }
-    ```
+#     ```javascript
+#     import { lazy, Suspense } from 'react';
 
-    This reduced my initial bundle size by 60%.
+#     const HeavyComponent = lazy(() => import('./HeavyComponent'));
 
-    ## 2. Virtualization for Long Lists
+#     function App() {
+#       return (
+#         <Suspense fallback={<div>Loading...</div>}>
+#           <HeavyComponent />
+#         </Suspense>
+#       );
+#     }
+#     ```
 
-    Rendering 10,000 DOM nodes is slow. Use `react-window` to only render visible items.
+#     This reduced my initial bundle size by 60%.
 
-    ```javascript
-    import { FixedSizeList } from 'react-window';
+#     ## 2. Virtualization for Long Lists
 
-    function List({ items }) {
-      return (
-        <FixedSizeList
-          height={600}
-          itemCount={items.length}
-          itemSize={35}
-        >
-          {({ index, style }) => (
-            <div style={style}>{items[index].name}</div>
-          )}
-        </FixedSizeList>
-      );
-    }
-    ```
+#     Rendering 10,000 DOM nodes is slow. Use `react-window` to only render visible items.
 
-    ## 3. Server Components (Next.js 13+)
+#     ```javascript
+#     import { FixedSizeList } from 'react-window';
 
-    Server Components let you run data fetching on the server, shipping zero JS to the client.
+#     function List({ items }) {
+#       return (
+#         <FixedSizeList
+#           height={600}
+#           itemCount={items.length}
+#           itemSize={35}
+#         >
+#           {({ index, style }) => (
+#             <div style={style}>{items[index].name}</div>
+#           )}
+#         </FixedSizeList>
+#       );
+#     }
+#     ```
 
-    ```jsx
-    // This runs on the server!
-    async function BlogPost({ id }) {
-      const post = await db.posts.findUnique({ where: { id } });
-      return <article>{post.content}</article>;
-    }
-    ```
+#     ## 3. Server Components (Next.js 13+)
 
-    ## Profiling
+#     Server Components let you run data fetching on the server, shipping zero JS to the client.
 
-    Always profile before optimizing. Use React DevTools Profiler to find actual bottlenecks.
+#     ```jsx
+#     // This runs on the server!
+#     async function BlogPost({ id }) {
+#       const post = await db.posts.findUnique({ where: { id } });
+#       return <article>{post.content}</article>;
+#     }
+#     ```
 
-    > "Premature optimization is the root of all evil" - Donald Knuth
+#     ## Profiling
 
-- slug: "database-indexing-strategies"
-  title: "Database Indexing: A Practical Guide"
-  subtitle: "Backend Engineering"
-  date: "Aug 15, 2024"
-  description: "When and how to use indexes in PostgreSQL to dramatically improve query performance."
-  tags: ["PostgreSQL", "Database", "Performance"]
-  link: "/blog/database-indexing-strategies"
-  image: "https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=2000&h=1200&fit=crop"
-  color: "purple"
-  category: "Guide"
-  content: |
-    Indexes are the most powerful tool for database performance. But they come with tradeoffs.
+#     Always profile before optimizing. Use React DevTools Profiler to find actual bottlenecks.
 
-    ## What is an Index?
+#     > "Premature optimization is the root of all evil" - Donald Knuth
 
-    An index is like a book's table of contents. Instead of scanning every page (table row), you look up the location directly.
+# - slug: "database-indexing-strategies"
+#   title: "Database Indexing: A Practical Guide"
+#   subtitle: "Backend Engineering"
+#   date: "Aug 15, 2024"
+#   description: "When and how to use indexes in PostgreSQL to dramatically improve query performance."
+#   tags: ["PostgreSQL", "Database", "Performance"]
+#   link: "/blog/database-indexing-strategies"
+#   image: "https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=2000&h=1200&fit=crop"
+#   color: "purple"
+#   category: "Guide"
+#   content: |
+#     Indexes are the most powerful tool for database performance. But they come with tradeoffs.
 
-    ## Common Index Types
+#     ## What is an Index?
 
-    ### B-Tree (Default)
-    Best for equality and range queries.
+#     An index is like a book's table of contents. Instead of scanning every page (table row), you look up the location directly.
 
-    ```sql
-    CREATE INDEX idx_users_email ON users(email);
-    -- Now this is fast:
-    SELECT * FROM users WHERE email = 'user@example.com';
-    ```
+#     ## Common Index Types
 
-    ### Hash Index
-    Only for equality checks, slightly faster than B-Tree.
+#     ### B-Tree (Default)
+#     Best for equality and range queries.
 
-    ```sql
-    CREATE INDEX idx_users_id_hash ON users USING HASH (id);
-    ```
+#     ```sql
+#     CREATE INDEX idx_users_email ON users(email);
+#     -- Now this is fast:
+#     SELECT * FROM users WHERE email = 'user@example.com';
+#     ```
 
-    ### GiN (Generalized Inverted Index)
-    For full-text search and JSONB queries.
+#     ### Hash Index
+#     Only for equality checks, slightly faster than B-Tree.
 
-    ```sql
-    CREATE INDEX idx_posts_search ON posts USING GIN (to_tsvector('english', content));
-    ```
+#     ```sql
+#     CREATE INDEX idx_users_id_hash ON users USING HASH (id);
+#     ```
 
-    ## When NOT to Index
+#     ### GiN (Generalized Inverted Index)
+#     For full-text search and JSONB queries.
 
-    - Small tables (< 1000 rows)
-    - Columns with low cardinality (e.g., boolean flags)
-    - Write-heavy tables (indexes slow down INSERTs)
+#     ```sql
+#     CREATE INDEX idx_posts_search ON posts USING GIN (to_tsvector('english', content));
+#     ```
 
-    ## Composite Indexes
+#     ## When NOT to Index
 
-    Order matters! Leftmost prefix rule applies.
+#     - Small tables (< 1000 rows)
+#     - Columns with low cardinality (e.g., boolean flags)
+#     - Write-heavy tables (indexes slow down INSERTs)
 
-    ```sql
-    CREATE INDEX idx_users_name_age ON users(last_name, first_name, age);
-    -- Fast:
-    WHERE last_name = 'Smith'
-    WHERE last_name = 'Smith' AND first_name = 'John'
-    -- Slow:
-    WHERE first_name = 'John'  -- Can't use index
-    ```
+#     ## Composite Indexes
 
-    ## Pro Tip: EXPLAIN ANALYZE
+#     Order matters! Leftmost prefix rule applies.
 
-    Always verify with:
+#     ```sql
+#     CREATE INDEX idx_users_name_age ON users(last_name, first_name, age);
+#     -- Fast:
+#     WHERE last_name = 'Smith'
+#     WHERE last_name = 'Smith' AND first_name = 'John'
+#     -- Slow:
+#     WHERE first_name = 'John'  -- Can't use index
+#     ```
 
-    ```sql
-    EXPLAIN ANALYZE SELECT * FROM users WHERE email = 'test@test.com';
-    ```
+#     ## Pro Tip: EXPLAIN ANALYZE
 
-    Look for "Index Scan" vs "Seq Scan".
+#     Always verify with:
 
-- slug: "docker-best-practices"
-  title: "Docker in Production: Lessons Learned"
-  subtitle: "DevOps"
-  date: "Jul 22, 2024"
-  description: "Battle-tested strategies for building secure, efficient Docker images and managing containers in production."
-  tags: ["Docker", "DevOps", "Production"]
-  link: "/blog/docker-best-practices"
-  image: "https://images.unsplash.com/photo-1605745341112-85968b19335b?w=2000&h=1200&fit=crop"
-  color: "purple"
-  category: "Guide"
-  content: |
-    After running Docker in production for 5 years, here are the practices that actually matter.
+#     ```sql
+#     EXPLAIN ANALYZE SELECT * FROM users WHERE email = 'test@test.com';
+#     ```
 
-    ## 1. Multi-Stage Builds
+#     Look for "Index Scan" vs "Seq Scan".
 
-    Reduce image size by 80%+ with multi-stage builds.
+# - slug: "docker-best-practices"
+#   title: "Docker in Production: Lessons Learned"
+#   subtitle: "DevOps"
+#   date: "Jul 22, 2024"
+#   description: "Battle-tested strategies for building secure, efficient Docker images and managing containers in production."
+#   tags: ["Docker", "DevOps", "Production"]
+#   link: "/blog/docker-best-practices"
+#   image: "https://images.unsplash.com/photo-1605745341112-85968b19335b?w=2000&h=1200&fit=crop"
+#   color: "purple"
+#   category: "Guide"
+#   content: |
+#     After running Docker in production for 5 years, here are the practices that actually matter.
 
-    ```dockerfile
-    # Build stage
-    FROM node:18 AS builder
-    WORKDIR /app
-    COPY package*.json ./
-    RUN npm ci
-    COPY . .
-    RUN npm run build
+#     ## 1. Multi-Stage Builds
 
-    # Production stage
-    FROM node:18-alpine
-    WORKDIR /app
-    COPY --from=builder /app/dist ./dist
-    COPY --from=builder /app/node_modules ./node_modules
-    CMD ["node", "dist/main.js"]
-    ```
+#     Reduce image size by 80%+ with multi-stage builds.
 
-    Before: 1.2GB. After: 120MB.
+#     ```dockerfile
+#     # Build stage
+#     FROM node:18 AS builder
+#     WORKDIR /app
+#     COPY package*.json ./
+#     RUN npm ci
+#     COPY . .
+#     RUN npm run build
 
-    ## 2. .dockerignore
+#     # Production stage
+#     FROM node:18-alpine
+#     WORKDIR /app
+#     COPY --from=builder /app/dist ./dist
+#     COPY --from=builder /app/node_modules ./node_modules
+#     CMD ["node", "dist/main.js"]
+#     ```
 
-    Exclude unnecessary files from build context.
+#     Before: 1.2GB. After: 120MB.
 
-    ```
-    node_modules
-    .git
-    .env
-    *.md
-    .vscode
-    ```
+#     ## 2. .dockerignore
 
-    This speeds up builds significantly.
+#     Exclude unnecessary files from build context.
 
-    ## 3. Layer Caching
+#     ```
+#     node_modules
+#     .git
+#     .env
+#     *.md
+#     .vscode
+#     ```
 
-    Order matters! Put frequently changing layers last.
+#     This speeds up builds significantly.
 
-    ```dockerfile
-    # Good: package.json changes less than source code
-    COPY package*.json ./
-    RUN npm install
-    COPY . .
+#     ## 3. Layer Caching
 
-    # Bad: invalidates cache on every code change
-    COPY . .
-    RUN npm install
-    ```
+#     Order matters! Put frequently changing layers last.
 
-    ## 4. Security
+#     ```dockerfile
+#     # Good: package.json changes less than source code
+#     COPY package*.json ./
+#     RUN npm install
+#     COPY . .
 
-    Never run as root:
+#     # Bad: invalidates cache on every code change
+#     COPY . .
+#     RUN npm install
+#     ```
 
-    ```dockerfile
-    RUN addgroup -S appgroup && adduser -S appuser -G appgroup
-    USER appuser
-    ```
+#     ## 4. Security
 
-    Scan images for vulnerabilities:
-    ```bash
-    docker scan myimage:latest
-    ```
+#     Never run as root:
 
-    ## 5. Health Checks
+#     ```dockerfile
+#     RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+#     USER appuser
+#     ```
 
-    ```dockerfile
-    HEALTHCHECK --interval=30s --timeout=3s \
-      CMD curl -f http://localhost:3000/health || exit 1
-    ```
+#     Scan images for vulnerabilities:
+#     ```bash
+#     docker scan myimage:latest
+#     ```
 
-    This helps orchestrators know when containers are truly ready.
+#     ## 5. Health Checks
 
-- slug: "api-design-principles"
-  title: "RESTful API Design: The Essentials"
-  subtitle: "Backend Engineering"
-  date: "Jun 18, 2024"
-  description: "Core principles for designing clean, maintainable, and developer-friendly REST APIs."
-  tags: ["API", "Backend", "Best Practices"]
-  link: "/blog/api-design-principles"
-  image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=2000&h=1200&fit=crop"
-  color: "purple"
-  category: "Guide"
-  content: |
-    Good API design is an art. Here are the principles I follow.
-
-    ## 1. Use Nouns, Not Verbs
-
-    ```
-    ❌ GET /getUsers
-    ✅ GET /users
-
-    ❌ POST /createUser
-    ✅ POST /users
-
-    ❌ PUT /updateUser/123
-    ✅ PUT /users/123
-    ```
-
-    HTTP methods already convey the action.
-
-    ## 2. Plural Resource Names
-
-    ```
-    ✅ GET /users/123
-    ❌ GET /user/123
-    ```
-
-    It's more consistent when you have collections.
-
-    ## 3. Proper HTTP Status Codes
-
-    - `200 OK` - Successful GET, PUT, PATCH
-    - `201 Created` - Successful POST
-    - `204 No Content` - Successful DELETE
-    - `400 Bad Request` - Validation error
-    - `401 Unauthorized` - Missing/invalid auth
-    - `403 Forbidden` - Authenticated but not authorized
-    - `404 Not Found` - Resource doesn't exist
-    - `500 Internal Server Error` - Server issue
-
-    ## 4. Filtering, Sorting, Pagination
-
-    ```
-    GET /users?role=admin&sort=created_at&order=desc&page=2&limit=20
-    ```
-
-    Return metadata in response:
-
-    ```json
-    {
-      "data": [...],
-      "meta": {
-        "total": 150,
-        "page": 2,
-        "limit": 20,
-        "pages": 8
-      }
-    }
-    ```
-
-    ## 5. Versioning
-
-    ```
-    GET /api/v1/users
-    ```
-
-    Or use headers:
-    ```
-    Accept: application/vnd.myapi.v1+json
-    ```
-
-    ## 6. Consistent Error Format
-
-    ```json
-    {
-      "error": {
-        "code": "VALIDATION_ERROR",
-        "message": "Invalid request parameters",
-        "details": [
-          {
-            "field": "email",
-            "issue": "Must be a valid email address"
-          }
-        ]
-      }
-    }
-    ```
-
-- slug: "system-design-caching"
-  title: "Caching Strategies for High-Traffic Systems"
-  subtitle: "System Design"
-  date: "May 10, 2024"
-  description: "Deep dive into caching patterns: cache-aside, write-through, write-behind, and when to use each."
-  tags: ["System Design", "Redis", "Performance"]
-  link: "/blog/system-design-caching"
-  image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=2000&h=1200&fit=crop"
-  color: "purple"
-  category: "Tutorial"
-  content: |
-    Caching is the first line of defense for scaling read-heavy workloads.
-
-    ## Cache-Aside (Lazy Loading)
-
-    Most common pattern. Application manages cache manually.
-
-    ```python
-    def get_user(user_id):
-        # Try cache first
-        user = cache.get(f"user:{user_id}")
-        if user:
-            return user
+#     ```dockerfile
+#     HEALTHCHECK --interval=30s --timeout=3s \
+#       CMD curl -f http://localhost:3000/health || exit 1
+#     ```
+
+#     This helps orchestrators know when containers are truly ready.
+
+# - slug: "api-design-principles"
+#   title: "RESTful API Design: The Essentials"
+#   subtitle: "Backend Engineering"
+#   date: "Jun 18, 2024"
+#   description: "Core principles for designing clean, maintainable, and developer-friendly REST APIs."
+#   tags: ["API", "Backend", "Best Practices"]
+#   link: "/blog/api-design-principles"
+#   image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=2000&h=1200&fit=crop"
+#   color: "purple"
+#   category: "Guide"
+#   content: |
+#     Good API design is an art. Here are the principles I follow.
+
+#     ## 1. Use Nouns, Not Verbs
+
+#     ```
+#     ❌ GET /getUsers
+#     ✅ GET /users
+
+#     ❌ POST /createUser
+#     ✅ POST /users
+
+#     ❌ PUT /updateUser/123
+#     ✅ PUT /users/123
+#     ```
+
+#     HTTP methods already convey the action.
+
+#     ## 2. Plural Resource Names
+
+#     ```
+#     ✅ GET /users/123
+#     ❌ GET /user/123
+#     ```
+
+#     It's more consistent when you have collections.
+
+#     ## 3. Proper HTTP Status Codes
+
+#     - `200 OK` - Successful GET, PUT, PATCH
+#     - `201 Created` - Successful POST
+#     - `204 No Content` - Successful DELETE
+#     - `400 Bad Request` - Validation error
+#     - `401 Unauthorized` - Missing/invalid auth
+#     - `403 Forbidden` - Authenticated but not authorized
+#     - `404 Not Found` - Resource doesn't exist
+#     - `500 Internal Server Error` - Server issue
+
+#     ## 4. Filtering, Sorting, Pagination
+
+#     ```
+#     GET /users?role=admin&sort=created_at&order=desc&page=2&limit=20
+#     ```
+
+#     Return metadata in response:
+
+#     ```json
+#     {
+#       "data": [...],
+#       "meta": {
+#         "total": 150,
+#         "page": 2,
+#         "limit": 20,
+#         "pages": 8
+#       }
+#     }
+#     ```
+
+#     ## 5. Versioning
+
+#     ```
+#     GET /api/v1/users
+#     ```
+
+#     Or use headers:
+#     ```
+#     Accept: application/vnd.myapi.v1+json
+#     ```
+
+#     ## 6. Consistent Error Format
+
+#     ```json
+#     {
+#       "error": {
+#         "code": "VALIDATION_ERROR",
+#         "message": "Invalid request parameters",
+#         "details": [
+#           {
+#             "field": "email",
+#             "issue": "Must be a valid email address"
+#           }
+#         ]
+#       }
+#     }
+#     ```
+
+# - slug: "system-design-caching"
+#   title: "Caching Strategies for High-Traffic Systems"
+#   subtitle: "System Design"
+#   date: "May 10, 2024"
+#   description: "Deep dive into caching patterns: cache-aside, write-through, write-behind, and when to use each."
+#   tags: ["System Design", "Redis", "Performance"]
+#   link: "/blog/system-design-caching"
+#   image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=2000&h=1200&fit=crop"
+#   color: "purple"
+#   category: "Tutorial"
+#   content: |
+#     Caching is the first line of defense for scaling read-heavy workloads.
+
+#     ## Cache-Aside (Lazy Loading)
+
+#     Most common pattern. Application manages cache manually.
+
+#     ```python
+#     def get_user(user_id):
+#         # Try cache first
+#         user = cache.get(f"user:{user_id}")
+#         if user:
+#             return user
         
-        # Cache miss - fetch from DB
-        user = db.query("SELECT * FROM users WHERE id = ?", user_id)
+#         # Cache miss - fetch from DB
+#         user = db.query("SELECT * FROM users WHERE id = ?", user_id)
         
-        # Store in cache
-        cache.set(f"user:{user_id}", user, ttl=3600)
-        return user
-    ```
+#         # Store in cache
+#         cache.set(f"user:{user_id}", user, ttl=3600)
+#         return user
+#     ```
 
-    **Pros**: Simple, only caches what's actually requested  
-    **Cons**: Cache miss penalty, potential thundering herd
+#     **Pros**: Simple, only caches what's actually requested  
+#     **Cons**: Cache miss penalty, potential thundering herd
 
-    ## Write-Through
+#     ## Write-Through
 
-    Data written to cache and DB simultaneously.
+#     Data written to cache and DB simultaneously.
 
-    ```python
-    def update_user(user_id, data):
-        db.update(user_id, data)
-        cache.set(f"user:{user_id}", data, ttl=3600)
-    ```
+#     ```python
+#     def update_user(user_id, data):
+#         db.update(user_id, data)
+#         cache.set(f"user:{user_id}", data, ttl=3600)
+#     ```
 
-    **Pros**: Cache always consistent with DB  
-    **Cons**: Write latency, potentially wasteful
+#     **Pros**: Cache always consistent with DB  
+#     **Cons**: Write latency, potentially wasteful
 
-    ## Write-Behind (Write-Back)
+#     ## Write-Behind (Write-Back)
 
-    Write to cache immediately, DB asynchronously.
+#     Write to cache immediately, DB asynchronously.
 
-    **Pros**: Fast writes  
-    **Cons**: Risk of data loss, complexity
+#     **Pros**: Fast writes  
+#     **Cons**: Risk of data loss, complexity
 
-    ## Cache Eviction Policies
+#     ## Cache Eviction Policies
 
-    - **LRU (Least Recently Used)**: Default for most caches
-    - **LFU (Least Frequently Used)**: Better for hot-key scenarios
-    - **TTL (Time To Live)**: Time-based expiration
+#     - **LRU (Least Recently Used)**: Default for most caches
+#     - **LFU (Least Frequently Used)**: Better for hot-key scenarios
+#     - **TTL (Time To Live)**: Time-based expiration
 
-    ## Cache Stampede Prevention
+#     ## Cache Stampede Prevention
 
-    When cache expires, multiple requests hit DB. Solution:
+#     When cache expires, multiple requests hit DB. Solution:
 
-    ```python
-    def get_with_lock(key):
-        if cache.exists(key):
-            return cache.get(key)
+#     ```python
+#     def get_with_lock(key):
+#         if cache.exists(key):
+#             return cache.get(key)
         
-        # Only one request regenerates
-        with cache.lock(f"lock:{key}", timeout=10):
-            # Double-check after acquiring lock
-            data = cache.get(key)
-            if data:
-                return data
+#         # Only one request regenerates
+#         with cache.lock(f"lock:{key}", timeout=10):
+#             # Double-check after acquiring lock
+#             data = cache.get(key)
+#             if data:
+#                 return data
             
-            data = expensive_db_query()
-            cache.set(key, data)
-            return data
-    ```
-
-- slug: "testing-strategies"
-  title: "The Testing Pyramid: A Practical Approach"
-  subtitle: "Software Engineering"
-  date: "Apr 05, 2024"
-  description: "How to balance unit tests, integration tests, and end-to-end tests for maximum confidence with minimum maintenance."
-  tags: ["Testing", "Jest", "Best Practices"]
-  link: "/blog/testing-strategies"
-  image: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=2000&h=1200&fit=crop"
-  color: "purple"
-  category: "Guide"
-  content: |
-    The testing pyramid guides how to distribute your test suite.
-
-    ```
-         /\
-        /E2E\       ← Few, slow, expensive
-       /------\
-      /  Int.  \    ← Moderate
-     /----------\
-    /    Unit    \  ← Many, fast, cheap
-    --------------
-    ```
-
-    ## Unit Tests (70%)
-
-    Test individual functions in isolation.
-
-    ```javascript
-    // sum.js
-    export function sum(a, b) {
-      return a + b;
-    }
-
-    // sum.test.js
-    import { sum } from './sum';
-
-    test('adds 1 + 2 to equal 3', () => {
-      expect(sum(1, 2)).toBe(3);
-    });
-    ```
-
-    **Benefits**: Fast, easy to debug, high coverage  
-    **Limitations**: Don't catch integration issues
-
-    ## Integration Tests (20%)
-
-    Test how multiple units work together.
-
-    ```javascript
-    test('user registration flow', async () => {
-      const user = await createUser({ email: 'test@test.com' });
-      const saved = await db.users.findOne({ email: 'test@test.com' });
-      expect(saved).toBeDefined();
-    });
-    ```
-
-    ## E2E Tests (10%)
-
-    Test complete user flows through the UI.
-
-    ```javascript
-    // Playwright example
-    test('user can login', async ({ page }) => {
-      await page.goto('/login');
-      await page.fill('[name="email"]', 'user@test.com');
-      await page.fill('[name="password"]', 'password123');
-      await page.click('button[type="submit"]');
-      await expect(page).toHaveURL('/dashboard');
-    });
-    ```
-
-    **Benefits**: Highest confidence  
-    **Drawbacks**: Slow, brittle, hard to debug
-
-    ## Best Practices
-
-    1. **Test behavior, not implementation**: Refactoring shouldn't break tests
-    2. **One assertion per test**: Makes failures clear
-    3. **Arrange-Act-Assert pattern**:
-       ```javascript
-       test('example', () => {
-         // Arrange
-         const input = 5;
-         // Act
-         const result = double(input);
-         // Assert
-         expect(result).toBe(10);
-       });
-       ```
-
-    4. **Mock external dependencies**: Don't test third-party APIs
-
-- slug: "git-workflow-strategies"
-  title: "Git Workflows for Teams"
-  subtitle: "DevOps"
-  date: "Mar 12, 2024"
-  description: "Comparing Git Flow, GitHub Flow, and trunk-based development for modern team collaboration."
-  tags: ["Git", "DevOps", "Collaboration"]
-  link: "/blog/git-workflow-strategies"
-  image: "https://images.unsplash.com/photo-1556075798-4825dfaaf498?w=2000&h=1200&fit=crop"
-  color: "purple"
-  category: "Guide"
-  content: |
-    Different teams need different Git workflows. Here's how to choose.
-
-    ## GitHub Flow (Recommended for most teams)
-
-    Simple branch-deploy-merge cycle.
-
-    ```
-    main (always deployable)
-      ↓
-    feature/add-login
-      ↓
-    Pull Request → Code Review → Merge
-    ```
-
-    **Process**:
-    1. Create branch from `main`
-    2. Make commits
-    3. Open PR
-    4. Review & discuss
-    5. Deploy to production
-    6. Merge to `main`
-
-    **Best for**: Continuous deployment, small teams
-
-    ## Git Flow
-
-    More structured with release branches.
-
-    ```
-    main (production)
-    develop (integration)
-    feature/* (features)
-    release/* (releases)
-    hotfix/* (urgent fixes)
-    ```
-
-    **Best for**: Scheduled releases, larger teams
-
-    ## Trunk-Based Development
-
-    Everyone commits to `main` frequently.
-
-    ```bash
-    git checkout main
-    git pull
-    # Make small change
-    git commit -m "feat: add button"
-    git push
-    ```
-
-    Use feature flags for incomplete features.
-
-    **Best for**: CI/CD, high deployment frequency
-
-    ## Commit Message Conventions
-
-    Use Conventional Commits:
-
-    ```
-    feat: add user authentication
-    fix: resolve login redirect bug
-    docs: update API documentation
-    refactor: simplify database queries
-    test: add unit tests for UserService
-    ```
-
-    ## Branch Protection Rules
-
-    ```yaml
-    - Require pull request reviews (≥ 1)
-    - Require status checks to pass
-    - Require branches to be up to date
-    - Restrict who can push to main
-    ```
-
-- slug: "graphql-vs-rest"
-  title: "GraphQL vs REST: When to Use What"
-  subtitle: "API Design"
-  date: "Feb 18, 2024"
-  description: "Practical comparison of GraphQL and REST APIs with real-world use cases and tradeoffs."
-  tags: ["GraphQL", "API", "Backend"]
-  link: "/blog/graphql-vs-rest"
-  image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=2000&h=1200&fit=crop"
-  color: "purple"
-  category: "Opinion"
-  content: |
-    The GraphQL vs REST debate continues. Here's my take after using both extensively.
-
-    ## REST: Simple and Proven
-
-    ```
-    GET /users/123
-    GET /users/123/posts
-    GET /posts/456/comments
-    ```
-
-    **Pros**:
-    - Simple caching (HTTP caching works out of the box)
-    - Well-understood by everyone
-    - Tools everywhere (Postman, curl, etc.)
-
-    **Cons**:
-    - Over-fetching (get fields you don't need)
-    - Under-fetching (multiple requests required)
-    - Versioning challenges
-
-    ## GraphQL: Flexible Queries
-
-    ```graphql
-    query {
-      user(id: 123) {
-        name
-        email
-        posts {
-          title
-          comments {
-            author
-            text
-          }
-        }
-      }
-    }
-    ```
-
-    **Pros**:
-    - Client gets exactly what it needs
-    - Single endpoint
-    - Strong typing with schema
-
-    **Cons**:
-    - Complexity (resolver logic, N+1 queries)
-    - Caching is harder
-    - Steeper learning curve
-
-    ## When to Use REST
-
-    - Public APIs (easier for third parties)
-    - Simple CRUD operations
-    - Mostly server-server communication
-    - Team familiar with REST
-
-    ## When to Use GraphQL
-
-    - Complex, nested data requirements
-    - Mobile apps (minimize bandwidth)
-    - Rapidly changing frontend needs
-    - Multiple clients with different needs
-
-    ## Hybrid Approach
-
-    You can use both! Internal services use GraphQL, public API is REST.
-
-    ```
-    Mobile App → GraphQL → Internal Services
-    Partners   → REST     → Internal Services
-    ```
-
-- slug: "web-security-essentials"
-  title: "Web Security: The Essentials"
-  subtitle: "Security"
-  date: "Jan 25, 2024"
-  description: "Critical security practices every web developer must implement: XSS, CSRF, SQL injection, and more."
-  tags: ["Security", "Web Development", "Best Practices"]
-  link: "/blog/web-security-essentials"
-  image: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=2000&h=1200&fit=crop"
-  color: "purple"
-  category: "Guide"
-  content: |
-    Web security isn't optional. Here are the fundamentals you must implement.
-
-    ## 1. Prevent XSS (Cross-Site Scripting)
-
-    Never trust user input. Always escape output.
-
-    ```javascript
-    // Bad
-    element.innerHTML = userInput;
-
-    // Good
-    element.textContent = userInput;
-    ```
-
-    Use Content Security Policy (CSP):
-
-    ```
-    Content-Security-Policy: default-src 'self'; script-src 'self'
-    ```
-
-    ## 2. Prevent CSRF (Cross-Site Request Forgery)
-
-    Use CSRF tokens for state-changing operations.
-
-    ```html
-    <form method="POST" action="/transfer">
-      <input type="hidden" name="csrf_token" value="random_token_here">
-      <input name="amount" value="1000">
-    </form>
-    ```
-
-    Server validates token matches session.
-
-    ## 3. SQL Injection Prevention
-
-    ```python
-    # ❌ NEVER DO THIS
-    query = f"SELECT * FROM users WHERE email = '{email}'"
-
-    # ✅ Use parameterized queries
-    cursor.execute("SELECT * FROM users WHERE email = ?", (email,))
-    ```
-
-    ## 4. Authentication Best Practices
-
-    - Store passwords with bcrypt/argon2
-    - Use HTTPS everywhere
-    - Implement rate limiting on login
-    - Add 2FA for sensitive accounts
-
-    ```python
-    import bcrypt
-
-    # Hashing
-    hashed = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
-
-    # Verification
-    if bcrypt.checkpw(password.encode(), hashed):
-        # Correct password
-    ```
-
-    ## 5. Security Headers
-
-    ```
-    Strict-Transport-Security: max-age=31536000; includeSubDomains
-    X-Frame-Options: DENY
-    X-Content-Type-Options: nosniff
-    Referrer-Policy: strict-origin-when-cross-origin
-    Permissions-Policy: geolocation=(), microphone=()
-    ```
-
-    ## 6. Dependency Scanning
-
-    ```bash
-    npm audit
-    pip-audit
-    ```
-
-    Regularly update dependencies. Old packages are security holes.
-
-    Remember: Security is a mindset, not a checklist.
-
-- slug: "kubernetes-basics"
-  title: "Kubernetes for Developers: A Gentle Introduction"
-  subtitle: "DevOps"
-  date: "Dec 30, 2023"
-  description: "Understanding Kubernetes core concepts: Pods, Services, Deployments, and ConfigMaps with practical examples."
-  tags: ["Kubernetes", "DevOps", "Cloud"]
-  link: "/blog/kubernetes-basics"
-  image: "https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?w=2000&h=1200&fit=crop"
-  color: "purple"
-  category: "Tutorial"
-  content: |
-    Kubernetes can be intimidating. Let's break it down.
-
-    ## What is Kubernetes?
-
-    An orchestration system for containerized applications. It handles:
-    - Deployment
-    - Scaling
-    - Load balancing
-    - Self-healing
-
-    ## Core Concepts
-
-    ### Pods
-    Smallest deployable unit. Usually 1 container per pod.
-
-    ```yaml
-    apiVersion: v1
-    kind: Pod
-    metadata:
-      name: my-app
-    spec:
-      containers:
-      - name: web
-        image: nginx:1.21
-        ports:
-        - containerPort: 80
-    ```
-
-    ### Deployments
-    Manages desired state and rolling updates.
-
-    ```yaml
-    apiVersion: apps/v1
-    kind: Deployment
-    metadata:
-      name: my-app
-    spec:
-      replicas: 3
-      selector:
-        matchLabels:
-          app: my-app
-      template:
-        metadata:
-          labels:
-            app: my-app
-        spec:
-          containers:
-          - name: web
-            image: my-app:v1
-    ```
-
-    ### Services
-    Expose pods to network traffic.
-
-    ```yaml
-    apiVersion: v1
-    kind: Service
-    metadata:
-      name: my-app-service
-    spec:
-      selector:
-        app: my-app
-      ports:
-      - port: 80
-        targetPort: 8080
-      type: LoadBalancer
-    ```
-
-    ### ConfigMaps
-    Store configuration separately from code.
-
-    ```yaml
-    apiVersion: v1
-    kind: ConfigMap
-    metadata:
-      name: app-config
-    data:
-      DATABASE_URL: "postgresql://db:5432/myapp"
-      LOG_LEVEL: "info"
-    ```
-
-    ## Common Commands
-
-    ```bash
-    # Create resources
-    kubectl apply -f deployment.yaml
-
-    # View pods
-    kubectl get pods
-
-    # View logs
-    kubectl logs my-app-pod
-
-    # Execute command in pod
-    kubectl exec -it my-app-pod -- /bin/bash
-
-    # Scale deployment
-    kubectl scale deployment my-app --replicas=5
-    ```
-
-    ## Next Steps
-
-    - Learn about StatefulSets for databases
-    - Explore Helm for package management
-    - Understand Ingress for routing
-
-    Start small, experiment locally with Minikube!
-
-- slug: "microservices-patterns"
-  title: "Microservices Communication Patterns"
-  subtitle: "Architecture"
-  date: "Nov 15, 2023"
-  description: "Exploring synchronous vs asynchronous communication, service mesh, and event-driven architecture in microservices."
-  tags: ["Microservices", "Architecture", "System Design"]
-  link: "/blog/microservices-patterns"
-  image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=2000&h=1200&fit=crop"
-  color: "purple"
-  category: "Tutorial"
-  content: |
-    Microservices communication is the hardest part of the architecture.
-
-    ## Synchronous (Request/Response)
-
-    Direct HTTP/gRPC calls between services.
-
-    ```
-    User Service → HTTP → Order Service → HTTP → Payment Service
-    ```
-
-    **Pros**: Simple, immediate response  
-    **Cons**: Coupling, cascading failures, latency
-
-    ## Asynchronous (Event-Driven)
-
-    Services communicate via message queues.
-
-    ```
-    Order Service → Kafka → [Order Created Event]
-         ↓
-    Inventory Service (consumer)
-    Payment Service (consumer)
-    Notification Service (consumer)
-    ```
-
-    **Pros**: Decoupling, resilience, scalability  
-    **Cons**: Eventual consistency, complexity
-
-    ## Saga Pattern
-
-    For distributed transactions across services.
-
-    ```
-    1. Order Service: Create order
-    2. Payment Service: Charge card
-    3. Inventory Service: Reserve items
-    4. Shipping Service: Schedule delivery
-    ```
-
-    If any step fails, compensating transactions rollback.
-
-    ```python
-    try:
-        order_id = orders.create(order_data)
-        payment_id = payments.charge(order_id, amount)
-        inventory.reserve(order_id, items)
-        shipping.schedule(order_id)
-    except PaymentError:
-        orders.cancel(order_id)  # Compensating transaction
-    except InventoryError:
-        payments.refund(payment_id)  # Compensating transaction
-        orders.cancel(order_id)
-    ```
-
-    ## API Gateway Pattern
-
-    Single entry point for clients.
-
-    ```
-    Client → API Gateway → [User Service, Order Service, Product Service]
-    ```
-
-    **Benefits**:
-    - Authentication/authorization in one place
-    - Request routing
-    - Rate limiting
-    - Response aggregation
-
-    ## Service Mesh (Istio/Linkerd)
-
-    Infrastructure layer for service-to-service communication.
-
-    Features:
-    - Automatic retry
-    - Circuit breaking
-    - Load balancing
-    - Observability (tracing, metrics)
-
-    ## Best Practices
-
-    1. **Design for failure**: Services will fail. Handle timeouts gracefully.
-    2. **Use circuit breakers**: Don't cascade failures.
-    3. **Implement health checks**: Let orchestrators know when to restart.
-    4. **Correlate requests**: Use correlation IDs for tracing.
-
-    ```
-    X-Request-ID: 550e8400-e29b-41d4-a716-446655440000
-    ```
+#             data = expensive_db_query()
+#             cache.set(key, data)
+#             return data
+#     ```
+
+# - slug: "testing-strategies"
+#   title: "The Testing Pyramid: A Practical Approach"
+#   subtitle: "Software Engineering"
+#   date: "Apr 05, 2024"
+#   description: "How to balance unit tests, integration tests, and end-to-end tests for maximum confidence with minimum maintenance."
+#   tags: ["Testing", "Jest", "Best Practices"]
+#   link: "/blog/testing-strategies"
+#   image: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=2000&h=1200&fit=crop"
+#   color: "purple"
+#   category: "Guide"
+#   content: |
+#     The testing pyramid guides how to distribute your test suite.
+
+#     ```
+#          /\
+#         /E2E\       ← Few, slow, expensive
+#        /------\
+#       /  Int.  \    ← Moderate
+#      /----------\
+#     /    Unit    \  ← Many, fast, cheap
+#     --------------
+#     ```
+
+#     ## Unit Tests (70%)
+
+#     Test individual functions in isolation.
+
+#     ```javascript
+#     // sum.js
+#     export function sum(a, b) {
+#       return a + b;
+#     }
+
+#     // sum.test.js
+#     import { sum } from './sum';
+
+#     test('adds 1 + 2 to equal 3', () => {
+#       expect(sum(1, 2)).toBe(3);
+#     });
+#     ```
+
+#     **Benefits**: Fast, easy to debug, high coverage  
+#     **Limitations**: Don't catch integration issues
+
+#     ## Integration Tests (20%)
+
+#     Test how multiple units work together.
+
+#     ```javascript
+#     test('user registration flow', async () => {
+#       const user = await createUser({ email: 'test@test.com' });
+#       const saved = await db.users.findOne({ email: 'test@test.com' });
+#       expect(saved).toBeDefined();
+#     });
+#     ```
+
+#     ## E2E Tests (10%)
+
+#     Test complete user flows through the UI.
+
+#     ```javascript
+#     // Playwright example
+#     test('user can login', async ({ page }) => {
+#       await page.goto('/login');
+#       await page.fill('[name="email"]', 'user@test.com');
+#       await page.fill('[name="password"]', 'password123');
+#       await page.click('button[type="submit"]');
+#       await expect(page).toHaveURL('/dashboard');
+#     });
+#     ```
+
+#     **Benefits**: Highest confidence  
+#     **Drawbacks**: Slow, brittle, hard to debug
+
+#     ## Best Practices
+
+#     1. **Test behavior, not implementation**: Refactoring shouldn't break tests
+#     2. **One assertion per test**: Makes failures clear
+#     3. **Arrange-Act-Assert pattern**:
+#        ```javascript
+#        test('example', () => {
+#          // Arrange
+#          const input = 5;
+#          // Act
+#          const result = double(input);
+#          // Assert
+#          expect(result).toBe(10);
+#        });
+#        ```
+
+#     4. **Mock external dependencies**: Don't test third-party APIs
+
+# - slug: "git-workflow-strategies"
+#   title: "Git Workflows for Teams"
+#   subtitle: "DevOps"
+#   date: "Mar 12, 2024"
+#   description: "Comparing Git Flow, GitHub Flow, and trunk-based development for modern team collaboration."
+#   tags: ["Git", "DevOps", "Collaboration"]
+#   link: "/blog/git-workflow-strategies"
+#   image: "https://images.unsplash.com/photo-1556075798-4825dfaaf498?w=2000&h=1200&fit=crop"
+#   color: "purple"
+#   category: "Guide"
+#   content: |
+#     Different teams need different Git workflows. Here's how to choose.
+
+#     ## GitHub Flow (Recommended for most teams)
+
+#     Simple branch-deploy-merge cycle.
+
+#     ```
+#     main (always deployable)
+#       ↓
+#     feature/add-login
+#       ↓
+#     Pull Request → Code Review → Merge
+#     ```
+
+#     **Process**:
+#     1. Create branch from `main`
+#     2. Make commits
+#     3. Open PR
+#     4. Review & discuss
+#     5. Deploy to production
+#     6. Merge to `main`
+
+#     **Best for**: Continuous deployment, small teams
+
+#     ## Git Flow
+
+#     More structured with release branches.
+
+#     ```
+#     main (production)
+#     develop (integration)
+#     feature/* (features)
+#     release/* (releases)
+#     hotfix/* (urgent fixes)
+#     ```
+
+#     **Best for**: Scheduled releases, larger teams
+
+#     ## Trunk-Based Development
+
+#     Everyone commits to `main` frequently.
+
+#     ```bash
+#     git checkout main
+#     git pull
+#     # Make small change
+#     git commit -m "feat: add button"
+#     git push
+#     ```
+
+#     Use feature flags for incomplete features.
+
+#     **Best for**: CI/CD, high deployment frequency
+
+#     ## Commit Message Conventions
+
+#     Use Conventional Commits:
+
+#     ```
+#     feat: add user authentication
+#     fix: resolve login redirect bug
+#     docs: update API documentation
+#     refactor: simplify database queries
+#     test: add unit tests for UserService
+#     ```
+
+#     ## Branch Protection Rules
+
+#     ```yaml
+#     - Require pull request reviews (≥ 1)
+#     - Require status checks to pass
+#     - Require branches to be up to date
+#     - Restrict who can push to main
+#     ```
+
+# - slug: "graphql-vs-rest"
+#   title: "GraphQL vs REST: When to Use What"
+#   subtitle: "API Design"
+#   date: "Feb 18, 2024"
+#   description: "Practical comparison of GraphQL and REST APIs with real-world use cases and tradeoffs."
+#   tags: ["GraphQL", "API", "Backend"]
+#   link: "/blog/graphql-vs-rest"
+#   image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=2000&h=1200&fit=crop"
+#   color: "purple"
+#   category: "Opinion"
+#   content: |
+#     The GraphQL vs REST debate continues. Here's my take after using both extensively.
+
+#     ## REST: Simple and Proven
+
+#     ```
+#     GET /users/123
+#     GET /users/123/posts
+#     GET /posts/456/comments
+#     ```
+
+#     **Pros**:
+#     - Simple caching (HTTP caching works out of the box)
+#     - Well-understood by everyone
+#     - Tools everywhere (Postman, curl, etc.)
+
+#     **Cons**:
+#     - Over-fetching (get fields you don't need)
+#     - Under-fetching (multiple requests required)
+#     - Versioning challenges
+
+#     ## GraphQL: Flexible Queries
+
+#     ```graphql
+#     query {
+#       user(id: 123) {
+#         name
+#         email
+#         posts {
+#           title
+#           comments {
+#             author
+#             text
+#           }
+#         }
+#       }
+#     }
+#     ```
+
+#     **Pros**:
+#     - Client gets exactly what it needs
+#     - Single endpoint
+#     - Strong typing with schema
+
+#     **Cons**:
+#     - Complexity (resolver logic, N+1 queries)
+#     - Caching is harder
+#     - Steeper learning curve
+
+#     ## When to Use REST
+
+#     - Public APIs (easier for third parties)
+#     - Simple CRUD operations
+#     - Mostly server-server communication
+#     - Team familiar with REST
+
+#     ## When to Use GraphQL
+
+#     - Complex, nested data requirements
+#     - Mobile apps (minimize bandwidth)
+#     - Rapidly changing frontend needs
+#     - Multiple clients with different needs
+
+#     ## Hybrid Approach
+
+#     You can use both! Internal services use GraphQL, public API is REST.
+
+#     ```
+#     Mobile App → GraphQL → Internal Services
+#     Partners   → REST     → Internal Services
+#     ```
+
+# - slug: "web-security-essentials"
+#   title: "Web Security: The Essentials"
+#   subtitle: "Security"
+#   date: "Jan 25, 2024"
+#   description: "Critical security practices every web developer must implement: XSS, CSRF, SQL injection, and more."
+#   tags: ["Security", "Web Development", "Best Practices"]
+#   link: "/blog/web-security-essentials"
+#   image: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=2000&h=1200&fit=crop"
+#   color: "purple"
+#   category: "Guide"
+#   content: |
+#     Web security isn't optional. Here are the fundamentals you must implement.
+
+#     ## 1. Prevent XSS (Cross-Site Scripting)
+
+#     Never trust user input. Always escape output.
+
+#     ```javascript
+#     // Bad
+#     element.innerHTML = userInput;
+
+#     // Good
+#     element.textContent = userInput;
+#     ```
+
+#     Use Content Security Policy (CSP):
+
+#     ```
+#     Content-Security-Policy: default-src 'self'; script-src 'self'
+#     ```
+
+#     ## 2. Prevent CSRF (Cross-Site Request Forgery)
+
+#     Use CSRF tokens for state-changing operations.
+
+#     ```html
+#     <form method="POST" action="/transfer">
+#       <input type="hidden" name="csrf_token" value="random_token_here">
+#       <input name="amount" value="1000">
+#     </form>
+#     ```
+
+#     Server validates token matches session.
+
+#     ## 3. SQL Injection Prevention
+
+#     ```python
+#     # ❌ NEVER DO THIS
+#     query = f"SELECT * FROM users WHERE email = '{email}'"
+
+#     # ✅ Use parameterized queries
+#     cursor.execute("SELECT * FROM users WHERE email = ?", (email,))
+#     ```
+
+#     ## 4. Authentication Best Practices
+
+#     - Store passwords with bcrypt/argon2
+#     - Use HTTPS everywhere
+#     - Implement rate limiting on login
+#     - Add 2FA for sensitive accounts
+
+#     ```python
+#     import bcrypt
+
+#     # Hashing
+#     hashed = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
+
+#     # Verification
+#     if bcrypt.checkpw(password.encode(), hashed):
+#         # Correct password
+#     ```
+
+#     ## 5. Security Headers
+
+#     ```
+#     Strict-Transport-Security: max-age=31536000; includeSubDomains
+#     X-Frame-Options: DENY
+#     X-Content-Type-Options: nosniff
+#     Referrer-Policy: strict-origin-when-cross-origin
+#     Permissions-Policy: geolocation=(), microphone=()
+#     ```
+
+#     ## 6. Dependency Scanning
+
+#     ```bash
+#     npm audit
+#     pip-audit
+#     ```
+
+#     Regularly update dependencies. Old packages are security holes.
+
+#     Remember: Security is a mindset, not a checklist.
+
+# - slug: "kubernetes-basics"
+#   title: "Kubernetes for Developers: A Gentle Introduction"
+#   subtitle: "DevOps"
+#   date: "Dec 30, 2023"
+#   description: "Understanding Kubernetes core concepts: Pods, Services, Deployments, and ConfigMaps with practical examples."
+#   tags: ["Kubernetes", "DevOps", "Cloud"]
+#   link: "/blog/kubernetes-basics"
+#   image: "https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?w=2000&h=1200&fit=crop"
+#   color: "purple"
+#   category: "Tutorial"
+#   content: |
+#     Kubernetes can be intimidating. Let's break it down.
+
+#     ## What is Kubernetes?
+
+#     An orchestration system for containerized applications. It handles:
+#     - Deployment
+#     - Scaling
+#     - Load balancing
+#     - Self-healing
+
+#     ## Core Concepts
+
+#     ### Pods
+#     Smallest deployable unit. Usually 1 container per pod.
+
+#     ```yaml
+#     apiVersion: v1
+#     kind: Pod
+#     metadata:
+#       name: my-app
+#     spec:
+#       containers:
+#       - name: web
+#         image: nginx:1.21
+#         ports:
+#         - containerPort: 80
+#     ```
+
+#     ### Deployments
+#     Manages desired state and rolling updates.
+
+#     ```yaml
+#     apiVersion: apps/v1
+#     kind: Deployment
+#     metadata:
+#       name: my-app
+#     spec:
+#       replicas: 3
+#       selector:
+#         matchLabels:
+#           app: my-app
+#       template:
+#         metadata:
+#           labels:
+#             app: my-app
+#         spec:
+#           containers:
+#           - name: web
+#             image: my-app:v1
+#     ```
+
+#     ### Services
+#     Expose pods to network traffic.
+
+#     ```yaml
+#     apiVersion: v1
+#     kind: Service
+#     metadata:
+#       name: my-app-service
+#     spec:
+#       selector:
+#         app: my-app
+#       ports:
+#       - port: 80
+#         targetPort: 8080
+#       type: LoadBalancer
+#     ```
+
+#     ### ConfigMaps
+#     Store configuration separately from code.
+
+#     ```yaml
+#     apiVersion: v1
+#     kind: ConfigMap
+#     metadata:
+#       name: app-config
+#     data:
+#       DATABASE_URL: "postgresql://db:5432/myapp"
+#       LOG_LEVEL: "info"
+#     ```
+
+#     ## Common Commands
+
+#     ```bash
+#     # Create resources
+#     kubectl apply -f deployment.yaml
+
+#     # View pods
+#     kubectl get pods
+
+#     # View logs
+#     kubectl logs my-app-pod
+
+#     # Execute command in pod
+#     kubectl exec -it my-app-pod -- /bin/bash
+
+#     # Scale deployment
+#     kubectl scale deployment my-app --replicas=5
+#     ```
+
+#     ## Next Steps
+
+#     - Learn about StatefulSets for databases
+#     - Explore Helm for package management
+#     - Understand Ingress for routing
+
+#     Start small, experiment locally with Minikube!
+
+# - slug: "microservices-patterns"
+#   title: "Microservices Communication Patterns"
+#   subtitle: "Architecture"
+#   date: "Nov 15, 2023"
+#   description: "Exploring synchronous vs asynchronous communication, service mesh, and event-driven architecture in microservices."
+#   tags: ["Microservices", "Architecture", "System Design"]
+#   link: "/blog/microservices-patterns"
+#   image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=2000&h=1200&fit=crop"
+#   color: "purple"
+#   category: "Tutorial"
+#   content: |
+#     Microservices communication is the hardest part of the architecture.
+
+#     ## Synchronous (Request/Response)
+
+#     Direct HTTP/gRPC calls between services.
+
+#     ```
+#     User Service → HTTP → Order Service → HTTP → Payment Service
+#     ```
+
+#     **Pros**: Simple, immediate response  
+#     **Cons**: Coupling, cascading failures, latency
+
+#     ## Asynchronous (Event-Driven)
+
+#     Services communicate via message queues.
+
+#     ```
+#     Order Service → Kafka → [Order Created Event]
+#          ↓
+#     Inventory Service (consumer)
+#     Payment Service (consumer)
+#     Notification Service (consumer)
+#     ```
+
+#     **Pros**: Decoupling, resilience, scalability  
+#     **Cons**: Eventual consistency, complexity
+
+#     ## Saga Pattern
+
+#     For distributed transactions across services.
+
+#     ```
+#     1. Order Service: Create order
+#     2. Payment Service: Charge card
+#     3. Inventory Service: Reserve items
+#     4. Shipping Service: Schedule delivery
+#     ```
+
+#     If any step fails, compensating transactions rollback.
+
+#     ```python
+#     try:
+#         order_id = orders.create(order_data)
+#         payment_id = payments.charge(order_id, amount)
+#         inventory.reserve(order_id, items)
+#         shipping.schedule(order_id)
+#     except PaymentError:
+#         orders.cancel(order_id)  # Compensating transaction
+#     except InventoryError:
+#         payments.refund(payment_id)  # Compensating transaction
+#         orders.cancel(order_id)
+#     ```
+
+#     ## API Gateway Pattern
+
+#     Single entry point for clients.
+
+#     ```
+#     Client → API Gateway → [User Service, Order Service, Product Service]
+#     ```
+
+#     **Benefits**:
+#     - Authentication/authorization in one place
+#     - Request routing
+#     - Rate limiting
+#     - Response aggregation
+
+#     ## Service Mesh (Istio/Linkerd)
+
+#     Infrastructure layer for service-to-service communication.
+
+#     Features:
+#     - Automatic retry
+#     - Circuit breaking
+#     - Load balancing
+#     - Observability (tracing, metrics)
+
+#     ## Best Practices
+
+#     1. **Design for failure**: Services will fail. Handle timeouts gracefully.
+#     2. **Use circuit breakers**: Don't cascade failures.
+#     3. **Implement health checks**: Let orchestrators know when to restart.
+#     4. **Correlate requests**: Use correlation IDs for tracing.
+
+#     ```
+#     X-Request-ID: 550e8400-e29b-41d4-a716-446655440000
+#     ```

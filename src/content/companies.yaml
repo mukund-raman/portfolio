@@ -154,3 +154,33 @@
   tagline: "Creativity for all"
   year: "Founded 1982"
   icon: "/content/companies/images/adobe.svg"
+
+- name: "DTCC"
+  description: "The Depository Trust and Clearing Corporation is the world's leading global financial center for the clearing and settlement of financial transactions."
+  tagline: "Clearing and Settlement of Financial Transactions"
+  year: "Founded 1999"
+  icon: "/content/companies/images/dtcc.png"
+
+- name: "REMA Consulting Group LLC"
+  description: "Consulting firm specializing in software development and mobile app development."
+  tagline: "Software Development and Mobile App Development"
+  year: "Founded 2013"
+  icon: "/content/companies/images/rema.png"
+
+- name: "University of Texas at Dallas"
+  description: "Public research university in Richardson, Texas."
+  tagline: "The Wind of Freedom Blows"
+  year: "Est. 1885"
+  icon: "/content/companies/images/utd.png"
+
+- name: "QMunity"
+  description: "Quantum computing startup focused on supporting future quantum computing professionals."
+  tagline: "The Fast Track to Quantum"
+  year: "Founded 2020"
+  icon: "/content/companies/images/qmunity.png"
+
+- name: "Polygence"
+  description: "An experiential learning program empowering students to explore their passions, build real-world skills, and make a difference in their communities."
+  tagline: "Helping Students Own Their Learning"
+  year: "Founded 2019"
+  icon: "/content/companies/images/polygence.png"
