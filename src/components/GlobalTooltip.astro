@@ -1,6 +1,6 @@
 <div
     id="global-tooltip"
-    class="fixed z-[99999] opacity-0 pointer-events-none transition-opacity duration-300 w-80 will-change-transform"
+    class="fixed z-[99999] opacity-0 pointer-events-none transition-opacity duration-300 w-auto min-w-[20rem] max-w-xl will-change-transform"
     style="left: 0; top: 0;"
 >
     <!-- Tooltip Card -->
@@ -17,7 +17,7 @@
             <div class="flex items-center gap-3 mb-3">
                 <!-- Dynamic Icon Container -->
                 <div
-                    class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center border border-white/10 shadow-inner overflow-hidden p-2"
+                    class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center border border-white/10 shadow-inner overflow-hidden p-2 flex-shrink-0"
                 >
                     <img
                         id="tooltip-icon"
@@ -31,7 +31,7 @@
                 <div>
                     <h4
                         id="tooltip-title"
-                        class="text-white font-bold text-lg leading-tight"
+                        class="text-white font-bold text-lg leading-tight whitespace-nowrap"
                     >
                         <!-- JS populated -->
                     </h4>
@@ -181,7 +181,8 @@
     function updatePosition(e: MouseEvent) {
         if (!tooltip) return;
 
-        const tooltipWidth = 320;
+        // Dynamic width calculation
+        const tooltipWidth = tooltip.offsetWidth;
         const gap = 20;
 
         let left = e.clientX - tooltipWidth / 2;

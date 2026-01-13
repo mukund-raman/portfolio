@@ -10,14 +10,63 @@ const allExperiences = (experiencesData || []) as Experience[];
 // Sort experiences by date (newest first)
 const experiences = allExperiences
     .sort((a, b) => {
-        const getDateVal = (dateStr: string) => {
+        const parseDateVal = (dateStr: string) => {
             if (!dateStr) return 0;
-            const parts = dateStr.split(" - ");
-            const end = parts[1] || parts[0]; // Use end date, or start if single date
-            if (end.toLowerCase() === "present") return 9999;
-            return parseInt(end, 10) || 0;
+            const cleanStr = dateStr.trim().toLowerCase();
+            if (cleanStr === "present") return 999999;
+
+            const yearMatch = cleanStr.match(/(\d{4})/);
+            const year = yearMatch ? parseInt(yearMatch[0], 10) : 0;
+
+            const months: { [key: string]: number } = {
+                jan: 1,
+                feb: 2,
+                mar: 3,
+                apr: 4,
+                may: 5,
+                jun: 6,
+                jul: 7,
+                aug: 8,
+                sep: 9,
+                oct: 10,
+                nov: 11,
+                dec: 12,
+                spring: 3,
+                summer: 6,
+                fall: 9,
+                winter: 12,
+            };
+
+            let month = 1;
+            for (const [key, val] of Object.entries(months)) {
+                if (cleanStr.includes(key)) {
+                    month = val;
+                    break;
+                }
+            }
+
+            return year * 100 + month;
         };
-        return getDateVal(b.date) - getDateVal(a.date);
+
+        const getDates = (dateStr: string) => {
+            if (!dateStr) return { start: 0, end: 0 };
+            const parts = dateStr.split(" - ");
+            const startStr = parts[0];
+            const endStr = parts.length > 1 ? parts[1] : parts[0];
+
+            return {
+                start: parseDateVal(startStr),
+                end: parseDateVal(endStr),
+            };
+        };
+
+        const datesA = getDates(a.date);
+        const datesB = getDates(b.date);
+
+        if (datesA.start !== datesB.start) {
+            return datesB.start - datesA.start;
+        }
+        return datesB.end - datesA.end;
     })
     .map((exp) => ({
         ...exp,

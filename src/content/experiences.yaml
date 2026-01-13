@@ -78,7 +78,7 @@
     "Machine Learning", "Systems", "eBPF", "bpftrace", "Python", "PyTorch",
     "Evaluation", "Software Development", "Bayesian Optimization",
     "Graph Neural Networks", "GraphSAGE", "Microservices", "Kubernetes",
-    "Docker Swarm", "Docker", "Bash", "Linux", "Automation"
+    "Docker", "Bash", "Linux", "Automation"
   ]
   color: "red"
   content: "TBD"
@@ -109,7 +109,7 @@
 
 - slug: "ml-robotics-student-research-fri"
   role: "ML & Robotics Student Researcher"
-  company: "Texas Robotics"
+  company: "Freshman Research Initiative"
   date: "January 2024 - May 2024"
   description: "Co-developed TOM: Text-to-Mapping, an AI-powered system for \
                 automated book detection in large bookshelves, achieving \

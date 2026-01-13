@@ -155,7 +155,7 @@
   year: "Founded 1982"
   icon: "/content/companies/images/adobe.svg"
 
-- name: "DTCC"
+- name: "The Depository Trust & Clearing Corporation"
   description: "The Depository Trust and Clearing Corporation is the world's leading global financial center for the clearing and settlement of financial transactions."
   tagline: "Clearing and Settlement of Financial Transactions"
   year: "Founded 1999"
@@ -167,10 +167,10 @@
   year: "Founded 2013"
   icon: "/content/companies/images/rema.png"
 
-- name: "University of Texas at Dallas"
-  description: "Public research university in Richardson, Texas."
-  tagline: "The Wind of Freedom Blows"
-  year: "Est. 1885"
+- name: "The University of Texas at Dallas"
+  description: "A top public university located in one of the nation’s fastest-growing metropolitan regions. Our seven schools offer more than 160 undergraduate and graduate programs, plus professional certificates and fast-track programs."
+  tagline: "The Future Demands Different"
+  year: "Est. 1961"
   icon: "/content/companies/images/utd.png"
 
 - name: "QMunity"
@@ -184,3 +184,33 @@
   tagline: "Helping Students Own Their Learning"
   year: "Founded 2019"
   icon: "/content/companies/images/polygence.png"
+
+- name: "The University of Texas at Austin"
+  description: "Like the state it calls home, The University of Texas at Austin is a bold, ambitious leader supporting some 55,000 students, 4,800 faculty, 15,000 staff and top national programs across 18 colleges and schools. As Texas’ leading research university, UT attracts more than $1.14 billion annually for discovery."
+  tagline: "What Starts Here Changes the World"
+  year: "Est. 1883"
+  icon: "/content/companies/images/utaustin.png"
+
+- name: "The Learning Directed Operating System Expedition"
+  description: "A research organization building the next-generation Machine Learning-based Operating System to drive computing infrastructure toward high efficiency and performance."
+  tagline: "A Clean-Slate Paradigm for OS Design and Implementation"
+  year: "Founded 2024"
+  icon: "/content/companies/images/ldos.png"
+
+- name: "Living With Robots Laboratory"
+  description: "A research lab that designs and studies service robots in real-world community settings to overcome technical and social deployment challenges while improving quality of life and productivity."
+  tagline: "Designing Human-Centered Robots for Real-World Communities"
+  year: "Founded 2021"
+  icon: "/content/companies/images/txrobotics.png"
+
+- name: "Freshman Research Initiative"
+  description: "The pioneering Freshman Research Initiative (FRI) empowers first-year students in the College of Natural Sciences with the opportunity to initiate and engage in real-world research experience with UT faculty laboratories."
+  tagline: "A Launchpad for Discovery"
+  year: "Founded 2005"
+  icon: "/content/companies/images/fri.png"
+
+- name: "Coppell Independent School District"
+  description: "Coppell (cop-ELL) Independent School District is a premier public school system with a statewide reputation for educational excellence. This high-performing and innovative district serves over 13,100 learners in the communities of Coppell, Dallas (Cypress Waters), North Irving, Lewisville, and Valley Ranch."
+  tagline: "Coppell Independent School District"
+  year: "Est. 1961"
+  icon: "/content/companies/images/cisd.png"
