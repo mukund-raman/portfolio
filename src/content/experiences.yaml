@@ -3,6 +3,7 @@
 - slug: "swe-intern-google-summer26"
   role: "Incoming Software Engineering Intern"
   company: "Google"
+  link: "https://about.google/company-info/"
   date: "May 2026 - August 2026"
   description: "Will be working as a Software Engineering Intern at Google \
                 this summer in New York City. Developing AI-powered tools \
@@ -16,50 +17,10 @@
   color: "red"
   content: "TBD"
 
-- slug: "teaching-assistant-cs331"
-  role: "Undergraduate Teaching Assistant"
-  company: "The University of Texas at Austin"
-  date: "August 2025 - December 2025"
-  description: "UGCA for C S 331: Algorithms and Complexity with Dr. Fares \
-                Fraij, Fall 2025. Supervise discussion & study sessions of \
-                30+ students, conduct office hours, grading tests and \
-                assignments. Answering questions on ED Discussion Forum, \
-                creating problems for course tests, proctoring exams."
-  skills: [
-    "Theoretical Computer Science", "Algorithms", "Computational Complexity",
-    "Teaching"
-  ]
-  color: "red"
-  content: "TBD"
-
-- slug: "tech-intern-dtcc"
-  role: "Technology Intern"
-  company: "The Depository Trust & Clearing Corporation"
-  date: "June 2025 - August 2025"
-  description: "Was a summer 2025 systems engineering intern working in the \
-                Enterprise Product and Platform Engineering (EPPE) Department. \
-                Trained in IBM z/OS, ISPF, JCL, and Ansible (AAP); configured \
-                BlueZone/Citrix, BitBucket access, and AAP pipelines to \
-                prepare for automation development. Automated XACT report \
-                lifecycle by writing Ansible scripts to dynamically create \
-                z/OS JCL with Systemware Content Server JHS utilities \
-                (JHSLSTRV, JHSRSTRP, JHSARPRT) that list, restore, and print \
-                report versions. Developed Python routines for date/time \
-                conversion and automated email alerts to XACT support with \
-                version count, path, timestamp, and LPAR details. Involved in \
-                mentorship efforts, guiding 10+ peer interns through Ansible \
-                playbooks and ISPF demos for mainframe automation development."
-  skills: [
-    "Python", "YAML", "z/OS", "IBM Mainframe", "Job Control Language (JCL)", 
-    "ISPF", "Ansible", "BlueZone/Citrix", "BitBucket", "XACT", 
-    "Ansible Automation Platform (AAP)"
-  ]
-  color: "red"
-  content: "TBD"
-
 - slug: "ml-systems-research-ldos"
-  role: "ML Systems Researcher"
+  role: "ML & Systems Researcher"
   company: "The Learning Directed Operating System Expedition"
+  link: "https://ldos.utexas.edu/"
   date: "December 2024 - Present"
   description: "Integrated SeBS (Serverless Benchmarks Suite) workloads \
                 (e.g., video processing, graph algorithms) to improve model \
@@ -86,6 +47,7 @@
 - slug: "ml-robotics-research-lwr"
   role: "ML & Robotics Researcher"
   company: "Living With Robots Laboratory"
+  link: "https://bridgingbarriers.utexas.edu/good-systems/projects/living-and-working-with-robots"
   date: "May 2024 - Present"
   description: "Developed a non-autoregressive transformer model for \
                 predicting human motion trajectories in hallways. Collected \
@@ -98,7 +60,7 @@
                 PyTorch. Evaluated model performance w/ MPJPE metric and \
                 compared against state-of-the-art STPOTR, performing about \
                 50% better with the highest at 0.15 m error compared to \
-                STPOTR’s highest at 0.3 m."
+                STPOTR's highest at 0.3 m."
   skills: [
     "Machine Learning", "Robotics", "Python", "PyTorch", "Computer Vision",
     "Exploratory Data Analysis", "NumPy", "Software Development", "Pandas",
@@ -107,9 +69,53 @@
   color: "red"
   content: "TBD"
 
+- slug: "teaching-assistant-cs331"
+  role: "Undergraduate Teaching Assistant"
+  company: "The University of Texas at Austin"
+  link: "https://www.utexas.edu"
+  date: "August 2025 - December 2025"
+  description: "UGCA for C S 331: Algorithms and Complexity with Dr. Fares \
+                Fraij, Fall 2025. Supervise discussion & study sessions of \
+                30+ students, conduct office hours, grading tests and \
+                assignments. Answering questions on ED Discussion Forum, \
+                creating problems for course tests, proctoring exams."
+  skills: [
+    "Theoretical Computer Science", "Algorithms", "Computational Complexity",
+    "Teaching"
+  ]
+  color: "red"
+  content: "TBD"
+
+- slug: "tech-intern-dtcc"
+  role: "Technology Intern"
+  company: "The Depository Trust & Clearing Corporation"
+  link: "https://www.dtcc.com"
+  date: "June 2025 - August 2025"
+  description: "Was a summer 2025 systems engineering intern working in the \
+                Enterprise Product and Platform Engineering (EPPE) Department. \
+                Trained in IBM z/OS, ISPF, JCL, and Ansible (AAP); configured \
+                BlueZone/Citrix, BitBucket access, and AAP pipelines to \
+                prepare for automation development. Automated XACT report \
+                lifecycle by writing Ansible scripts to dynamically create \
+                z/OS JCL with Systemware Content Server JHS utilities \
+                (JHSLSTRV, JHSRSTRP, JHSARPRT) that list, restore, and print \
+                report versions. Developed Python routines for date/time \
+                conversion and automated email alerts to XACT support with \
+                version count, path, timestamp, and LPAR details. Involved in \
+                mentorship efforts, guiding 10+ peer interns through Ansible \
+                playbooks and ISPF demos for mainframe automation development."
+  skills: [
+    "Python", "YAML", "z/OS", "IBM Mainframe", "Job Control Language (JCL)", 
+    "ISPF", "Ansible", "BlueZone/Citrix", "BitBucket", "XACT", 
+    "Ansible Automation Platform (AAP)"
+  ]
+  color: "red"
+  content: "TBD"
+
 - slug: "ml-robotics-student-research-fri"
   role: "ML & Robotics Student Researcher"
   company: "Freshman Research Initiative"
+  link: "https://cns.utexas.edu/fri"
   date: "January 2024 - May 2024"
   description: "Co-developed TOM: Text-to-Mapping, an AI-powered system for \
                 automated book detection in large bookshelves, achieving \
@@ -134,6 +140,7 @@
 - slug: "app-dev-intern-cisd"
   role: "App Developer Intern"
   company: "Coppell Independent School District"
+  link: "https://www.coppellisd.com"
   date: "August 2022 - May 2023"
   description: "Developed two iOS applications for Coppell ISD as part of a \
                 15-member team, using Swift, UIKit, and Xcode to enhance \
@@ -157,6 +164,7 @@
 - slug: "scientific-researcher-polygence"
   role: "Scientific Researcher"
   company: "Polygence"
+  link: "https://www.polygence.org"
   date: "June 2022 - March 2023"
   description: "Conducted independent research on quantum computing \
                 algorithms, focusing on solving complex CS and physics \
@@ -175,7 +183,8 @@
 
 - slug: "quantum-research-intern-qmunity"
   role: "Quantum Research Intern"
-  company: "Qmunity"
+  company: "QMunity"
+  link: "https://qmunity.thequantuminsider.com/"
   date: "June 2022 - December 2022"
   description: "Completed a three-month research internship with Q-Munity, \
                 receiving one-on-one mentorship from Farai Mazhandu, a leader \
@@ -196,6 +205,7 @@
 - slug: "android-dev-intern-utd"
   role: "Summer Intern"
   company: "The University of Texas at Dallas"
+  link: "https://www.utdallas.edu"
   date: "May 2024 - August 2024"
   description: "Attended summer sessions on Android app development taught by \
                 UT Dallas CS Professor John Cole, gaining hands-on experience \
@@ -212,6 +222,7 @@
 - slug: "associate-app-dev-rema"
   role: "Associate Application Developer"
   company: "REMA Consulting Group LLC"
+  link: "https://www.remaconsultingllc.com"
   date: "Mar 2021 - August 2022"
   description: "Developed an iOS mortgage calculator app using Xcode, Swift, \
                 and UIKit, enabling users to group related mortgages, generate \
