@@ -274,7 +274,7 @@
   description: "Framework for building AI agents with Google's Gemini models."
   tagline: "Agentic AI Framework"
   year: "Created 2024"
-  icon: "/content/skills/images/adk.svg"
+  icon: "/content/skills/images/adk.png"
 
 - name: "Fuzz Testing"
   description: "Automated software testing technique that involves providing invalid, unexpected, or random data as inputs."

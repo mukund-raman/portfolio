@@ -7,7 +7,7 @@
   description: "A high-performance personal portfolio built with Astro, Tailwind v4, and a custom neon cyberpunk aesthetic."
   tags: ["Astro", "Tailwind", "Vercel"]
   link: "/projects/portfolio-v2"
-  viewLink: "https://github.com/mkraman/portfolio"
+  viewLink: "https://github.com/mukund-raman/portfolio"
   image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&h=400&fit=crop"
   color: "gold"
   isFeatured: true
