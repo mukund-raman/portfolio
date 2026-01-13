@@ -190,7 +190,7 @@
   year: "Created 2009"
   icon: "/content/skills/images/redis.svg"
 
-- name: "AI"
+- name: "Artificial Intelligence"
   description: "Simulation of human intelligence processes by machines, especially computer systems."
   tagline: "Artificial Intelligence"
   year: "Field Est. 1956"
@@ -238,6 +238,7 @@
   year: "Since 2018"
   icon: "/content/skills/images/publicspeaking.svg"
 
+
 # Experience Skills
 - name: "Ruby"
   description: "Dynamic, open source programming language with a focus on simplicity and productivity."
@@ -262,6 +263,325 @@
   tagline: "Big Data Processing"
   year: "Created 2014"
   icon: "/content/skills/images/spark.svg"
+
+- name: "Google Cloud Platform (GCP)"
+  description: "Suite of cloud computing services offered by Google."
+  tagline: "Cloud Computing Services"
+  year: "Created 2008"
+  icon: "/content/skills/images/gcp.svg"
+
+- name: "Google Agent Development Kit (ADK)"
+  description: "Framework for building AI agents with Google's Gemini models."
+  tagline: "Agentic AI Framework"
+  year: "Created 2024"
+  icon: "/content/skills/images/adk.svg"
+
+- name: "Fuzz Testing"
+  description: "Automated software testing technique that involves providing invalid, unexpected, or random data as inputs."
+  tagline: "Automated Security Testing"
+  year: "Technique"
+  icon: "/content/skills/images/fuzztesting.svg"
+
+- name: "YAML"
+  description: "Human-readable data serialization standard."
+  tagline: "Data Serialization"
+  year: "Created 2001"
+  icon: "/content/skills/images/yaml.png"
+
+- name: "z/OS"
+  description: "64-bit operating system for IBM mainframes."
+  tagline: "Mainframe OS"
+  year: "Created 2000"
+  icon: "/content/skills/images/zos.svg"
+
+- name: "IBM Mainframe"
+  description: "High-performance computers used for large-scale transaction processing."
+  tagline: "Enterprise Computing"
+  year: "System"
+  icon: "/content/skills/images/ibm.svg"
+
+- name: "Job Control Language (JCL)"
+  description: "Scripting language used on IBM mainframe operating systems."
+  tagline: "Mainframe Scripting"
+  year: "Created 1964"
+  icon: "/content/skills/images/jcl.svg"
+
+- name: "ISPF"
+  description: "Interactive System Productivity Facility for z/OS."
+  tagline: "Mainframe Interface"
+  year: "Created 1974"
+  icon: "/content/skills/images/ispf.svg"
+
+- name: "Ansible"
+  description: "Open-source software provisioning, configuration management, and application-deployment tool."
+  tagline: "IT Automation"
+  year: "Created 2012"
+  icon: "/content/skills/images/ansible.svg"
+
+- name: "BlueZone/Citrix"
+  description: "Server, application and desktop virtualization, networking, SaaS, and cloud computing technologies."
+  tagline: "Virtualization & Networking"
+  year: "Created 1989"
+  icon: "/content/skills/images/citrix.svg"
+
+- name: "BitBucket"
+  description: "Git-based source code repository hosting service."
+  tagline: "Code Collaboration"
+  year: "Created 2008"
+  icon: "/content/skills/images/bitbucket.svg"
+
+- name: "XACT"
+  description: "Reporting and content management system."
+  tagline: "Report Management"
+  year: "Tool"
+  icon: "/content/skills/images/ibm.svg"
+
+- name: "Ansible Automation Platform (AAP)"
+  description: "Enterprise framework for building and operating IT automation at scale."
+  tagline: "Enterprise Automation"
+  year: "Platform"
+  icon: "/content/skills/images/ansible.svg"
+
+- name: "eBPF"
+  description: "Technology to run sandboxed programs in the Linux kernel."
+  tagline: "Kernel Observability"
+  year: "Created 2014"
+  icon: "/content/skills/images/ebpf.png"
+
+- name: "bpftrace"
+  description: "High-level tracing language for Linux eBPF."
+  tagline: "Linux Tracing"
+  year: "Created 2016"
+  icon: "/content/skills/images/ebpf.png"
+
+- name: "Bash"
+  description: "Unix shell and command language."
+  tagline: "Shell Scripting"
+  year: "Created 1989"
+  icon: "/content/skills/images/bash.svg"
+
+- name: "Bayesian Optimization"
+  description: "Strategy for global optimization of black-box functions."
+  tagline: "Process Optimization"
+  year: "Technique"
+  icon: "/content/skills/images/optimization.svg"
+
+- name: "Graph Neural Networks"
+  description: "Class of artificial neural networks for processing data that can be represented as graphs."
+  tagline: "Graph Learning"
+  year: "Field"
+  icon: "/content/skills/images/neuralnetwork.svg"
+
+- name: "GraphSAGE"
+  description: "Inductive representation learning on large graphs."
+  tagline: "Graph Embeddings"
+  year: "Created 2017"
+  icon: "/content/skills/images/neuralnetwork.svg"
+
+- name: "Exploratory Data Analysis"
+  description: "Approach to analyzing data sets to summarize their main characteristics."
+  tagline: "Data Understanding"
+  year: "Technique"
+  icon: "/content/skills/images/chartjs.svg"
+
+- name: "NumPy"
+  description: "Library for the Python programming language, adding support for large, multi-dimensional arrays and matrices."
+  tagline: "Scientific Computing"
+  year: "Created 2005"
+  icon: "/content/skills/images/numpy.svg"
+
+- name: "Pandas"
+  description: "Software library written for the Python programming language for data manipulation and analysis."
+  tagline: "Data Manipulation"
+  year: "Created 2008"
+  icon: "/content/skills/images/pandas.svg"
+
+- name: "OpenCV"
+  description: "Library of programming functions mainly aimed at real-time computer vision."
+  tagline: "Computer Vision Library"
+  year: "Created 1999"
+  icon: "/content/skills/images/opencv.svg"
+
+- name: "UIKit"
+  description: "Framework to construct and manage a graphical, event-driven user interface for an iOS or tvOS app."
+  tagline: "iOS UI Framework"
+  year: "Created 2008"
+  icon: "/content/skills/images/uikit.svg"
+
+- name: "Swift"
+  description: "General-purpose, multi-paradigm, compiled programming language developed by Apple."
+  tagline: "Modern Apple Development"
+  year: "Created 2014"
+  icon: "/content/skills/images/swift.svg"
+
+- name: "Condensed Matter Physics"
+  description: "Branch of physics associated with condensed phases of matter."
+  tagline: "Physics of Matter"
+  year: "Field"
+  icon: "/content/skills/images/physics.svg"
+
+- name: "Quantum Computing"
+  description: "Use of quantum phenomena such as superposition and entanglement to perform computation."
+  tagline: "Next-Gen Computing"
+  year: "Field"
+  icon: "/content/skills/images/qiskit.png"
+
+- name: "Qiskit"
+  description: "Open-source software development kit for working with quantum computers."
+  tagline: "Quantum SDK"
+  year: "Created 2017"
+  icon: "/content/skills/images/qiskit.png"
+
+- name: "Quantitative Finance"
+  description: "Use of mathematical models and large datasets to analyze financial markets and securities."
+  tagline: "Financial Math"
+  year: "Field"
+  icon: "/content/skills/images/finance.svg"
+
+- name: "Android Studio"
+  description: "Official Integrated Development Environment (IDE) for Android app development."
+  tagline: "Android IDE"
+  year: "Created 2013"
+  icon: "/content/skills/images/androidstudio.svg"
+
+- name: "Kotlin"
+  description: "Cross-platform, statically typed, general-purpose programming language with type inference."
+  tagline: "Modern Android Language"
+  year: "Created 2011"
+  icon: "/content/skills/images/kotlin.svg"
+
+- name: "iOS Development"
+  description: "Process of making mobile applications for Apple hardware, including iPhone, iPad and iPod Touch."
+  tagline: "Apple Mobile Dev"
+  year: "Field"
+  icon: "/content/skills/images/uikit.svg"
+
+- name: "Android Development"
+  description: "Software creation for devices running the Android operating system."
+  tagline: "Google Mobile Dev"
+  year: "Field"
+  icon: "/content/skills/images/androidstudio.svg"
+
+- name: "React Native"
+  description: "Open-source UI software framework created by Meta Platforms, Inc."
+  tagline: "Cross-Platform Mobile"
+  year: "Created 2015"
+  icon: "/content/skills/images/react.svg"
+
+- name: "Xcode"
+  description: "Integrated development environment (IDE) for macOS."
+  tagline: "Apple IDE"
+  year: "Created 2003"
+  icon: "/content/skills/images/xcode.svg"
+
+- name: "Machine Learning" 
+  description: "Study of computer algorithms that improve automatically through experience."
+  tagline: "Predictive Modeling"
+  year: "Field"
+  icon: "/content/skills/images/ai.svg"
+  
+- name: "Agile Development"
+  description: "Iterative approach to project management and software development."
+  tagline: "Iterative Development"
+  year: "Methodology"
+  icon: "/content/skills/images/bestpractices.svg"
+
+- name: "Evaluation"
+  description: "Systematic assessment and validation of models, systems, and methodologies using quantitative metrics and qualitative analysis."
+  tagline: "Performance Assessment"
+  year: "Methodology"
+  icon: "/content/skills/images/performance.svg"
+
+- name: "Learning"
+  description: "Continuous acquisition and application of new knowledge, skills, and competencies through study, experience, and practice."
+  tagline: "Continuous Growth"
+  year: "Skill"
+  icon: "/content/skills/images/beginner.svg"
+
+- name: "Monte Carlo Simulation"
+  description: "Computational algorithm using repeated random sampling to obtain numerical results and model probabilistic systems."
+  tagline: "Probabilistic Modeling"
+  year: "Technique"
+  icon: "/content/skills/images/math.svg"
+
+- name: "Problem Solving"
+  description: "Systematic approach to identifying, analyzing, and resolving complex technical and conceptual challenges through critical thinking."
+  tagline: "Critical Thinking"
+  year: "Skill"
+  icon: "/content/skills/images/algorithms.svg"
+
+- name: "Randomization"
+  description: "Statistical technique for introducing controlled randomness to reduce bias and improve experimental validity."
+  tagline: "Statistical Control"
+  year: "Technique"
+  icon: "/content/skills/images/math.svg"
+
+- name: "Software Development"
+  description: "End-to-end process of designing, programming, testing, and maintaining software applications and systems."
+  tagline: "Building Software"
+  year: "Discipline"
+  icon: "/content/skills/images/engineering.svg"
+
+- name: "Stochastic Modeling"
+  description: "Mathematical modeling of systems incorporating inherent randomness and probabilistic behavior over time."
+  tagline: "Random Process Analysis"
+  year: "Technique"
+  icon: "/content/skills/images/math.svg"
+
+- name: "Theoretical Computer Science"
+  description: "Mathematical foundations of computation including algorithms, complexity theory, automata, and formal methods."
+  tagline: "CS Foundations"
+  year: "Field"
+  icon: "/content/skills/images/computerscience.svg"
+
+- name: "Agentic AI"
+  description: "Development of autonomous AI systems that can perceive environments, make decisions, and take actions to achieve specific goals independently."
+  tagline: "Autonomous Intelligence"
+  year: "Field"
+  icon: "/content/skills/images/ai.svg"
+
+- name: "Computational Complexity"
+  description: "Study of resource requirements for solving computational problems, including time and space complexity analysis and NP-completeness."
+  tagline: "Algorithm Efficiency"
+  year: "Field"
+  icon: "/content/skills/images/algorithms.svg"
+
+- name: "Systems"
+  description: "Design, implementation, and optimization of complex computer systems including operating systems, distributed systems, and infrastructure."
+  tagline: "System Architecture"
+  year: "Field"
+  icon: "/content/skills/images/architecture.svg"
+
+- name: "Automation"
+  description: "Development and implementation of automated processes and workflows to increase efficiency, reduce errors, and eliminate manual intervention."
+  tagline: "Process Automation"
+  year: "Practice"
+  icon: "/content/skills/images/devops.svg"
+
+- name: "Communication"
+  description: "Effective exchange of technical and non-technical information through written, verbal, and visual means with diverse audiences."
+  tagline: "Effective Exchange"
+  year: "Skill"
+  icon: "/content/skills/images/collaboration.svg"
+
+- name: "Project Management"
+  description: "Planning, organizing, and directing resources to achieve specific goals within defined constraints of time, budget, and quality."
+  tagline: "Leading Projects"
+  year: "Discipline"
+  icon: "/content/skills/images/management.svg"
+
+- name: "Leadership"
+  description: "Guiding and motivating individuals and teams toward achieving common objectives through vision, influence, and strategic decision-making."
+  tagline: "Inspiring Teams"
+  year: "Skill"
+  icon: "/content/skills/images/management.svg"
+
+- name: "Statistical Mechanics"
+  description: "Framework for relating microscopic properties of individual atoms and molecules to macroscopic thermodynamic properties of materials."
+  tagline: "Physics of Matter"
+  year: "Field"
+  icon: "/content/skills/images/physics.svg"
+
 
 # Project Tags
 - name: "Distributed Systems"
@@ -329,6 +649,7 @@
   tagline: "CI/CD for GitHub"
   year: "Created 2019"
   icon: "/content/skills/images/githubactions.svg"
+
 
 # Blog Tags  
 - name: "Performance"
@@ -420,6 +741,7 @@
   tagline: "System Blueprints"
   year: "Discipline"
   icon: "/content/skills/images/architecture.svg"
+
 
 # Book Tags
 - name: "Software Engineering"
@@ -523,6 +845,7 @@
   tagline: "Code Creation"
   year: "Skill"
   icon: "/content/skills/images/programming.svg"
+
 
 # Paper Tags
 - name: "Transformer"

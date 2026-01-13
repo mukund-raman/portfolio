@@ -102,7 +102,7 @@
   skills: [
     "Machine Learning", "Robotics", "Python", "PyTorch", "Computer Vision",
     "Exploratory Data Analysis", "NumPy", "Software Development", "Pandas",
-    "Deep Learning", "Transformers", "Evaluation"
+    "Deep Learning", "Transformer", "Evaluation"
   ]
   color: "red"
   content: "TBD"
@@ -147,7 +147,7 @@
                 to school counselors, gathering user feedback to refine and \
                 enhance app functionality throughout development."
   skills: [
-    "UIKit", "Project Management", "Communication", "Swift", "Teamwork",
+    "UIKit", "Project Management", "Communication", "Swift", "Collaboration",
     "Agile Development", "Software Development", "Leadership",
     "Problem Solving"
   ]
@@ -166,7 +166,7 @@
                 leveraging quantum algorithms under the mentorship of Yash \
                 Tandon (UCLA CS graduate) with bi-weekly research discussions."
   skills: [
-    "Condensed Matter Physics", "Project Management", "Mathematics",
+    "Condensed Matter Physics", "Project Management", "Math",
     "Learning", "Communication", "Statistical Mechanics", "Python", "Qiskit",
     "Software Development", "Problem Solving", "Quantum Computing"
   ]
@@ -185,7 +185,7 @@
                 principles to predict tech stock prices, while attending \
                 online seminars and conferences through mentor shadowing."
   skills: [
-    "Monte Carlo Simulation", "Project Management", "Mathematics", "Learning",
+    "Monte Carlo Simulation", "Project Management", "Math", "Learning",
     "Randomization", "Communication", "Python", "Qiskit",
     "Stochastic Modeling", "Software Development", "Quantitative Finance",
     "Quantum Computing"
@@ -224,7 +224,7 @@
                 development and language proficiency in Swift and React."
   skills: [
     "UIKit", "Project Management", "Learning", "iOS Development",
-    "React Native", "Communication", "Swift", "Xcode", "React.js"
+    "React Native", "Communication", "Swift", "Xcode", "React"
   ]
   color: "red"
   content: "TBD"
