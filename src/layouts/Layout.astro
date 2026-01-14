@@ -2,6 +2,7 @@
 import "../styles/global.css";
 import Navbar from "../components/Navbar.astro";
 import GlobalTooltip from "../components/GlobalTooltip.astro";
+import Analytics from "@vercel/analytics/astro";
 
 interface Props {
 	title: string;
@@ -44,6 +45,7 @@ const { title, description = "A modern personal portfolio." } = Astro.props;
 			crossorigin="anonymous"
 		/>
 		<title>Mukund's Portfolio | {title}</title>
+		<Analytics />
 	</head>
 	<body class="bg-background text-gray-200 antialiased min-h-screen relative">
 		<!-- Dynamic Circuit Background Layer (Global) -->
