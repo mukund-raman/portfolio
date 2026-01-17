@@ -264,33 +264,55 @@ const experiences = sortedExperiences.slice(0, 4).map((exp: Experience) => ({
 										)}
 
 										<div class="flex-1 min-w-0">
-											<div class="flex items-start justify-between gap-4">
-												<a href={job.detailLink}>
-													<h4 class="text-xl font-bold text-white group-hover:text-neon-red transition-colors cursor-pointer">
+											<div class="flex gap-3 items-start justify-between">
+												<a
+													href={job.detailLink}
+													class="flex-1 min-w-0"
+												>
+													<h4
+														class="font-bold text-white group-hover:text-neon-red transition-colors cursor-pointer leading-snug auto-fit-text"
+														style="word-break: normal; hyphens: none; overflow-wrap: break-word; white-space: normal;"
+													>
 														{job.role}
 													</h4>
 												</a>
-												<span class="text-sm font-mono text-neon-red/80 bg-neon-red/5 px-3 py-1 rounded border border-neon-red/20 whitespace-nowrap flex-shrink-0">
+												<span
+													class="text-xs font-mono text-neon-red/80 bg-neon-red/5 px-2.5 py-1.5 rounded border border-neon-red/20 text-center leading-snug flex-shrink-0"
+													style="font-size: clamp(0.25rem, 1.8vw, 0.75rem); word-break: normal; hyphens: none; overflow-wrap: break-word; max-width: 45%; white-space: normal;"
+												>
 													{job.date}
 												</span>
 											</div>
-											<div class="text-gray-500 font-medium z-10 relative flex gap-1 items-baseline">
-												<span>@</span>
-												<TechTooltip
-													text={job.company}
-													type="company"
-													color="red"
+											<div class="flex flex-col gap-0.5 mt-2">
+												<div
+													class="text-gray-500 font-bold z-10 relative flex gap-1 items-baseline"
+													style="font-size: clamp(0.7rem, 2vw, 0.95rem); text-wrap: pretty;"
 												>
-													<a
-														href={job.link}
-														target="_blank"
-														rel="noopener noreferrer"
-														class="hover:text-neon-red transition-colors duration-300 border-b border-transparent hover:border-neon-red/50"
-														onclick="event.stopPropagation()"
+													<span>@</span>
+													<TechTooltip
+														text={job.company}
+														type="company"
+														color="red"
 													>
-														{job.company}
-													</a>
-												</TechTooltip>
+														<a
+															href={job.link}
+															target="_blank"
+															rel="noopener noreferrer"
+															class="hover:text-neon-red transition-colors duration-300 border-b border-transparent hover:border-neon-red/50"
+															onclick="event.stopPropagation()"
+														>
+															{job.company}
+														</a>
+													</TechTooltip>
+												</div>
+												{job.location && (
+													<div
+														class="text-gray-400 font-normal z-10 relative"
+														style="font-size: clamp(0.65rem, 1.8vw, 0.85rem); text-wrap: pretty;"
+													>
+														{job.location}
+													</div>
+												)}
 											</div>
 										</div>
 									</div>
@@ -367,3 +389,7 @@ const experiences = sortedExperiences.slice(0, 4).map((exp: Experience) => ({
 		</p>
 	</footer>
 </Layout>
+
+<script>
+	import "../scripts/auto-fit-text.ts";
+</script>

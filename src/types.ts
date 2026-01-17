@@ -28,6 +28,7 @@ export interface Experience {
     slug: string;
     role: string;
     company: string;
+    location?: string;
     date: string;
     description: string;
     skills: string[];

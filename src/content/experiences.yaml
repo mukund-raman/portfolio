@@ -3,12 +3,11 @@
 - slug: "swe-intern-google-summer26"
   role: "Incoming Software Engineering Intern"
   company: "Google"
+  location: "New York City, NY"
   link: "https://about.google/company-info/"
   date: "May 2026 - August 2026"
-  description: "Will be working as a Software Engineering Intern at Google \
-                this summer in New York City. Developing AI-powered tools \
-                for Google's internal fuzz testing of several functions in \
-                Java codebases using Google ADK."
+  description: "Developing AI-powered tools for Google's internal fuzz testing \
+                of several functions in Java codebases using Google ADK."
   skills: [
     "Machine Learning", "Artificial Intelligence", "Agentic AI", "Java",
     "Python", "Google Cloud Platform (GCP)",
@@ -20,6 +19,7 @@
 - slug: "ml-systems-research-ldos"
   role: "ML & Systems Researcher"
   company: "The Learning Directed Operating System Expedition"
+  location: "Austin, TX"
   link: "https://ldos.utexas.edu/"
   date: "December 2024 - Present"
   description: "Integrated SeBS (Serverless Benchmarks Suite) workloads \
@@ -47,6 +47,7 @@
 - slug: "ml-robotics-research-lwr"
   role: "ML & Robotics Researcher"
   company: "Living With Robots Laboratory"
+  location: "Austin, TX"
   link: "https://bridgingbarriers.utexas.edu/good-systems/projects/living-and-working-with-robots"
   date: "May 2024 - Present"
   description: "Developed a non-autoregressive transformer model for \
@@ -72,6 +73,7 @@
 - slug: "teaching-assistant-cs331"
   role: "Undergraduate Teaching Assistant"
   company: "The University of Texas at Austin"
+  location: "Austin, TX"
   link: "https://www.utexas.edu"
   date: "August 2025 - December 2025"
   description: "UGCA for C S 331: Algorithms and Complexity with Dr. Fares \
@@ -89,6 +91,7 @@
 - slug: "tech-intern-dtcc"
   role: "Technology Intern"
   company: "The Depository Trust & Clearing Corporation"
+  location: "Dallas, TX"
   link: "https://www.dtcc.com"
   date: "June 2025 - August 2025"
   description: "Was a summer 2025 systems engineering intern working in the \
@@ -115,6 +118,7 @@
 - slug: "ml-robotics-student-research-fri"
   role: "ML & Robotics Student Researcher"
   company: "Freshman Research Initiative"
+  location: "Austin, TX"
   link: "https://cns.utexas.edu/fri"
   date: "January 2024 - May 2024"
   description: "Co-developed TOM: Text-to-Mapping, an AI-powered system for \
@@ -140,6 +144,7 @@
 - slug: "app-dev-intern-cisd"
   role: "App Developer Intern"
   company: "Coppell Independent School District"
+  location: "Coppell, TX"
   link: "https://www.coppellisd.com"
   date: "August 2022 - May 2023"
   description: "Developed two iOS applications for Coppell ISD as part of a \
@@ -164,6 +169,7 @@
 - slug: "scientific-researcher-polygence"
   role: "Scientific Researcher"
   company: "Polygence"
+  location: "Remote"
   link: "https://www.polygence.org"
   date: "June 2022 - March 2023"
   description: "Conducted independent research on quantum computing \
@@ -184,6 +190,7 @@
 - slug: "quantum-research-intern-qmunity"
   role: "Quantum Research Intern"
   company: "QMunity"
+  location: "Remote"
   link: "https://qmunity.thequantuminsider.com/"
   date: "June 2022 - December 2022"
   description: "Completed a three-month research internship with Q-Munity, \
@@ -205,6 +212,7 @@
 - slug: "android-dev-intern-utd"
   role: "Summer Intern"
   company: "The University of Texas at Dallas"
+  location: "Richardson, TX"
   link: "https://www.utdallas.edu"
   date: "May 2024 - August 2024"
   description: "Attended summer sessions on Android app development taught by \
@@ -222,8 +230,9 @@
 - slug: "associate-app-dev-rema"
   role: "Associate Application Developer"
   company: "REMA Consulting Group LLC"
+  location: "Dallas, TX"
   link: "https://www.remaconsultingllc.com"
-  date: "Mar 2021 - August 2022"
+  date: "March 2021 - August 2022"
   description: "Developed an iOS mortgage calculator app using Xcode, Swift, \
                 and UIKit, enabling users to group related mortgages, generate \
                 amortization tables, and visualize data through graphs and \
